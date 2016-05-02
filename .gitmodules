@@ -1,0 +1,8 @@
+[submodule "eigen"]
+	path = eigen
+	url = https://github.com/stephenberry/eigen.git
+	branch = master
+[submodule "ChaiScript"]
+	path = ChaiScript
+	url = https://github.com/ChaiScript/ChaiScript.git
+	branch = release-5.x
