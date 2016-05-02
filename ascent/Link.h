@@ -110,6 +110,8 @@ namespace asc
             case Phase::reset:
                module->callReset();
                break;
+            default:
+               break;
             }
          }
 
