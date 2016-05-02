@@ -53,8 +53,10 @@ Simulator& ModuleCore::getSimulator(const size_t sim)
 }
 
 // Module
-Module::Module(size_t sim) : simulator(getSimulator(sim)), sim(sim), module_id(next_module_id),
+Module::Module(size_t sim) : simulator(getSimulator(sim)),
    t(simulator.t), dt(simulator.dt),
+   sim(sim),
+   module_id(next_module_id),
    chai(simulator.chai),
    myself(this, null_deleter()),
    vars(simulator),

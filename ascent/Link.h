@@ -74,7 +74,7 @@ namespace asc
 
       bool name(const std::string& name)
       {
-         return module->name<T>(name);
+         return module->template name<T>(name);
       }
 
    private:
