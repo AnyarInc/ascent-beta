@@ -1,5 +1,5 @@
-# Ascent
-### An open source architecture for time-based simulations.
+# ASCENT
+### An open source C++ architecture for time-based simulations.
 #### Developed by [Anyar, Inc.](http://www.anyarinc.com/)
 
 Ascent is a module-based simulation architecture that can handle extremely complex and dynamic systems. 
