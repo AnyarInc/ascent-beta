@@ -19,7 +19,7 @@ The architecture is built around a powerful ordinary differential equation solve
 - **Built In Variable Tracking**: Easily record and output time history of integers, doubles, vectors, and even custom data types.
 - **ChaiScript Embedded Scripting Language**: Easily connect, initialize and run your modules from a powerful scripting engine.
 - **Eigen C++ Linear Algebra Library**: Ascent utilizes the mature Eigen library, providing straightforward matrix and vector handling.
-- **Easy To Begin!**: Only two classes (Ascent::Module and Ascent::Link) are required to solve most differential equations or systems.
+- **Easy To Begin!**: Only two classes (asc::Module and asc::Link) are required to solve most differential equations or systems.
 
 ### Building The Ascent Library
 - Clone Ascent
@@ -34,12 +34,12 @@ Ascent requires a C++14 compliant compiler.
 Ascent was designed to allow any modules built on Ascent to be easily shared and interfaced with other Ascent modules.  
 _Share your open source modules and libraries built on Ascent in the Ascent-Community repositories._
 
-### [Support](http://anyarinc.github.io/Ascent/support.html)
+### [Support](http://anyarinc.github.io/ascent/support.html)
 
 ### Contributions are Welcome!
 
-- [Q&A forum](https://groups.google.com/forum/#!forum/Ascent-users)
-- [Report an issue](https://github.com/AnyarInc/Ascent/issues)
+- [Q&A forum](https://groups.google.com/forum/#!forum/Ascent-Users)
+- [Report an issue](https://github.com/AnyarInc/ascent/issues)
 
 Please report bugs, offer fixes, contribute modules, ask questions and answer questions. The more the merrier!
 
