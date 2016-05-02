@@ -87,7 +87,7 @@ namespace asc
          }
 
          Simulator& simulator = module->simulator;
-         Phase phase = simulator.phase;
+         Phase& phase = simulator.phase;
 
          if (phase != Phase::setup)
          {
@@ -96,16 +96,21 @@ namespace asc
             // This call is essential for simulations that add modules during the simulation loop.
             module->callInit();
 
-            if (phase == Phase::update)
+            switch (phase)
+            {
+            case Phase::update:
                module->callUpdate();
-            else if (phase == Phase::postcalc)
+               break;
+            case Phase::postcalc:
                module->callPostCalc();
-            else if (phase == Phase::check)
+               break;
+            case Phase::check:
                module->callCheck();
-            else if (phase == Phase::report)
-               module->callReport();
-            else if (phase == Phase::reset)
+               break;
+            case Phase::reset:
                module->callReset();
+               break;
+            }
          }
 
          if (simulator.error)
