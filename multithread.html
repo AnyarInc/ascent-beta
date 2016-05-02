@@ -1,0 +1,109 @@
+---
+layout: post
+title: Multi-Threaded Control
+GoogleCharts: true
+---
+
+<p>To showcase how each Simulator in Ascent can run on a separate thread, 
+we'll run the Control example with different proportional gains, but all at the same time on separate threads..</p>
+
+<h4>MultiThread.h</h4>
+<pre class="prettyprint">
+#pragma once
+
+#include "examples/control/Control.h"
+
+#include &ltthread>
+
+class MultiThread
+{
+public:
+   std::vector&ltcmt::Link&ltControl>> modules;
+
+   MultiThread()
+   {
+      for (size_t i = 0; i < 4; ++i) // i is the thread/simulator number
+      {
+         asc::Link&ltControl> c(i);
+         c->name&ltControl>("control" + std::to_string(i));
+
+         c->Kp = 100.0 * (1 + i); // Each thread will run a separate proportional gain.
+         c->Ki = 300.0;
+         c->Kd = 10.0;
+
+         c->x_target = 1.0;
+
+         c->track("t");
+         c->track("x");
+         c->track("x_target");
+
+         modules.push_back(c);
+      }
+   }
+
+   void compute(asc::Link&ltControl>& control, const double dt, const double tend)
+   {
+      control->run(dt, tend);
+      control->outputTrack();
+      std::cout << control->name() << " finished\n";
+   }
+
+   void run(const double dt, const double tend)
+   {
+      std::vector&ltstd::thread> threads;
+
+      for (asc::Link&ltControl>& c : modules)
+         threads.push_back(std::thread([&] { compute(c, dt, tend); }));
+
+      for (std::thread& t : threads)
+         t.join();
+   }
+};
+</pre>
+
+<h3>Initializing and Running:</h3>
+<h4>Main.cpp</h4>
+<pre class="prettyprint">
+#include "MultiThread.h"
+
+int main()
+{
+   MultiThread multithread;
+   
+   multithread.run(0.01, 1.0);
+
+   return 0;
+}
+</pre>
+<h3>Plotted Results:</h3>
+<script src="data/multithread.js"></script>
+<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+<script type="text/javascript">
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+	var data = google.visualization.arrayToDataTable(multithread);
+
+	var options = {
+		series: {
+			0: { color: '#e2431e' },
+			1: { color: '#3984c6' },
+			2: { color: '#6f9654' },
+			3: { color: '#e7711b' },
+			4: { color: '#002080' },
+		  },
+		height: 600,
+		backgroundColor: 'transparent',
+		title: 'PID Control',
+		curveType: 'function',
+		vAxis: { title: 'x', gridlines: { color: 'transparent' }, viewWindow: { min: 0, max: 1.5} },
+		hAxis: { title: 'Time', gridlines: { color: 'transparent' } },
+		legend: { position: 'bottom' }
+	};
+
+	var chart = new google.visualization.LineChart(document.getElementById('multithread'));
+	chart.draw(data, options);
+  }
+</script>
+
+<body><div id="multithread" class="image fit"></div></body>

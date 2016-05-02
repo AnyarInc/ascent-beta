@@ -1,0 +1,109 @@
+---
+layout: post
+title: Airy System
+---
+
+<a href="https://en.wikipedia.org/wiki/Airy_function" target="_blank">Airy function:</a>
+Second-order, linear, ordinary differential equation:  
+<pre>x''(t) = -t*x(t)</pre>
+<body>Initial values:</body>
+<pre>
+x(0) = 1
+x'(0) = 0
+</pre>
+
+<p>
+Even though this is a simple equation, the solution contains complex airy functions.<br>
+Analytical solution:</body>
+<code>x(t) = 1/2 * 3^(1/6) * Gamma(2/3) * (sqrt(3) * Ai((-1)^(1/3)*t) + Bi((-1)^(1/3)*t))</code><br>
+<i>Ai() is the Airy function<br>
+Bi() is the Airy Bi function</i>
+</p>
+
+<h4>Airy.h</h4>
+<pre class="prettyprint">
+#pragma once
+
+#include "ascent/Module.h"
+
+class Airy : public asc::Module
+{
+public:
+   double x{}, xd{}, xdd{}; // states
+
+   Airy(size_t sim);
+
+protected:
+   void update();
+};
+</pre>
+
+<h4>Airy.cpp</h4>
+<pre class="prettyprint">
+#include "Airy.h"
+
+Airy::Airy(size_t sim) : asc::Module(sim)
+{
+   addIntegrator(x, xd);
+   addIntegrator(xd, xdd);
+
+#define ascNS Airy
+   ascVar(x)
+}
+
+void Airy::update()
+{
+   xdd = -t*x;
+}
+</pre>
+
+<h3>Initializing and Running:</h3>
+<h4>Main.cpp</h4>
+<p>Setup tracking, run the simulation, and generate output file.</p>
+<pre class="prettyprint">
+#include "Airy.h"
+
+int main()
+{
+   Airy system(0);
+   system.name&ltAiry>("airy");
+   system.x = 1.0;
+
+   system.track("t");
+   system.track("x");
+
+   system.run(0.01, 20.0);
+
+   system.outputTrack();
+
+   return 0;
+}
+</pre>
+<h3>Generated File:</h3>
+<h4>airy.txt</h4>
+<pre class="prettyprint">
+t, airy x
+0, 1.000000
+0.01, 1.000000
+0.02, 0.999999
+0.03, 0.999996
+0.04, 0.999989
+0.05, 0.999979
+continued...
+</pre>
+<h3>Plotted Results:</h3>
+<img src="images/Airy-System.PNG" class="image fit" style="max-width:1000px">
+<h3>Comparing Integration Methods:</h3>
+<p>By default Ascent runs a 4th order Runge Kutta integrator.
+The importance of using good integration methods is demonstrated below,
+showing how an Euler method at the same step size will diverge from the analytical solution.</p>
+<img src="images/Runge-Kutta-vs-Euler.PNG" class="image fit" style="max-width:1000px">
+<p>Changing the integration method is simple, just add the code below:</p>
+<pre class="prettyprint">
+#include "ascent/integrators/Euler.h"
+
+int main()
+{
+   asc::integrator&ltcmt::Euler>(0);
+   ...
+</pre>

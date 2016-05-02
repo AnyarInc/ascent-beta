@@ -1,0 +1,42 @@
+<!--
+	Ion by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<head>
+
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <script src="{{ site.baseurl }}/js/jquery.min.js"></script>
+    <script src="{{ site.baseurl }}/js/skel.min.js"></script>
+    <script src="{{ site.baseurl }}/js/skel-layers.min.js"></script>
+    <script src="{{ site.baseurl }}/js/init.js"></script>
+    <noscript>
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/skel.css" />
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css" />
+        <link rel="stylesheet" href="{{ site.baseurl }}/css/style-xlarge.css" />
+    </noscript>
+	
+	<!-- Foundation icons -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css"/>
+	
+	<!-- Google code-prettify -->
+	<!-- <link rel="stylesheet" href="{{ site.baseurl }}/css/tomorrow-night.min.css" type="text/css"> -->
+	<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true;lang=cpp;"></script>
+	
+	<!-- Google Charts -->
+	{% if page.GoogleCharts %}
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	{% endif %}
+	
+	<!-- Including vis.js (only include the java script if jsarr is used)-->
+	{% if page.jsgraph %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.0/vis.min.js" type="text/javascript"></script>
+		<noscript>
+			<link rel="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.0/vis.min.css">
+		</noscript>
+	{% endif %}
+</head>

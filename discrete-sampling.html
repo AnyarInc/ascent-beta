@@ -1,0 +1,195 @@
+---
+layout: post
+title: Discrete Sampling
+---
+
+<p>In this example we will integrate cos(t), whose analytical solution is sin(t).</p>
+
+<h4>Sampling.h</h4>
+<pre class="prettyprint">
+#pragma once
+
+#include "ascent/Link.h"
+
+class Sampling : public asc::Module
+{
+public:
+   double x{}, xd{};
+
+   Sampling(size_t sim);
+
+protected:
+   void update();
+   void report();
+};
+</pre>
+<h4>Sampling.cpp</h4>
+<pre class="prettyprint">
+#include "Sampling.h"
+
+using namespace std;
+
+Sampling::Sampling(size_t sim) : asc::Module(sim)
+{
+   addIntegrator(x, xd);
+}
+
+void Sampling::update()
+{
+   cout << "update()-----" << endl;
+   cout << "time: " << t << endl;
+
+   xd = cos(t); // integrated xd will be sin(t)
+
+   if (sample())
+      cout << "x at first pass of integration step: " << x << endl;
+   else
+      cout << "x: " << x << endl;
+
+   if (sample(0.13) && !first_update) // sample() always returns true when t == 0.0, !first_update excludes printing the initial condition
+      cout << "x every 0.13: " << x << endl;
+
+   cout << endl;
+}
+
+void Sampling::report()
+{
+   cout << "report()*****" << endl;
+   cout << "time: " << t << endl;
+   cout << "analytical sin(t): " << sin(t) << endl;
+   cout << "computed x: " << x << endl << endl;
+}
+</pre>
+
+<h4>Main.cpp</h4>
+<pre class="prettyprint">
+#include "Sampling.h"
+
+int main()
+{
+   Sampling system(0);
+   system.run(0.1, 0.3);
+
+   return 0;
+}
+</pre>
+
+<h4>Command line output:</h4>
+<p>
+<li>By default Ascent runs a 4th Order Runge Kutta integrator, so there are four update() calls for every report().
+<li>But, sample() statements only return true at the first update() call in a step.
+<li>Notice that the sampling rate of 0.13 is always stepped to exactly (0.13, 0.26) even though these values are between time steps.
+</p>
+<pre>
+report()*****
+time: 0
+analytical sin(t): 0
+computed x: 0
+
+update()-----
+time: 0
+x at first pass of integration step: 0
+
+update()-----
+time: 0.05
+x: 0.05
+
+update()-----
+time: 0.05
+x: 0.0499375
+
+update()-----
+time: 0.1
+x: 0.099875
+
+report()*****
+time: 0.1
+analytical sin(t): 0.0998334
+computed x: 0.0998334
+
+update()-----
+time: 0.1
+x at first pass of integration step: 0.0998334
+
+update()-----
+time: 0.115
+x: 0.114758
+
+update()-----
+time: 0.115
+x: 0.114734
+
+update()-----
+time: 0.13
+x: 0.129635
+
+report()*****
+time: 0.13
+analytical sin(t): 0.129634
+computed x: 0.129634
+
+update()-----
+time: 0.13
+x at first pass of integration step: 0.129634
+x every 0.13: 0.129634
+
+update()-----
+time: 0.165
+x: 0.164339
+
+update()-----
+time: 0.165
+x: 0.164159
+
+update()-----
+time: 0.2
+x: 0.198683
+
+report()*****
+time: 0.2
+analytical sin(t): 0.198669
+computed x: 0.198669
+
+update()-----
+time: 0.2
+x at first pass of integration step: 0.198669
+
+update()-----
+time: 0.23
+x: 0.228071
+
+update()-----
+time: 0.23
+x: 0.227879
+
+update()-----
+time: 0.26
+x: 0.257089
+
+report()*****
+time: 0.26
+analytical sin(t): 0.257081
+computed x: 0.257081
+
+update()-----
+time: 0.26
+x at first pass of integration step: 0.257081
+x every 0.13: 0.257081
+
+update()-----
+time: 0.28
+x: 0.276408
+
+update()-----
+time: 0.28
+x: 0.276302
+
+update()-----
+time: 0.3
+x: 0.295523
+
+report()*****
+time: 0.3
+analytical sin(t): 0.29552
+computed x: 0.29552
+</pre>

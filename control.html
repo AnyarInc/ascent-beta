@@ -1,0 +1,140 @@
+---
+layout: post
+title: PID Control
+GoogleCharts: true
+---
+
+<a href="https://en.wikipedia.org/wiki/PID_controller" target="_blank">Wikipedia: PID Controller</a>
+
+<p> In this example we'll use the asc::History class to create a simple controller for a spring-mass-damper system.</p>
+
+<h4>Control.h</h4>
+<pre class="prettyprint">
+#pragma once
+
+#include "ascent/history/History.h"
+#include "ascent/Link.h"
+
+class Control : public asc::Module
+{
+public:
+   double x{}, xd{}, xdd{}; // We are going to control a simple mass-spring-damper system: x'' + 2*zeta*wn*x' + wn*wn*x = f/m
+   double x_target{}; // Desired x value
+
+   double f{}; // force applied
+
+   double m = 1.0; // mass
+   double wn = sqrt(40); // Hz
+   double zeta = 0.7;
+
+   asc::History error; // History of the error.
+
+   double Kp{}; // Proportional gain
+   double Ki{}; // Integral gain
+   double Kd{}; // Derivative gain
+
+   Control(size_t sim);
+
+protected:
+   void update();
+
+   void postcalc();
+};
+</pre>
+
+<h4>Control.cpp</h4>
+<pre class="prettyprint">
+#include "Control.h"
+
+Control::Control(size_t sim) : asc::Module(sim),
+   error(sim)
+{
+   addIntegrator(x, xd);
+   addIntegrator(xd, xdd);
+
+#define ascNS Control
+   ascVar(x)
+   ascVar(x_target)
+}
+
+void Control::update()
+{
+   xdd = -2.0*zeta*wn*xd - wn*wn*x + f / m; // This may seem simpler than the Spring-Damper example, but it is far less flexible.
+}
+
+void Control::postcalc()
+{
+   error.push_back(x_target - x);
+
+   f = Kp*error.back() + Ki * error.integral() + Kd*error.derivative();
+}
+</pre>
+
+<h3>Initializing and Running:</h3>
+<h4>Main.cpp</h4>
+<p>Setup tracking, run the simulation, and generate output file.</p>
+<pre class="prettyprint">
+#include "Control.h"
+
+int main()
+{
+   Control control(0);
+   control.name&ltControl>("control");
+
+   control.Kp = 300.0;
+   control.Ki = 300.0;
+   control.Kd = 10.0;
+
+   control.x_target = 1.0;
+
+   control.track("t");
+   control.track("x");
+   control.track("x_target");
+
+   control.run(0.01, 1.0);
+
+   control.outputTrack();
+
+   return 0;
+}
+</pre>
+<h3>Generated File:</h3>
+<h4>control.txt</h4>
+<pre class="prettyprint">
+t, control x, control x_target
+0, 0.000000, 1.000000
+0.01, 0.000000, 1.000000
+0.02, 0.014562, 1.000000
+0.03, 0.055761, 1.000000
+0.04, 0.118031, 1.000000
+0.05, 0.195357, 1.000000
+continued...
+</pre>
+<h3>Plotted Results:</h3>
+<script src="data/control.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+	var data = google.visualization.arrayToDataTable(control);
+
+	var options = {
+		height: 600,
+		backgroundColor: 'transparent',
+		title: 'PID Control',
+		curveType: 'function',
+		vAxis: { title: 'x', gridlines: { color: 'transparent' }, viewWindow: { min: 0, max: 1.5} },
+		hAxis: { title: 'Time', gridlines: { color: 'transparent' } },
+		legend: { position: 'bottom' }
+	};
+
+	var chart = new google.visualization.LineChart(document.getElementById('control_graph'));
+
+	chart.draw(data, options);
+  }
+</script>
+
+<body>
+	<div id="control_graph" class="image fit"></div>
+</body>

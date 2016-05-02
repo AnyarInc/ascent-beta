@@ -1,0 +1,217 @@
+---
+layout: post
+title: Spring Damper System
+---
+
+<p>In this example we will connect multiple modules to create a system, rather than solving a system in a single module.<br>
+This manner of solving differential equations is what makes Ascent so powerful.</p>
+
+<p>By designing our modules in this manner, we will be able to connect any number of springs, masses, and dampers without having to build a single state space matrix.</p>
+
+<p>Our system will have two bodies, one a fixed wall and the other a free mass that is attached to the wall by a spring and a damper.</p>
+<img src="images/Spring-Damper.png" width="250">
+
+<h4>Body.h</h4>
+<pre class="prettyprint">
+#pragma once
+
+#include "ascent/Module.h"
+
+class Body : public asc::Module
+{
+public:
+   double s{}; // position
+   double v{}; // velocity
+   double a{}; // acceleration
+   double m{}; // mass
+   double f{}; // force
+
+   Body(size_t sim);
+
+   void update();
+   void reset();
+};
+</pre>
+<h4>Body.cpp</h4>
+<pre class="prettyprint">
+#include "Body.h"
+
+using namespace asc;
+
+Body::Body(size_t sim) : Module(sim)
+{
+#define ascNS Body
+   ascModule(Body)
+   ascVar(s)
+   ascVar(v)
+   ascVar(a)
+   ascVar(m)
+   ascVar(f)
+
+   addIntegrator(s, v);
+   addIntegrator(v, a);
+}
+
+void Body::update()
+{
+   if (m != 0.0)
+      a = f / m;
+}
+
+void Body::reset()
+{
+   f = 0.0;
+}
+</pre>
+<p>
+<li>We integrate velocity to get position and we integrate acceleration to get velocity.
+<li>If the mass of a body equals zero then no acceleration will be computed, causing the body to be fixed.
+<li>The force must be reset to zero to allow accumulation of forces so that any number of driving components to be applied.
+</p>
+
+<h4>Damper.h</h4>
+<pre class="prettyprint">
+#pragma once
+
+#include "Body.h"
+#include "ascent/Link.h"
+
+class Damper : public asc::Module
+{
+public:
+   asc::Link&ltBody> b0;
+   asc::Link&ltBody> b1;
+   double c{}; // damping coefficient
+   double f{}; // force
+
+   Damper(size_t sim) : Damper(sim, b0, b1) {}
+   Damper(size_t sim, const asc::Link&ltBody>& b0, const asc::Link&ltBody>& b1);
+
+   void init();
+   void update();
+};
+</pre>
+<p><li>The <code>Link<></code> container comes into use whenever modules are to be interconnected. It enforces proper ordering and handles shared memory.</p>
+
+<h4>Damper.cpp</h4>
+<pre class="prettyprint">
+#include "Damper.h"
+
+Damper::Damper(size_t sim, const asc::Link&ltBody>& b0, const asc::Link&ltBody>& b1) : asc::Module(sim), b0(b0), b1(b1)
+{
+#define ascNS Damper
+   ascModule(Damper)
+   ascVar(c)
+   ascLink(b0)
+   ascLink(b1)
+}
+
+void Damper::init()
+{
+   runBefore(b0, b1);
+}
+
+void Damper::update()
+{
+   double dv = b0->v - b1->v;
+   f = c*dv;
+
+   b0->f -= f;
+   b1->f += f;
+}
+</pre>
+<p><li>We must ensure that the Damper and Spring components will apply their forces before the Body computes its acceleration.
+The call runBefore(b0, b1) forces the Damper's update() method to be called before the Body's.
+If runBefore(b0, b1) wasn't called then Ascent would enforce post-computation access, meaning that the Damper's update() method would always be called <b>after</b> the Body was updated.</p>
+
+<h4>Spring.h</h4>
+<pre class="prettyprint">
+#pragma once
+
+#include "Body.h"
+#include "ascent/Link.h"
+
+class Spring : public asc::Module
+{
+public:
+   asc::Link&ltBody> b0;
+   asc::Link&ltBody> b1;
+   double l0{}; // initial spring length (distance between masses)
+   double k{}; // spring coefficient
+   double f{}; // force
+
+   Spring(size_t sim) : Spring(sim, b0, b1) {}
+   Spring(size_t sim, const asc::Link&ltBody>& b0, const asc::Link&ltBody>& b1);
+
+   void init();
+   void update();
+};
+</pre>
+<h4>Spring.cpp</h4>
+<pre class="prettyprint">
+#include "Spring.h"
+
+Spring::Spring(size_t sim, const asc::Link&ltBody>& b0, const asc::Link&ltBody>& b1) : asc::Module(sim), b0(b0), b1(b1)
+{
+#define ascNS Spring
+   ascModule(Spring)
+   ascVar(k)
+   ascLink(b0)
+   ascLink(b1)
+}
+
+void Spring::init()
+{
+   runBefore(b0, b1);
+
+   l0 = b1->s - b0->s;
+}
+
+void Spring::update()
+{
+   double ds = l0 + b0->s - b1->s;
+   f = k*ds;
+
+   b0->f -= f;
+   b1->f += f;
+}
+</pre>
+<h4>Main.cpp</h4>
+<pre class="prettyprint">
+#include "Damper.h"
+#include "Spring.h"
+
+int main()
+{
+   const size_t sim = 0;
+
+   asc::Link&ltBody> body0(sim);
+   asc::Link&ltBody> body1(sim);
+   body0.name("body0");
+   body1.name("body1");
+   asc::Link&ltSpring> spring(sim, body0, body1);
+   spring.name("spring");
+   asc::Link&ltDamper> damper(sim, body0, body1);
+   damper.name("damper");
+
+   body1->s = 1.0; // initial position
+   body1->v = 40.0; // initial velocity
+   body1->m = 1.0; // mass
+   spring->k = 2000.0; // spring constant
+   damper->c = 5.0; // damping constant
+
+   asc::Module tracker(0); // create another Module to track variables
+   tracker.name&ltcmt::Module>("b0vsb1");
+   tracker.track("t");
+   tracker.track(body0, "s");
+   tracker.track(body1, "s");
+
+   spring->run(0.01, 1.5);
+
+   tracker.outputTrack();
+
+   return 0;
+}
+</pre>
+<h4>Results:</h4>
+<img src="images/Spring-Damper-Graph.PNG" class="image fit" style="max-width:1000px">

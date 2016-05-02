@@ -1,0 +1,228 @@
+---
+layout: default
+jsgraph: true
+GoogleCharts: true
+---
+
+<section class="wrapper style1">
+    <header class="major">
+        <h2>Examples</h2>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="6u">
+                <section class="special">
+                    <div>
+						<script async src="data/lorenz.js"></script>
+						<script type="text/javascript">
+						  // Called when the Visualization API is loaded.
+						  function drawVisualization() {
+							
+							var options = {
+							  width:  '100%',
+							  height: '400px',
+							  style: 'line',
+							  showPerspective: true,
+							  showGrid: false,
+							  showShadow: false,
+							  keepAspectRatio: true,
+							  verticalRatio: 1.0,
+							  dataColor: {fill: '#7DC1FF', stroke: '#3267D2', strokeWidth: 2.0},
+							  cameraPosition: {horizontal: 2.0, vertical: 0.0, distance: 1.5},
+							  //tootip: true
+							};
+
+							// create a graph3d
+							var container = document.getElementById('lorenz_graph');
+							var graph3d = new vis.Graph3d(container, lorenz, options);
+						  }
+						  </script>
+						
+						<body onload="drawVisualization();">
+						  <div id="lorenz_graph" class="interactive"></div>
+						</body>
+					</div>
+					<p></P>
+					<ul class="actions">
+                        <a href="{{ site.baseurl }}/lorenz.html" class="button alt">Lorenz System</a>
+                    </ul>
+                    <p>Solve the three dimensional, Lorenz attractor, system of differential equations.</p>
+                </section>
+            </div>
+            <div class="6u">
+                <section class="special">
+                    <a href="{{ site.baseurl }}/airy.html" class="image fit"><img src="images/Airy-System-No-Title.PNG" alt="" /></a>
+                    <ul class="actions">
+                        <a href="{{ site.baseurl }}/airy.html" class="button alt">Airy System</a>
+                    </ul>
+                    <p>A second order, linear, ordinary differntial equation.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+	
+	<hr>
+	
+	<div class="container">
+        <div class="row">
+            <div class="6u">
+				
+            </div>
+            <div class="6u">
+                <section class="special">
+                    <a href="{{ site.baseurl }}/discrete-sampling.html" class="image fit"><img align src="images/SampledSignal.png" style="max-width:500px;" alt="" /></a>
+                    <ul class="actions">
+                        <a href="{{ site.baseurl }}/discrete-sampling.html" class="button alt">Discrete Sampling</a>
+                    </ul>
+                    <p>A demonstration of sampling a continuous solution.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+	
+	<hr>
+	
+	<header class="major">
+        <h2>Spring-Mass-Damper</h2>
+    </header>
+	
+	<div class="container">
+        <div class="row">
+            <div class="6u">
+                <section class="special">
+                    <a href="{{ site.baseurl }}/spring-damper.html" class="image fit"><img src="images/Spring-Damper.png" style="max-width:300px;" alt="" /></a>
+					<p></P>
+					<ul class="actions">
+                        <a href="{{ site.baseurl }}/spring-damper.html" class="button alt">Spring Damper</a>
+                    </ul>
+                    <p>Solve a spring-mass-damper system in a modular way that allows any number of springs and dampers to be attached in parallel.
+					This example begins to show the true power of modeling in Ascent.</p>
+                </section>
+            </div>
+            <div class="6u">
+                <section class="special">
+					<script src="data/control.js"></script>
+					<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+					
+					<script type="text/javascript">
+					  google.charts.setOnLoadCallback(drawChart);
+
+					  function drawChart() {
+						var data = google.visualization.arrayToDataTable(control);
+
+						var options = {
+							series: {
+								0: { color: '#bf4040' },
+								1: { color: '#3984c6' },
+							  },
+							height: 300,
+							backgroundColor: 'transparent',
+							title: 'PID Control',
+							curveType: 'function',
+							vAxis: { title: 'x', gridlines: { color: 'transparent' }, viewWindow: { min: 0, max: 1.5} },
+							hAxis: { title: 'Time', gridlines: { color: 'transparent' } },
+							legend: { position: 'bottom' }
+						};
+
+						var chart = new google.visualization.LineChart(document.getElementById('control_graph'));
+						chart.draw(data, options);
+					  }
+					</script>
+					
+					<body><div id="control_graph" class="image fit"></div></body>
+					<ul class="actions">
+                        <a href="{{ site.baseurl }}/control.html" class="button alt">Control</a>
+                    </ul>
+                    <p>Use Proportional, Integral, Derivative (PID) control on a Spring-Damper system.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+	
+	<hr>
+	
+	<div class="container">
+        <div class="row">
+            <div class="6u">
+                <section class="special">
+					<script src="data/multithread.js"></script>
+					<script type="text/javascript">
+					  google.charts.setOnLoadCallback(drawChart);
+
+					  function drawChart() {
+						var data = google.visualization.arrayToDataTable(multithread);
+
+						var options = {
+							series: {
+								0: { color: '#e2431e' },
+								1: { color: '#3984c6' },
+								2: { color: '#6f9654' },
+								3: { color: '#e7711b' },
+								4: { color: '#002080' },
+							  },
+							height: 300,
+							backgroundColor: 'transparent',
+							title: 'PID Control',
+							curveType: 'function',
+							vAxis: { title: 'x', gridlines: { color: 'transparent' }, viewWindow: { min: 0, max: 1.5} },
+							hAxis: { title: 'Time', gridlines: { color: 'transparent' } },
+							legend: { position: 'bottom' }
+						};
+
+						var chart = new google.visualization.LineChart(document.getElementById('multithread'));
+						chart.draw(data, options);
+					  }
+					</script>
+					
+					<body><div id="multithread" class="image fit"></div></body>
+					<ul class="actions">
+                        <a href="{{ site.baseurl }}/multithread.html" class="button alt">Multi-Threaded Control</a>
+                    </ul>
+                    <p>Run the Control module on multiple threads with different proportional gains.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--
+<section id="main" class="wrapper style2">
+	<div class="container">
+		<div class="tree">
+			<ul>
+				<li>
+					<a href="#">init()</a>
+					<ul>
+						<li>
+							<a href="#">report()</a>
+							<ul>
+								<li>
+									<a href="#">update()</a>
+									<ul>
+										<li>
+											<a href="#">Integration</a>
+											<ul>
+												<li>
+													<a href="#">End of full step?</a>
+													<ul>
+														<li>
+															<a href="#">postcalc()</a>
+														</li>
+														<li>
+															<a href="#">reset()</a>
+														</li>
+													</ul>
+												</li>	
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+-->

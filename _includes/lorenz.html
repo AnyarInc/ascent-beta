@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<h4>Lorenz.h</h4>
+
+<pre class="prettyprint">
+#pragma once
+
+#include "ascent/Link.h"
+#include "Eigen/Dense"
+
+class Lorenz : public asc::Module
+{
+public:
+   Eigen::Vector3d x = Eigen::Vector3d::Zero();
+   Eigen::Vector3d xd = Eigen::Vector3d::Zero(); // derivative of x
+
+   const double sigma = 10.0;
+   const double R = 28.0;
+   const double b = 8.0 / 3.0;
+
+   Lorenz(size_t sim);
+
+protected:
+   void update();
+};
+</pre>
+
+<h4>Lorenz.cpp</h4>
+<p>The update() method defines the system of differential equations.</p>
+
+<pre class="prettyprint">
+#include "Lorenz.h"
+
+Lorenz::Lorenz(size_t sim) : asc::Module(sim)
+{
+   addIntegrator(x, xd);
+
+#define ascNS Lorenz
+   ascVar(x)
+}
+
+void Lorenz::update()
+{
+   xd[0] = sigma*(x[1] - x[0]);
+   xd[1] = R*x[0] - x[1] - x[0] * x[2];
+   xd[2] = -b*x[2] + x[0] * x[1];
+}
+</pre>
+
+<h3>Initializing and Running:</h3>
+<h4>Main.cpp</h4>
+Setup tracking, run the simulation, and generate output file.
+
+<pre class="prettyprint">
+#include "Lorenz.h"
+
+int main()
+{
+   Lorenz lorenz(0);
+   lorenz.name&ltLorenz>("lorenz");
+   lorenz.x = Eigen::Vector3d(10.0, 1.0, 1.0); // initial conditions
+
+   lorenz.track("t");
+   lorenz.track("x");
+
+   lorenz.run(0.01, 50.0); // time step and simulation end time
+
+   lorenz.outputTrack();
+
+   return 0;
+}
+</pre>
+
+<h3>Generated File:</h3>
+<h4>lorenz.txt</h4>
+<pre class="prettyprint">
+t, lorenz x
+0, 10.000000, 1.000000, 1.000000
+0.01, 9.269483, 3.563663, 1.190859
+0.02, 8.841946, 5.921403, 1.583097
+0.03, 8.672069, 8.135682, 2.148331
+0.04, 8.724232, 10.257212, 2.880594
+0.05, 8.970418, 12.323869, 3.789982
+continued...
+</pre>
