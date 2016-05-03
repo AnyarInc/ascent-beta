@@ -87,7 +87,7 @@ namespace asc
          }
 
          Simulator& simulator = module->simulator;
-         Phase& phase = simulator.phase;
+         const Phase& phase = simulator.phase;
 
          if (phase != Phase::setup)
          {

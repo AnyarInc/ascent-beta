@@ -24,9 +24,6 @@ matrix:
 
 before_install:
   - sudo apt-get update -qq
-  
-install:
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
 
 script:
   - mkdir build
