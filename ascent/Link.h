@@ -72,6 +72,8 @@ namespace asc
 
       std::string classInfo() const { return "Link<" + static_cast<std::string>(typeid(T).name()) + ">"; }
 
+      explicit operator bool() const { return (module.get() != 0); }
+
       bool name(const std::string& name)
       {
          return module->template name<T>(name);
