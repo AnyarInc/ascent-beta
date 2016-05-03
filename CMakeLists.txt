@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.7)
 project(ascent)
 
+set (CMAKE_CXX_STANDARD 14)
+
 if(MSVC)
 	# for ChaiScript
 	add_definitions(/bigobj)
