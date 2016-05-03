@@ -29,8 +29,7 @@ _You can edit the batch file and change the generator to another compatable CMak
 
 Ascent requires a C++14 compliant compiler.
 
-[![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) _master_  
-[![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=develop)](https://travis-ci.org/AnyarInc/ascent) _develop_
+_master_ [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent)     _develop_ [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=develop)](https://travis-ci.org/AnyarInc/ascent)  
 
 ### [Ascent Community](https://github.com/Ascent-Community)
 
