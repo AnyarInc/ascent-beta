@@ -2,6 +2,8 @@
 ### An open source C++ architecture for time-based simulations.
 #### Developed by [Anyar, Inc.](http://www.anyarinc.com/)
 
+[![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Ascent is a module-based simulation architecture that can handle extremely complex and dynamic systems. 
 The architecture is built around a powerful ordinary differential equation solver, but Ascent can do far more than solve differential equations.
 
