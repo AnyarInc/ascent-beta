@@ -22,7 +22,7 @@ The architecture is built around a powerful ordinary differential equation solve
 - **Easy To Begin!**: Only two classes (asc::Module and asc::Link) are required to solve most differential equations or systems.
 
 ### Building The Ascent Library
-Master branch [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent)  
+[![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent)  
 - Clone Ascent
 - Install the [CMake](https://cmake.org/) GUI and use it to generate a build directory within the Ascent directory
 - Or, if you're on Windows, just double click the build.bat file to build Visual Studio 14 2015 Win64 project and libraries.
