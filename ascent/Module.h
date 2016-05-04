@@ -268,7 +268,10 @@ namespace asc
       void track(Link<T>& link, const std::string& var_name)
       {
          if ("t" == var_name)
-            track_time = true;
+         {
+            print_time = true;
+            simulator.track_time = true;
+         }
          else
          {
             tracking.push_back(std::make_pair(link.module->module_id, var_name));
@@ -452,7 +455,7 @@ namespace asc
 
       // Tracking
       std::vector<std::pair<size_t, std::string>> tracking; // Vector of pairs of module IDs and their associated variables to be tracked.
-      bool track_time = false; // Whether or not to print the simulation time as well.
+      bool print_time = false; // Whether or not to print the simulation time as well.
 
       std::map<std::string, Module*>& external; // Reference to ModuleCore external map, needed here for templated name function.
       static Simulator& getSimulator(const size_t sim); // Needed to avoid publically exposing ModuleCore, used in templated integrator(size_t sim).

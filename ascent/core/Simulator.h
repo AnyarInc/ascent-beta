@@ -53,7 +53,7 @@ namespace asc
 
       bool setError(const std::string& description); // always returns false
 
-      bool track_time = false; // don't track time until a parameter is also tracked
+      bool track_time = false;
       std::vector<double> t_hist; // time history (used to interpolate and provide time pairing with Parameter history)
 
       bool run(const double dt, const double tend);

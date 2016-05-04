@@ -178,7 +178,7 @@ void Module::callUpdate()
    {
       for (auto& p : run_first)
       {
-         if (auto ptr = p.second.lock()) // auto& not supported by Xcode libc++ compiler when last tested
+         if (auto ptr = p.second.lock())
          {
             if (!ptr->update_run)
             {
@@ -314,7 +314,10 @@ void Module::callReset()
 void Module::track(const std::string& var_name)
 {
    if ("t" == var_name)
-      track_time = true;
+   {
+      print_time = true;
+      simulator.track_time = true;
+   }
    else
    {
       tracking.push_back(std::make_pair(module_id, var_name));
@@ -325,7 +328,10 @@ void Module::track(const std::string& var_name)
 void Module::track(Module& module, const std::string& var_name)
 {
    if ("t" == var_name)
-      track_time = true;
+   {
+      print_time = true;
+      simulator.track_time = true;
+   }
    else
    {
       tracking.push_back(std::make_pair(module.module_id, var_name));
@@ -350,7 +356,7 @@ void Module::outputTrack()
       else
          length = ModuleCore::getModule(id).vars.length(var_name);
 
-      if (track_time)
+      if (print_time)
          file << "t" << ", ";
 
       size_t n = tracking.size();
@@ -367,7 +373,7 @@ void Module::outputTrack()
 
       for (size_t i = 0; i < length; ++i)
       {
-         if (track_time)
+         if (print_time)
             file << simulator.t_hist[i] << ", ";
 
          n = tracking.size();

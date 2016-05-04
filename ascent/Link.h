@@ -84,12 +84,11 @@ namespace asc
       {
          if (!module)
          {
-            std::cerr << "Attempted access [->] from a non-initialized (i.e. non-instantiated) module: " + classInfo() << '\n';
+            std::cerr << "nullptr access ->: " + classInfo() << '\n';
             return nullptr;
          }
 
-         Simulator& simulator = module->simulator;
-         const Phase& phase = simulator.phase;
+         const Phase& phase = module->simulator.phase;
 
          if (phase != Phase::setup)
          {
@@ -116,9 +115,6 @@ namespace asc
                break;
             }
          }
-
-         if (simulator.error)
-            simulator.setError(classInfo() + "::access()");
 
          return module.get();
       }

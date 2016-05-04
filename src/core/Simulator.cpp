@@ -144,9 +144,6 @@ void Simulator::setup(const double dt)
 {
    phase = Phase::setup;
 
-   if (trackers.size() > 0)
-      track_time = true; // track time if parameters are tracked
-
    this->dt = dtp = dt; // sets base time step (dtp) and adjustable time step (dt)
    t1 = t + dt; // sets intended end time of next timestep
    kpass = 0;
