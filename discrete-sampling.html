@@ -36,28 +36,28 @@ Sampling::Sampling(size_t sim) : asc::Module(sim)
 
 void Sampling::update()
 {
-   cout << "update()-----" << endl;
-   cout << "time: " << t << endl;
+   cout << "update" << '\n';
+   cout << "t " << t << '\n';
 
    xd = cos(t); // integrated xd will be sin(t)
 
    if (sample())
-      cout << "x at first pass of integration step: " << x << endl;
+      cout << "x at first pass " << x << '\n';
    else
-      cout << "x: " << x << endl;
+      cout << "x " << x << '\n';
 
-   if (sample(0.13) && !first_update) // sample() always returns true when t == 0.0, !first_update excludes printing the initial condition
-      cout << "x every 0.13: " << x << endl;
+   if (sample(0.13) && !first_update) // sample() will always return true when t == 0.0, we use !first_update here to exclude printing the initial condition
+      cout << "x every 0.13: " << x << '\n';
 
-   cout << endl;
+   cout << '\n';
 }
 
 void Sampling::report()
 {
-   cout << "report()*****" << endl;
-   cout << "time: " << t << endl;
-   cout << "analytical sin(t): " << sin(t) << endl;
-   cout << "computed x: " << x << endl << endl;
+   cout << "report" << '\n';
+   cout << "t " << t << '\n';
+   cout << "sin(t) " << sin(t) << '\n';
+   cout << "x " << x << '\n' << '\n';
 }
 </pre>
 
@@ -81,115 +81,115 @@ int main()
 <li>Notice that the sampling rate of 0.13 is always stepped to exactly (0.13, 0.26) even though these values are between time steps.
 </p>
 <pre>
-report()*****
-time: 0
-analytical sin(t): 0
-computed x: 0
+report
+t 0
+sin(t) 0
+x 0
 
-update()-----
-time: 0
-x at first pass of integration step: 0
+update
+t 0
+x at first pass 0
 
-update()-----
-time: 0.05
-x: 0.05
+update
+t 0.05
+x 0.05
 
-update()-----
-time: 0.05
-x: 0.0499375
+update
+t 0.05
+x 0.0499375
 
-update()-----
-time: 0.1
-x: 0.099875
+update
+t 0.1
+x 0.099875
 
-report()*****
-time: 0.1
-analytical sin(t): 0.0998334
-computed x: 0.0998334
+report
+t 0.1
+sin(t) 0.0998334
+x 0.0998334
 
-update()-----
-time: 0.1
-x at first pass of integration step: 0.0998334
+update
+t 0.1
+x at first pass 0.0998334
 
-update()-----
-time: 0.115
-x: 0.114758
+update
+t 0.115
+x 0.114758
 
-update()-----
-time: 0.115
-x: 0.114734
+update
+t 0.115
+x 0.114734
 
-update()-----
-time: 0.13
-x: 0.129635
+update
+t 0.13
+x 0.129635
 
-report()*****
-time: 0.13
-analytical sin(t): 0.129634
-computed x: 0.129634
+report
+t 0.13
+sin(t) 0.129634
+x 0.129634
 
-update()-----
-time: 0.13
-x at first pass of integration step: 0.129634
+update
+t 0.13
+x at first pass 0.129634
 x every 0.13: 0.129634
 
-update()-----
-time: 0.165
-x: 0.164339
+update
+t 0.165
+x 0.164339
 
-update()-----
-time: 0.165
-x: 0.164159
+update
+t 0.165
+x 0.164159
 
-update()-----
-time: 0.2
-x: 0.198683
+update
+t 0.2
+x 0.198683
 
-report()*****
-time: 0.2
-analytical sin(t): 0.198669
-computed x: 0.198669
+report
+t 0.2
+sin(t) 0.198669
+x 0.198669
 
-update()-----
-time: 0.2
-x at first pass of integration step: 0.198669
+update
+t 0.2
+x at first pass 0.198669
 
-update()-----
-time: 0.23
-x: 0.228071
+update
+t 0.23
+x 0.228071
 
-update()-----
-time: 0.23
-x: 0.227879
+update
+t 0.23
+x 0.227879
 
-update()-----
-time: 0.26
-x: 0.257089
+update
+t 0.26
+x 0.257089
 
-report()*****
-time: 0.26
-analytical sin(t): 0.257081
-computed x: 0.257081
+report
+t 0.26
+sin(t) 0.257081
+x 0.257081
 
-update()-----
-time: 0.26
-x at first pass of integration step: 0.257081
+update
+t 0.26
+x at first pass 0.257081
 x every 0.13: 0.257081
 
-update()-----
-time: 0.28
-x: 0.276408
+update
+t 0.28
+x 0.276408
 
-update()-----
-time: 0.28
-x: 0.276302
+update
+t 0.28
+x 0.276302
 
-update()-----
-time: 0.3
-x: 0.295523
+update
+t 0.3
+x 0.295523
 
-report()*****
-time: 0.3
-analytical sin(t): 0.29552
-computed x: 0.29552
+report
+t 0.3
+sin(t) 0.29552
+x 0.29552
 </pre>
