@@ -59,7 +59,7 @@ namespace asc
       bool run(const double dt, const double tend);
       bool run() { return run(dt, tend); }
 
-      bool sample();
+      bool sample() { return (kpass == 0); }
       bool sample(double sdt);
       bool event(double t_event);
 
@@ -127,7 +127,7 @@ namespace asc
       double t{}; // time
       double t1{}; // intended end time of next timestep
       double tend{}; // end time of this simulation loop
-      size_t kpass{};
+      size_t kpass{}; // internal integrator pass
 
       bool integrator_initialized = false; // whether or not the integration scheme has been initialized (i.e. for a predictor-corrector or DOPRI45), not used for basic schemes like RK4
 

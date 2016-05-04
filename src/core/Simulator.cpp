@@ -353,13 +353,6 @@ void Simulator::deleteModules()
    }
 }
 
-bool Simulator::sample()
-{
-   if (kpass == 0)
-      return true;
-   return false;
-}
-
 bool Simulator::sample(double sdt) // only changes the timestep if the sample produces a time step less than the current time step
 {
    if (!sample())

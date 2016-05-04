@@ -31,7 +31,7 @@ namespace asc
       double& dt; // time step (can be changed by sampling and events)
       double& t; // time
       double& t1; // intended end time of next timestep
-      size_t& kpass;
+      size_t& kpass; // internal integrator pass
 
       bool& integrator_initialized; // whether or not the integration scheme has been initialized (i.e. for a predictor-corrector or DOPRI45), not used for basic schemes like RK4
    };

@@ -156,16 +156,14 @@ void Module::callInit()
    if (!init_run)
    {
       if (init_called)
-      {
          error("Module: Circular dependency for init().");
-         init_run = true;
-         init_called = false;
-         return;
+      else
+      {
+         init_called = true;
+         if (!frozen)
+            init();
       }
-
-      init_called = true;
-      if (!frozen)
-         init();
+      
       init_run = true;
       init_called = false;
       simulator.inits.erase(module_id); // Erasing module from inits because it should only be called once.
@@ -195,17 +193,14 @@ void Module::callUpdate()
       }
 
       if (update_called)
-      {
          error("Circular dependency for update(). Within " + name());
-         update_run = true;
-         update_called = false;
-         return;
+      else
+      {
+         update_called = true;
+         if (!frozen)
+            update();
       }
-
-      update_called = true;
-
-      if (!frozen)
-         update();
+      
       update_run = true;
       update_called = false;
    }
@@ -234,17 +229,14 @@ void Module::callPostCalc()
       }
 
       if (postcalc_called)
-      {
          error("Circular dependency for postcalc(). Within " + name());
-         postcalc_run = true;
-         postcalc_called = false;
-         return;
+      else
+      {
+         postcalc_called = true;
+         if (!frozen)
+            postcalc();
       }
-
-      postcalc_called = true;
-
-      if (!frozen)
-         postcalc();
+      
       postcalc_run = true;
       postcalc_called = false;
    }
@@ -255,16 +247,14 @@ void Module::callCheck()
    if (!check_run)
    {
       if (check_called)
-      {
          error("Circular dependency for check().");
-         check_run = true;
-         check_called = false;
-         return;
+      else
+      {
+         check_called = true;
+         if (!frozen)
+            check();
       }
-
-      check_called = true;
-      if (!frozen)
-         check();
+      
       check_run = true;
       check_called = false;
    }
@@ -275,16 +265,14 @@ void Module::callReport()
    if (!report_run)
    {
       if (report_called)
-      {
          error("Circular dependency for report().");
-         report_run = true;
-         report_called = false;
-         return;
+      else
+      {
+         report_called = true;
+         if (!frozen)
+            report();
       }
-
-      report_called = true;
-      if (!frozen)
-         report();
+      
       report_run = true;
       report_called = false;
    }
@@ -295,22 +283,19 @@ void Module::callReset()
    if (!reset_run)
    {
       if (reset_called)
-      {
          error("Circular dependency for reset().");
-         reset_run = true;
-         reset_called = false;
-         return;
+      else
+      {
+         reset_called = true;
+         if (!frozen)
+            reset();
       }
-
-      reset_called = true;
-      if (!frozen)
-         reset();
+      
       reset_run = true;
       reset_called = false;
    }
 }
 
-// Tracking
 void Module::track(const std::string& var_name)
 {
    if ("t" == var_name)
