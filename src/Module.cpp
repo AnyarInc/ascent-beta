@@ -176,43 +176,38 @@ void Module::callUpdate()
 {
    if (!update_run)
    {
-      bool update_now = true; // Whether or not this update() method should be run now, this will be set to false if the module needs to wait so that another module can update first.
-
       for (auto& p : run_first)
       {
          if (auto ptr = p.second.lock()) // auto& not supported by Xcode libc++ compiler when last tested
          {
-            // If the run_first map contains an updating module, then we shouldn't update this module yet.
-            if (ptr->update_called)
-               update_now = false;
-            else if (!ptr->update_run)
+            if (!ptr->update_run)
             {
+               if (ptr->update_called) // If the run_first map contains an updating module, then we shouldn't update this module yet.
+                  return;
+
                ptr->callUpdate();
-               if (!ptr->update_run) // If the call to update didn't update the module, then this module cannot update yet.
-                  update_now = false;
+               if (!ptr->update_run) // If the call to update didn't update the module, then we shouldn't update this module yet.
+                  return;
             }
          }
          else
             run_first.erase(p.first);
       }
 
-      if (update_now)
+      if (update_called)
       {
-         if (update_called)
-         {
-            error("Circular dependency for update().");
-            update_run = true;
-            update_called = false;
-            return;
-         }
-
-         update_called = true;
-
-         if (!frozen)
-            update();
+         error("Circular dependency for update(). Within " + name());
          update_run = true;
          update_called = false;
+         return;
       }
+
+      update_called = true;
+
+      if (!frozen)
+         update();
+      update_run = true;
+      update_called = false;
    }
 }
 
@@ -220,42 +215,38 @@ void Module::callPostCalc()
 {
    if (!postcalc_run)
    {
-      bool postcalc_now = true;
-
       for (auto& p : run_first)
       {
-         if (auto ptr = p.second.lock()) // auto& not supported by Xcode libc++ compiler when last tested
+         if (auto ptr = p.second.lock())
          {
-            if (ptr->postcalc_called)
-               postcalc_now = false;
-            else if (!ptr->postcalc_run)
+            if (!ptr->postcalc_called)
             {
+               if (ptr->postcalc_called)
+                  return;
+
                ptr->callPostCalc();
                if (!ptr->postcalc_run)
-                  postcalc_now = false;
+                  return;
             }
          }
          else
             run_first.erase(p.first);
       }
 
-      if (postcalc_now)
+      if (postcalc_called)
       {
-         if (postcalc_called)
-         {
-            error("Circular dependency for postcalc().");
-            postcalc_run = true;
-            postcalc_called = false;
-            return;
-         }
-
-         postcalc_called = true;
-
-         if (!frozen)
-            postcalc();
+         error("Circular dependency for postcalc(). Within " + name());
          postcalc_run = true;
          postcalc_called = false;
+         return;
       }
+
+      postcalc_called = true;
+
+      if (!frozen)
+         postcalc();
+      postcalc_run = true;
+      postcalc_called = false;
    }
 }
 
