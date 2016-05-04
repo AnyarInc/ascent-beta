@@ -23,7 +23,7 @@ The architecture is built around a powerful ordinary differential equation solve
 
 ### Building The Ascent Library
 - Clone Ascent
-- Install the [CMake](https://cmake.org/) GUI and use it to generate a build directory within the Ascent directory
+- Install the [CMake](https://cmake.org/) GUI and use it to generate a build directory within the ascent directory
 - Or, if you're on Windows, just double click the build.bat file to build Visual Studio 14 2015 Win64 project and libraries.
 _You can edit the batch file and change the generator to another compatable CMake generator._
 

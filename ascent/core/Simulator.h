@@ -110,6 +110,7 @@ namespace asc
       void changeTimeStep();
 
       std::vector<std::shared_ptr<Module>> to_delete; // modules are temporarily held here from Link<T> so that they can be deleted at the appropriate time
+      void recursiveDelete(const size_t n_prev);
       void deleteModules();
 
       std::unique_ptr<State> integrator;

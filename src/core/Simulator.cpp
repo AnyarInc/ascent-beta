@@ -335,22 +335,23 @@ void Simulator::changeTimeStep()
    }
 }
 
-void Simulator::deleteModules()
+void Simulator::recursiveDelete(const size_t n_prev = 0)
 {
-   // IMPROVEMENT: Pass the previous size of the to_delete vector into this recursive function so that you don't try to assign nullptr to an already nullptr and waste time.
-
    size_t n = to_delete.size();
    if (n > 0)
    {
-      for (size_t i = 0; i < n; ++i)
+      for (size_t i = n_prev; i < n; ++i)
          to_delete[i] = nullptr;
 
       if (to_delete.size() > n) // if the to_delete vector has grown since removing modules
-         deleteModules(); // call this function recurvisely until all shared_ptrs are nullptr
-
-      if (to_delete.size() > 0) // could have been cleared from recursion
-         to_delete.clear();
+         recursiveDelete(n); // call this function recurvisely until all shared_ptrs are nullptr
    }
+}
+
+void Simulator::deleteModules()
+{
+   recursiveDelete();
+   to_delete.clear();
 }
 
 bool Simulator::sample(double sdt) // only changes the timestep if the sample produces a time step less than the current time step
