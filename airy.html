@@ -93,14 +93,12 @@ t, airy x
 continued...
 </pre>
 <h3>Plotted Results:</h3>
-<div max-width:200px</div>
-	{% include/airy-chart.html %}
-</div>
+{% include/airy-chart.html %}
 <h3>Comparing Integration Methods:</h3>
 <p>By default Ascent runs a 4th order Runge Kutta integrator.
 The importance of using good integration methods is demonstrated below,
 showing how an Euler method at the same step size will diverge from the analytical solution.</p>
-<img src="images/Runge-Kutta-vs-Euler.PNG" class="image fit" style="max-width:1000px">
+{% include/airy-compare.html %}
 <p>Changing the integration method is simple, just add the code below:</p>
 <pre class="prettyprint">
 #include "ascent/integrators/Euler.h"

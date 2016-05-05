@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<script src="data/airy.js"></script>
+<script src="data/airycompare.js"></script>
 <script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
 
 <script type="text/javascript">
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-	var data = google.visualization.arrayToDataTable(airy);
+	var data = google.visualization.arrayToDataTable(airycompare);
 
 	var options = {
 		series: {
@@ -21,14 +21,14 @@
 		curveType: 'function',
 		vAxis: { gridlines: { color: 'transparent' } },
 		hAxis: { gridlines: { color: 'transparent' } },
-		legend: { position: 'none' },
+		legend: { position: 'bottom' },
 		chartArea: { width: '85%', height: '85%' }
 	};
 
-	var chart = new google.visualization.LineChart(document.getElementById('airy_graph'));
-	document.getElementById('airy_graph').style.maxWidth = "1000px";
+	var chart = new google.visualization.LineChart(document.getElementById('airy_compare'));
+	document.getElementById('airy_compare').style.maxWidth = "1000px";
 	chart.draw(data, options);
   }
 </script>
 
-<div id="airy_graph" class="image fit"></div>
+<div id="airy_compare" class="image fit"></div>

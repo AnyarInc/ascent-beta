@@ -1,4 +1,4 @@
-var lorenz-anim =[
+var lorenzanim =[
   {
     "time": 0,
     "x": 10,
