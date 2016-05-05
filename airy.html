@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Airy System
+GoogleCharts: true
 ---
 
 <a href="https://en.wikipedia.org/wiki/Airy_function" target="_blank">Airy function:</a>
@@ -92,7 +93,9 @@ t, airy x
 continued...
 </pre>
 <h3>Plotted Results:</h3>
-<img src="images/Airy-System.PNG" class="image fit" style="max-width:1000px">
+<div max-width:200px</div>
+	{% include/airy-chart.html %}
+</div>
 <h3>Comparing Integration Methods:</h3>
 <p>By default Ascent runs a 4th order Runge Kutta integrator.
 The importance of using good integration methods is demonstrated below,

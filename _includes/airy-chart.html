@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
-<script src="data/system.js"></script>
+<script src="data/airy.js"></script>
 <script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
 
 <script type="text/javascript">
   google.charts.setOnLoadCallback(drawChart);
 
   function drawChart() {
-	var data = google.visualization.arrayToDataTable(system);
+	var data = google.visualization.arrayToDataTable(airy);
 
 	var options = {
 		series: {
@@ -18,17 +18,17 @@
 			  },
 		height: 400,
 		backgroundColor: 'transparent',
-		//title: 'Positions of masses',
 		curveType: 'function',
-		vAxis: { gridlines: { color: 'transparent' }, viewWindow: { min: -0.025, max: 0.045} },
+		vAxis: { gridlines: { color: 'transparent' } },
 		hAxis: { gridlines: { color: 'transparent' } },
 		legend: { position: 'none' },
 		chartArea: { width: '85%', height: '85%' }
 	};
 
-	var chart = new google.visualization.LineChart(document.getElementById('system_graph'));
+	var chart = new google.visualization.LineChart(document.getElementById('airy_graph'));
+	document.getElementById('airy_graph').style.maxWidth = "700px";
 	chart.draw(data, options);
   }
 </script>
 
-<div id="system_graph" class="image fit"></div>
+<div id="airy_graph" class="image fit"></div>
