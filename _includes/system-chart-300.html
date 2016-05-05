@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<script src="data/system.js"></script>
+<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+
+<script type="text/javascript">
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+	var data = google.visualization.arrayToDataTable(system);
+
+	var options = {
+		series: {
+				0: { color: '#3984c6' },
+				1: { color: '#398464' },
+				2: { color: '#6ab3e2' },
+				3: { color: '#889294' },
+			  },
+		height: 300,
+		backgroundColor: 'transparent',
+		//title: 'Positions of masses',
+		curveType: 'function',
+		vAxis: { gridlines: { color: 'transparent' }, viewWindow: { min: -0.025, max: 0.045} },
+		hAxis: { gridlines: { color: 'transparent' } },
+		legend: { position: 'none' },
+		chartArea: { width: '90%', height: '90%' }
+	};
+
+	var chart = new google.visualization.LineChart(document.getElementById('system_graph'));
+	chart.draw(data, options);
+  }
+</script>
+
+<div id="system_graph" class="image fit"></div>

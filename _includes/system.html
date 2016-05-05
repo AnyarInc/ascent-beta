@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<h4>System.h</h4>
+
+<pre class="prettyprint">
+#pragma once
+
+#include "Damper.h"
+#include "Spring.h"
+
+class System : public asc::Module
+{
+public:
+   asc::Link&ltBody> b0{ sim }, b1{ sim }, b2{ sim }, b3{ sim };
+   asc::Link&ltDamper> d0{ sim, b0, b1 }, d1{ sim, b0, b2 }, d2{ sim, b2, b3 };
+   asc::Link&ltSpring> s0{ sim, b0, b1 }, s1{ sim, b1, b3 }, s2{ sim, b0, b3 }, s3{ sim, b1, b2 }, s4{ sim, b2, b3 };
+
+   System(size_t sim);
+};
+</pre>
+
+<h4>System.cpp</h4>
+
+<pre class="prettyprint">
+#include "System.h"
+
+System::System(size_t sim) : asc::Module(sim)
+{
+   // Set masses
+   b0->m = 0.3;
+   b1->m = 1.0;
+   b2->m = 0.5;
+   // b3 is fixed, leave its mass as 0.0
+
+   // Set damping constants
+   d0->c = 0.7;
+   d1->c = 0.4;
+   d2->c = 0.3;
+
+   // Set spring constants
+   s0->k = 100.0;
+   s1->k = 200.0;
+   s2->k = 50.0;
+   s3->k = 125.0;
+   s4->k = 225.0;
+}
+</pre>
+
+<h3>Initializing and Running:</h3>
+<h4>Main.cpp</h4>
+
+<pre class="prettyprint">
+#include "System.h"
+
+int main()
+{
+   asc::Link&ltSystem> system(0);
+   system.name("system");
+
+   system->b0->v = 1.0; // Initial condition to get everything moving.
+
+   system->track("t");
+   system->track(system->b0, "s");
+   system->track(system->b1, "s");
+   system->track(system->b2, "s");
+   system->track(system->b3, "s");
+
+   system->run(0.01, 2.0);
+
+   system->outputTrack();
+
+   return 0;
+}
+</pre>

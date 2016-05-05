@@ -1,6 +1,7 @@
 ---
 layout: landing-page
 jsgraph: true
+GoogleCharts: true
 ---
 
 <section class="wrapper style1">
@@ -63,63 +64,63 @@ jsgraph: true
 		
 		<hr>
 	</div>
+	
+	<div = class="container">
+		<h2 align=center>Easily Simulate Highly Connected Systems</h2>
+		
+		<script src="data/system.js"></script>
+		<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+		
+		<script type="text/javascript">
+		  google.charts.setOnLoadCallback(drawChart);
 
-	<div class="container">
-		<header class="minor">
-			<h2>Automatic Ordering</h2>
-			<p align=center>By default Ascent ensures that data is accessed from updated modules</P>
-		</header>
-		<p>
-			Ascent mixes concepts of module level ordering with variable access ordering.
-			Ordering is performed automatically based on how algorithms are written with minimal required user input.
-			This allows simulation designers to focus on unique module associations and not have to be concerned with entire simulation flows.
-			The mixture of module and variable level ordering offers a "best of both worlds" approach to simulation design that simplifies user effort
-			while making it possible to design extremely complex and dynamic simulations.
-		</p>
+		  function drawChart() {
+			var data = google.visualization.arrayToDataTable(system);
+
+			var options = {
+				series: {
+						0: { color: '#3984c6' },
+						1: { color: '#398464' },
+						2: { color: '#6ab3e2' },
+						3: { color: '#889294' },
+					  },
+				height: 400,
+				backgroundColor: 'transparent',
+				//title: 'Positions of masses',
+				curveType: 'function',
+				vAxis: { gridlines: { color: 'transparent' }, viewWindow: { min: -0.025, max: 0.045} },
+				hAxis: { gridlines: { color: 'transparent' } },
+				legend: { position: 'none' },
+				chartArea: { width: '90%', height: '90%' }
+			};
+
+			var chart = new google.visualization.LineChart(document.getElementById('system_graph'));
+			chart.draw(data, options);
+		  }
+		</script>
 		
 		<div class="row double">
-			<div class="6u">
-				<img src="images/AutomaticLinking.png" class="image fit"/>
+			<div class="5u">
+				<section class="special box">
+					<img src="images/ViscoSystem1.png" class="image fit"/>
+					<h5>Spring-Mass-Damper system that can easily be reconfigured.</h5>
+					<p>Positions of masses from example are shown right.</p>
+				</section>
 			</div>
-			<div class="6u">
-				<img src="images/AutomaticLinkingOrder.png" class="image fit"/>
-				
-				<p>
-					The programmer doesn't define any of this ordering. The ordering is automatically generated from how module data is accesssed.
-				</p>
+			
+			<div class="7u">
+				{% include/system-chart.html %}
+				<!-- <p>Avoid state-space modeling by creating driving components, such as springs and dampers, that can be applied to the system without any matrix manipulation.</p> -->
 			</div>
 		</div>
 		
 		<div align=center>
-			<a onclick="document.getElementById('id01').style.display='block'" class="button alt">More On Automatic Ordering</a>
+			<a onclick="document.getElementById('system').style.display='block'" class="button alt">Example Code</a>
 		</div>
 		
-		<div id="id01" class="modal" onclick="document.getElementById('id01').style.display='none'">
-			<div class="modal-content">
-				<!-- <span onclick="document.getElementById('id01').style.display='none'" class="close">&times;</span> -->
-				<section class="wrapper style2">
-					<p>
-						Ascent allows the simulation designer to define pre-computational links, specifying that certain modules should run first. 
-						This enables the generation of driving modules, which can be easily added and removed from a system.<br>
-						For example, lumped parameter systems can be easily assembled without having to setup state space matrices. 
-						This assembling/dissasembling can even occur at runtime.
-					</p>
-					
-					<div class="row double">
-						<div class="6u">
-							<img src="images/SpringDamperLinks.png" class="image fit"/>
-							
-							<p>The Mass modules don't need to know anything about the Spring and Damper modules.</p>
-						</div>
-						<div class="6u">
-							<img src="images/SpringDamperOrder.png" class="image fit"/>
-							
-							<p>
-								The programmer only defines the driving links, and these are handled at the module level, so they are applied regardless of the simulation complexity.
-							</p>
-						</div>
-					</div>
-				</section>
+		<div id="system" class="modal" onclick="document.getElementById('system').style.display='none'">
+			<div class="modal-content style1">
+				{% include/system.html %}
 			</div>
 		</div>
 		
@@ -188,64 +189,99 @@ jsgraph: true
 			</div>
 			
 			<div class="6u">
-				<script async src="data/lorenz.js"></script>
-				<script type="text/javascript">
-				  // Called when the Visualization API is loaded.
-				  function drawVisualization() {
-					
-					var options = {
-					  width:  '100%',
-					  height: '400px',
-					  style: 'line',
-					  showPerspective: true,
-					  showGrid: false,
-					  showShadow: false,
-					  keepAspectRatio: true,
-					  verticalRatio: 1.0,
-					  dataColor: {fill: '#7DC1FF', stroke: '#3267D2', strokeWidth: 2.0},
-					  cameraPosition: {horizontal: 2.0, vertical: 0.0, distance: 1.5},
-					  //tootip: true
-					};
-
-					// create a graph3d
-					var container = document.getElementById('lorenz_graph');
-					var graph3d = new vis.Graph3d(container, lorenz, options);
-				  }
-				  </script>
+				{% include/lorenz-graph.html %}
+				<br>
+				<div align=center>
+					<a onclick="document.getElementById('lorenz-modal').style.display='block'" class="button alt">Lorenz Example</a>
+				</div>
 				
-				<body onload="drawVisualization();">
-					<div id="lorenz_graph" class="interactive"></div>
-					<br>
-					<div align=center>
-						<a onclick="document.getElementById('lorenz-modal').style.display='block'" class="button alt">Lorenz Example</a>
+				<div id="lorenz-modal" class="modal" onclick="document.getElementById('lorenz-modal').style.display='none'">
+					<div class="modal-content style1">
+						<!-- <span onclick="document.getElementById('lorenz-modal').style.display='none'" class="alt close">&times;</span> -->
+							{% include/lorenz.html %}
 					</div>
-					
-					<div id="lorenz-modal" class="modal" onclick="document.getElementById('lorenz-modal').style.display='none'">
-						<div class="modal-content style1">
-							<!-- <span onclick="document.getElementById('lorenz-modal').style.display='none'" class="alt close">&times;</span> -->
-								{% include/lorenz.html %}
-						</div>
-					</div>
-					
-					<hr>
-					<h3>Integrators</h3>
-					<li>4th Order Runge Kutta and RK-Merson
-					<li>Real-Time Predictor Correctors (Advanced Adams-Moulton)
-					<li>Dormand Prince (45 & 87, with adaptive stepping*)
-					<p>*<i>Supports global or state specific tolerances</i></p>
-					
-					<hr>
-					<h3>Asynchronous Sampling and Event Scheduling</h3>
-					<li>Dynamically assign events that are exactly stepped to with proper numerical integration.
-					<li>Mix discrete and continuous signals to simulate hardware in the loop.
+				</div>
+				
+				<hr>
+				<h3>Integrators</h3>
+				<li>4th Order Runge Kutta and RK-Merson
+				<li>Real-Time Predictor Correctors (Advanced Adams-Moulton)
+				<li>Dormand Prince (45 & 87, with adaptive stepping*)
+				<p>*<i>Supports global or state specific tolerances</i></p>
+				
+				<hr>
+				<h3>Asynchronous Sampling and Event Scheduling</h3>
+				<li>Dynamically assign events that are exactly stepped to with proper numerical integration.
+				<li>Mix discrete and continuous signals to simulate hardware in the loop.
 <!-- <pre class="prettyprint">
 if (event(0.38493))
 	std::cout << "Event at time: " << t;
 // Will complete a full step and print: Event at time 0.38493
 </pre> -->
-				</body>
 			</div>
 		</div>
+	</div>
+	
+	<div class="container">
+		<header class="minor">
+			<h2>Automatic Ordering</h2>
+			<p align=center>By default Ascent ensures that data is accessed from updated modules</P>
+		</header>
+		<p>
+			Ascent mixes concepts of module level ordering with variable access ordering.
+			Ordering is performed automatically based on how algorithms are written with minimal required user input.
+			This allows simulation designers to focus on unique module associations and not have to be concerned with entire simulation flows.
+			The mixture of module and variable level ordering offers a "best of both worlds" approach to simulation design that simplifies user effort
+			while making it possible to design extremely complex and dynamic simulations.
+		</p>
+		
+		<div class="row double">
+			<div class="6u">
+				<img src="images/AutomaticLinking.png" class="image fit"/>
+			</div>
+			<div class="6u">
+				<img src="images/AutomaticLinkingOrder.png" class="image fit"/>
+				
+				<p>
+					The programmer doesn't define any of this ordering. The ordering is automatically generated from how module data is accesssed.
+				</p>
+			</div>
+		</div>
+		
+		<div align=center>
+			<a onclick="document.getElementById('id01').style.display='block'" class="button alt">More On Automatic Ordering</a>
+		</div>
+		
+		<div id="id01" class="modal" onclick="document.getElementById('id01').style.display='none'">
+			<div class="modal-content">
+				<!-- <span onclick="document.getElementById('id01').style.display='none'" class="close">&times;</span> -->
+				<section class="wrapper style2">
+					<p>
+						Ascent allows the simulation designer to define pre-computational links, specifying that certain modules should run first. 
+						This enables the generation of driving modules, which can be easily added and removed from a system.<br>
+						For example, lumped parameter systems can be easily assembled without having to setup state space matrices. 
+						This assembling/dissasembling can even occur at runtime.
+					</p>
+					
+					<div class="row double">
+						<div class="6u">
+							<img src="images/SpringDamperLinks.png" class="image fit"/>
+							
+							<p>The Mass modules don't need to know anything about the Spring and Damper modules.</p>
+						</div>
+						<div class="6u">
+							<img src="images/SpringDamperOrder.png" class="image fit"/>
+							
+							<p>
+								The programmer only defines the driving links, and these are handled at the module level, so they are applied regardless of the simulation complexity.
+							</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		
+		<hr>
 	</div>
 </section>
 
