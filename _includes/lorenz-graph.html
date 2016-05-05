@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<script async src="data/lorenz.js"></script>
+<script src="data/lorenz.js"></script>
 <script type="text/javascript">
   // Called when the Visualization API is loaded.
   function drawVisualization() {
@@ -23,7 +23,7 @@
 	var container = document.getElementById('lorenz_graph');
 	var graph3d = new vis.Graph3d(container, lorenz, options);
   }
-  </script>
+ </script>
 
 <body onload="drawVisualization();">
 <div id="lorenz_graph" class="interactive"></div>
