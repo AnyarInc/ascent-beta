@@ -8,7 +8,7 @@ The architecture is built around a powerful ordinary differential equation solve
 ### [Ascent Website](http://anyarinc.github.io/ascent/)
 
 ### Why build simulations with Ascent?
-- **Modular**: Share and reuse modules.
+- **Modular**
 - **Object Oriented**: Polymorphic module handling.
 - **Automatic Simulation Ordering**: Ascent automatically orders the flow of the simulation, which allows a simulation designer to develop and solve highly modular and complex systems.
 - **Asynchronous Sampling and Event Scheduling**

@@ -131,7 +131,7 @@ Module::~Module()
 std::string Module::name() const
 {
    if ("" == module_name)
-      module_name = "<" + to_string(module_id) + ", " + to_string(sim) + ">";
+      module_name = "<" + to_string(module_id) + "|" + to_string(sim) + ">";
 
    return module_name;
 }
