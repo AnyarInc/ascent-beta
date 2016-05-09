@@ -59,7 +59,7 @@ namespace asc
             {
                output += std::to_string(vec[i]);
                if (i < n - 1) // not the last parameter
-                  output += ", ";
+                  output += ",";
             }
 
             return output;
@@ -86,7 +86,7 @@ namespace asc
             {
                output += std::to_string(matrix.array()(i));
                if (i < n - 1) // not the last parameter
-                  output += ", ";
+                  output += ",";
             }
 
             return output;

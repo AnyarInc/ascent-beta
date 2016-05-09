@@ -24,6 +24,7 @@ std::map<std::string, Module*> ModuleCore::external;
 std::map<size_t, Module*> ModuleCore::accessor;
 std::map<size_t, std::unique_ptr<Simulator>> ModuleCore::simulators;
 
+std::string Module::file_type = ".csv";
 size_t Module::next_module_id = 0;
 
 struct null_deleter { void operator()(void const *) const {} };
@@ -131,7 +132,7 @@ Module::~Module()
 std::string Module::name() const
 {
    if ("" == module_name)
-      module_name = "<" + to_string(module_id) + ", " + to_string(sim) + ">";
+      module_name = "<" + to_string(module_id) + "|" + to_string(sim) + ">";
 
    return module_name;
 }
@@ -327,7 +328,7 @@ void Module::track(Module& module, const std::string& var_name)
 void Module::outputTrack()
 {
    ofstream file;
-   string filename = module_directory + module_name + ".txt";
+   string filename = module_directory + module_name + file_type;
    file.open(filename);
 
    if (file)
@@ -342,7 +343,7 @@ void Module::outputTrack()
          length = ModuleCore::getModule(id).vars.length(var_name);
 
       if (print_time)
-         file << "t" << ", ";
+         file << "t" << ",";
 
       size_t n = tracking.size();
       for (size_t i = 0; i < n; ++i)
@@ -351,7 +352,7 @@ void Module::outputTrack()
          if (i == n - 1) // last parameter
             file << ModuleCore::getModule(p.first).name() << " " << p.second;
          else
-            file << ModuleCore::getModule(p.first).name() << " " << p.second << ", ";
+            file << ModuleCore::getModule(p.first).name() << " " << p.second << ",";
       }
 
       file << '\n';
@@ -359,7 +360,7 @@ void Module::outputTrack()
       for (size_t i = 0; i < length; ++i)
       {
          if (print_time)
-            file << simulator.t_hist[i] << ", ";
+            file << simulator.t_hist[i] << ",";
 
          n = tracking.size();
          for (size_t j = 0; j < n; ++j)
@@ -367,7 +368,7 @@ void Module::outputTrack()
             auto& p = tracking[j];
             file << ModuleCore::getModule(p.first).vars.print(p.second, i);
             if (j < n - 1) // not the last parameter
-               file << ", ";
+               file << ",";
          }
 
          file << '\n';

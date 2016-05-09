@@ -282,6 +282,9 @@ namespace asc
       /** Create output file for this Module's tracked parameters. */
       void outputTrack();
 
+      /** Change output file type to .txt instead of .csv */
+      void txtFiles() { file_type = ".txt"; }
+
       /** Generate a manipulator module whose memory is owned by this module as long as the manipulator isn't also stored elsewhere (if Link<T> isn't saved).
       * Manipulators should usually only mess with parameters from this module.
       * Manipulators are ordered via the runBefore method, so they always run before the module they are manipulating.
@@ -426,6 +429,7 @@ namespace asc
       mutable std::string module_name = "";
 
       std::string module_directory = ""; // The directory to where output files will be written.
+      static std::string file_type;
 
       static size_t next_module_id; // module id across all simulators
 
