@@ -1,4 +1,5 @@
 # ASCENT
+[![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) [![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ### An open source C++ architecture for time-based simulations.
 #### Developed by [Anyar, Inc.](http://www.anyarinc.com/)
 
@@ -8,7 +9,7 @@ The architecture is built around a powerful ordinary differential equation solve
 ### [Ascent Website](http://anyarinc.github.io/ascent/)
 
 ### Why build simulations with Ascent?
-- **Modular**: Share and reuse modules.
+- **Modular**: Ascent was designed to allow any modules built on Ascent to be easily shared and interfaced with other Ascent modules.  
 - **Object Oriented**: Polymorphic module handling.
 - **Automatic Simulation Ordering**: Ascent automatically orders the flow of the simulation, which allows a simulation designer to develop and solve highly modular and complex systems.
 - **Asynchronous Sampling and Event Scheduling**
@@ -20,30 +21,35 @@ The architecture is built around a powerful ordinary differential equation solve
 - **ChaiScript Embedded Scripting Language**: Easily connect, initialize and run your modules from a powerful scripting engine.
 - **Eigen C++ Linear Algebra Library**: Ascent utilizes the mature Eigen library, providing straightforward matrix and vector handling.
 - **Easy To Begin!**: Only two classes (asc::Module and asc::Link) are required to solve most differential equations or systems.
+- **Community**: Share your open source modules and libraries built on Ascent in the Ascent-Community repositories
 
-### Building The Ascent Library
-- Clone Ascent
-- Install the [CMake](https://cmake.org/) GUI and use it to generate a build directory within the Ascent directory
-- Or, if you're on Windows, just double click the build.bat file to build Visual Studio 14 2015 Win64 project and libraries.
-_You can edit the batch file and change the generator to another compatable CMake generator._
+## Prerequisites
+- **C++14 compliant compiler**
+- [CMake](https://cmake.org/download/)
+- Eigen (included)
+- ChaiScript (included)
 
-Ascent requires a C++14 compliant compiler.
+## Setup
+Note: Edit the batch file to change the default generator (**Visual Studio 14 2015 Win64**) to another compatable CMake generator.
+```
+git clone https://github.com/AnyarInc/ascent.git
+cd ascent
+build
+```
+#Contributions are Welcome!
+Please report bugs, offer fixes, contribute modules, ask questions and answer questions. The more the merrier! For those interested in contributing to the core of Ascent, see [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent), which explains more details of architecture design/goals.
 
-### [Ascent Community](https://github.com/Ascent-Community)
+## Support
 
-Ascent was designed to allow any modules built on Ascent to be easily shared and interfaced with other Ascent modules.  
-_Share your open source modules and libraries built on Ascent in the Ascent-Community repositories._
-
-### [Support](http://anyarinc.github.io/ascent/support.html)
-
-### Contributions are Welcome!
-
+- [Gitter](https://gitter.im/AnyarInc/ascent)
 - [Q&A forum](https://groups.google.com/forum/#!forum/Ascent-Users)
 - [Report an issue](https://github.com/AnyarInc/ascent/issues)
+- [Support Page](http://anyarinc.github.io/ascent/support.html)
 
-Please report bugs, offer fixes, contribute modules, ask questions and answer questions. The more the merrier!
+## Developers: 
+- [Ascent Community](https://github.com/Ascent-Community)
+- [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent)
 
-For those interested in contributing to the core of Ascent, see [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent), which explains more details of architecture design/goals.
 
 ### Projects using Ascent
 - Anyar, Inc. uses Ascent for high fidelity, six degree of freedom missile modeling.
