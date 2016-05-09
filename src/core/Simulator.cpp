@@ -315,8 +315,8 @@ void Simulator::adaptiveCalc()
          dt_change = EPS;
       else
       {
-         if (dt_optimal > 2.0*dtp) // Limit increasing the time step too abruptly
-            dt_change = 2.0*dtp;
+         if (dt_optimal > 2.0*dt) // Limit increasing the time step too abruptly
+            dt_change = 2.0*dt;
          else
             dt_change = dt_optimal;
       }
