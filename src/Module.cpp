@@ -24,6 +24,7 @@ std::map<std::string, Module*> ModuleCore::external;
 std::map<size_t, Module*> ModuleCore::accessor;
 std::map<size_t, std::unique_ptr<Simulator>> ModuleCore::simulators;
 
+std::string Module::file_type = ".csv";
 size_t Module::next_module_id = 0;
 
 struct null_deleter { void operator()(void const *) const {} };
@@ -327,7 +328,7 @@ void Module::track(Module& module, const std::string& var_name)
 void Module::outputTrack()
 {
    ofstream file;
-   string filename = module_directory + module_name + ".txt";
+   string filename = module_directory + module_name + file_type;
    file.open(filename);
 
    if (file)
