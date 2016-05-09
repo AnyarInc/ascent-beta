@@ -1,55 +1,65 @@
-# ASCENT
-### An open source C++ architecture for time-based simulations.
-#### Developed by [Anyar, Inc.](http://www.anyarinc.com/)
+# ASCENT <a href="http://anyarinc.github.io/ascent/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/house-xxl.png" width="25"></a>
 
-Ascent is a module-based simulation architecture that can handle extremely complex and dynamic systems. 
-The architecture is built around a powerful ordinary differential equation solver, but Ascent can do far more than solve differential equations.
+[![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) [![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-### [Ascent Website](http://anyarinc.github.io/ascent/)
+Ascent is a modern, open source, C++ architecture for time and module based simulations. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
 
-### Why build simulations with Ascent?
-- **Modular**
+## Why build simulations with Ascent?
+- **Modular**: Interface with and share modules built on Ascent. 
 - **Object Oriented**: Polymorphic module handling.
-- **Automatic Simulation Ordering**: Ascent automatically orders the flow of the simulation, which allows a simulation designer to develop and solve highly modular and complex systems.
-- **Asynchronous Sampling and Event Scheduling**
-- **Run-Time Dynamic Systems**: Allows dynamic module creation, deletion, linking, and ordering, all properly handled for correct numerical integration.
-- **Fast Running**: Insofar as to not sacrifice dynamic behavior.
-- **Simulators Can Run On Separate Threads**
-- **Integrators**: Runge Kutta, Dormand Prince, and multiple real-time predictor-correctors. Some integrators support adaptive stepping.
-- **Built In Variable Tracking**: Easily record and output time history of integers, doubles, vectors, and even custom data types.
-- **ChaiScript Embedded Scripting Language**: Easily connect, initialize and run your modules from a powerful scripting engine.
-- **Eigen C++ Linear Algebra Library**: Ascent utilizes the mature Eigen library, providing straightforward matrix and vector handling.
-- **Easy To Begin!**: Only two classes (asc::Module and asc::Link) are required to solve most differential equations or systems.
+- **Fast**: Dynamic run-time behavior from back-end C++ libraries.
+- **Thread Safe**: Run simulators on separate threads for maximum performance.
+- **Community**: Share your open source modules and libraries built on Ascent in the Ascent-Community repositories.
+- **Easy To Begin!**: Solve most differential equations or systems with two classes (asc::Module and asc::Link).
 
-### Building The Ascent Library
-- Clone Ascent
-- Install the [CMake](https://cmake.org/) GUI and use it to generate a build directory within the ascent directory
-- Or, if you're on Windows, just double click the build.bat file to build Visual Studio 14 2015 Win64 project and libraries.
-_You can edit the batch file and change the generator to another compatable CMake generator._
+## Features
+- **Automatic Simulation Ordering**: Develop and solve modular, complex systems with automatic ordering of simulation flow.
+- **Run-Time Dynamic Systems**: Allows dynamic module creation, deletion, linking, and ordering for numerical integration.
+- **Variable Tracking**: Record time history of integers, doubles, vectors, and custom data types.
+- **Asynchronous Sampling**
+- **Event Scheduling**
+- **Integrators**
+    - Runge Kutta
+    - Dormand Prince
+    - multiple real-time predictor-correctors. 
+    - Some integrators support adaptive stepping
 
-Ascent requires a C++14 compliant compiler.
 
-_master_ [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent)     _develop_ [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=develop)](https://travis-ci.org/AnyarInc/ascent)  
+***
+## Prerequisites
+- **C++14 compliant compiler**
+- [CMake](https://cmake.org/download/) Cross-Platform build system (<font color="red">Required</font>)  <a href="http://anyarinc.github.io/ascent/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/data-transfer-download-xxl.png" width="20"></a> 
+- [Eigen](http://eigen.tuxfamily.org/) C++ Linear Algebra Library (<font color="green">Included</font>)
+- [ChaiScript](http://chaiscript.com/) Embedded Scripting Language (<font color="green">Included</font>)
 
-### [Ascent Community](https://github.com/Ascent-Community)
 
-Ascent was designed to allow any modules built on Ascent to be easily shared and interfaced with other Ascent modules.  
-_Share your open source modules and libraries built on Ascent in the Ascent-Community repositories._
 
-### [Support](http://anyarinc.github.io/ascent/support.html)
+## Setup
+> To change the default generator (_Visual Studio 14 2015 Win64_), edit _build.bat_ to another compatible CMake generator.
 
-[![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+```
+git clone https://github.com/AnyarInc/ascent.git
+cd ascent
+build
+```
+***
+## Support
 
-### Contributions are Welcome!
-
+- [Ascent Website](http://anyarinc.github.io/ascent/)
+- [Gitter](https://gitter.im/AnyarInc/ascent)
 - [Q&A forum](https://groups.google.com/forum/#!forum/Ascent-Users)
+- [Support Page](http://anyarinc.github.io/ascent/support.html)
+
+## Contributions are Welcome!
+
 - [Report an issue](https://github.com/AnyarInc/ascent/issues)
+- [Ascent Community](https://github.com/Ascent-Community)
+- [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent)
 
-Please report bugs, offer fixes, contribute modules, ask questions and answer questions. The more the merrier!
+***
+## Developed by [Anyar, Inc.](http://www.anyarinc.com/)
+- high fidelity, six degree of freedom missile modeling
+- viscoelastic human injury 
+- blunt and blast trauma
 
-For those interested in contributing to the core of Ascent, see [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent), which explains more details of architecture design/goals.
-
-### Projects using Ascent
-- Anyar, Inc. uses Ascent for high fidelity, six degree of freedom missile modeling.
-- Anyar, Inc. maintains viscoelastic human injury blunt and blast trauma software built on Ascent.  
-_Share your projects using Ascent._
+<a href="http://anyarinc.com"> <img src="http://www.anyarinc.com/wp-content/uploads/2015/06/anyar-logo-1.png"></a>
