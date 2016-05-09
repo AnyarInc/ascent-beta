@@ -343,7 +343,7 @@ void Module::outputTrack()
          length = ModuleCore::getModule(id).vars.length(var_name);
 
       if (print_time)
-         file << "t" << ", ";
+         file << "t" << ",";
 
       size_t n = tracking.size();
       for (size_t i = 0; i < n; ++i)
@@ -352,7 +352,7 @@ void Module::outputTrack()
          if (i == n - 1) // last parameter
             file << ModuleCore::getModule(p.first).name() << " " << p.second;
          else
-            file << ModuleCore::getModule(p.first).name() << " " << p.second << ", ";
+            file << ModuleCore::getModule(p.first).name() << " " << p.second << ",";
       }
 
       file << '\n';
@@ -360,7 +360,7 @@ void Module::outputTrack()
       for (size_t i = 0; i < length; ++i)
       {
          if (print_time)
-            file << simulator.t_hist[i] << ", ";
+            file << simulator.t_hist[i] << ",";
 
          n = tracking.size();
          for (size_t j = 0; j < n; ++j)
@@ -368,7 +368,7 @@ void Module::outputTrack()
             auto& p = tracking[j];
             file << ModuleCore::getModule(p.first).vars.print(p.second, i);
             if (j < n - 1) // not the last parameter
-               file << ", ";
+               file << ",";
          }
 
          file << '\n';
