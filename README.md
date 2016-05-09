@@ -8,14 +8,13 @@ Ascent is a modern, open source, C++ architecture for time and module based simu
 - **Modular**: Interface with and share modules built on Ascent. 
 - **Object Oriented**: Polymorphic module handling.
 - **Fast**: Dynamic run-time behavior from back-end C++ libraries.
-- **Thread Safe**: Run simulators on separate threads for maximum performance.
 - **Community**: Share your open source modules and libraries built on Ascent in the Ascent-Community repositories.
 - **Easy To Begin!**: Solve most differential equations or systems with two classes (asc::Module and asc::Link).
 
 ## Features
 - **Automatic Simulation Ordering**: Develop and solve modular, complex systems with automatic ordering of simulation flow.
 - **Run-Time Dynamic Systems**: Allows dynamic module creation, deletion, linking, and ordering for numerical integration.
-- **Variable Tracking**: Record time history of integers, doubles, vectors, and custom data types.
+- **Variable Tracking**: Record time history of intrinsic and custom data types.
 - **Asynchronous Sampling**
 - **Event Scheduling**
 - **Integrators**
@@ -28,7 +27,7 @@ Ascent is a modern, open source, C++ architecture for time and module based simu
 ***
 ## Prerequisites
 - **C++14 compliant compiler**
-- [CMake](https://cmake.org/download/) Cross-Platform build system (<font color="red">Required</font>)  <a href="http://anyarinc.github.io/ascent/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/data-transfer-download-xxl.png" width="20"></a> 
+- [CMake](https://cmake.org/download/) Cross-Platform build system (<font color="red">Required</font>)  <a href="https://cmake.org/download/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/data-transfer-download-xxl.png" width="20"></a> 
 - [Eigen](http://eigen.tuxfamily.org/) C++ Linear Algebra Library (<font color="green">Included</font>)
 - [ChaiScript](http://chaiscript.com/) Embedded Scripting Language (<font color="green">Included</font>)
 
