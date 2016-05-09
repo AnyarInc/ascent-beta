@@ -9,8 +9,8 @@ Ascent is a modern, open source, C++ architecture for time and module based simu
 - **Object Oriented**: Polymorphic module handling.
 - **Fast**: Dynamic run-time behavior from back-end C++ libraries.
 - **Thread Safe**: Run simulators on separate threads for maximum performance.
-- **Easy To Begin!**: Only two classes (asc::Module and asc::Link) are required to solve most differential equations or systems.
 - **Community**: Share your open source modules and libraries built on Ascent in the Ascent-Community repositories.
+- **Easy To Begin!**: Solve most differential equations or systems with two classes (asc::Module and asc::Link).
 
 ## Features
 - **Automatic Simulation Ordering**: Develop and solve modular, complex systems with automatic ordering of simulation flow.
@@ -35,7 +35,7 @@ Ascent is a modern, open source, C++ architecture for time and module based simu
 
 
 ## Setup
-> Note: Edit the batch file to change the default generator (_Visual Studio 14 2015 Win64_) to another compatable CMake generator.
+> To change the default generator (_Visual Studio 14 2015 Win64_), edit _build.bat_ to another compatible CMake generator.
 
 ```
 git clone https://github.com/AnyarInc/ascent.git
@@ -56,7 +56,7 @@ build
 - [Ascent Community](https://github.com/Ascent-Community)
 - [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent)
 
-
+***
 ## Developed by [Anyar, Inc.](http://www.anyarinc.com/)
 - high fidelity, six degree of freedom missile modeling
 - viscoelastic human injury 
