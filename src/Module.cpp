@@ -375,7 +375,7 @@ void Module::outputTrack()
       }
    }
    else
-      error("File <" + filename + "> could not be created.");
+      error("File " + filename + " could not be created.");
    
    file.close();
 }
