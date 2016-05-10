@@ -20,15 +20,19 @@
 #include "ascent/core/State.h"
 #include "ascent/core/Vars.h"
 
-#define ascModule(module) if (!chai.modules.count(#module)) { chai.add(chaiscript::fun(static_cast<bool (module::*)()>(&module::run)), "run"); \
-chai.add(chaiscript::fun(static_cast<bool (module::*)(const double, const double)>(&module::run)), "run"); \
-chai.add(chaiscript::base_class<asc::Module, std::decay<decltype(*this)>::type>()); \
-chai.modules.insert(#module); }
+#define ascModule(module)\
+if (!chai.modules.count(#module)) {\
+   chai.add(chaiscript::fun(static_cast<bool (module::*)()>(&module::run)), "run");\
+   chai.add(chaiscript::fun(static_cast<bool (module::*)(const double, const double)>(&module::run)), "run");\
+   chai.add(chaiscript::base_class<asc::Module, std::decay<decltype(*this)>::type>());\
+   chai.modules.insert(#module);\
+}
 
-#define ascVar(x) define(#x, x); \
-if (!chai.registered(typeid(*this).name(), #x)) \
-{ chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x); \
-chai.chai_rg[#x] = typeid(*this).name(); }
+#define ascVar(x) define(#x, x);\
+if (!chai.registered(typeid(*this).name(), #x)) {\
+   chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
+   chai.chai_rg[#x] = typeid(*this).name();\
+}
 
 namespace asc {
    namespace hidden {
@@ -37,14 +41,17 @@ namespace asc {
    }
 }
 
-#define ascLink(x) if (!chai.registered(typeid(*this).name(), #x)) \
-{ chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x); \
-chai.chai_rg[#x] = typeid(*this).name(); } \
-if (!chai.links.count(typeid(decltype(x)))) \
-{ chai.add(chaiscript::base_class<asc::LinkBase, std::decay<decltype(x)>::type>()); \
-chai.add(chaiscript::fun(&asc::hidden::assignModule), "="); \
-chai.add(chaiscript::fun(&asc::hidden::assignLink), "="); \
-chai.links.insert(typeid(decltype(x))); }
+#define ascLink(x) \
+if (!chai.registered(typeid(*this).name(), #x)) {\
+   chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
+   chai.chai_rg[#x] = typeid(*this).name();\
+}\
+if (!chai.links.count(typeid(decltype(x)))) {\
+   chai.add(chaiscript::base_class<asc::LinkBase, std::decay<decltype(x)>::type>());\
+   chai.add(chaiscript::fun(&asc::hidden::assignModule), "=");\
+   chai.add(chaiscript::fun(&asc::hidden::assignLink), "=");\
+   chai.links.insert(typeid(decltype(x)));\
+}
 
 namespace asc
 {
