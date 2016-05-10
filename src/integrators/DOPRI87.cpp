@@ -124,10 +124,11 @@ double DOPRI87::optimalTimeStep()
       // 7th order:
       double x7th = x0 + dt * (13451932.0 / 455176623.0 * xd0 - 808719846.0 / 976000145.0 * xd5 + 1757004468.0 / 5645159321.0 * xd6 + 656045339.0 / 265891186.0 * xd7 - 3867574721.0 / 1518517206.0 * xd8 + 465885868.0 / 322736535.0 * xd9 + 53011238.0 / 667516719.0 * xd10 + 2.0 / 45.0 *xd11);
       double error = abs(x - x7th);
-      if (error > 0.0)
-         s = pow((tolerance*dt / (2.0*error)), (1.0 / 8.0)); // optimal time interval
+      double temp = 1.25*pow((error / tolerance), (1.0 / 8.0));
+      if (temp > 0.5)
+         s = 1.0 / temp;
       else
-         s = 2.0;
+         s = 2.0; // maximum stepsize increase
    }
 
    return s*dt;

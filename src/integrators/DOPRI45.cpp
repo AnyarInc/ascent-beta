@@ -85,12 +85,11 @@ double DOPRI45::optimalTimeStep()
       // However, this optimalTimeStep() call needs to happen between update() and propagate(), unlike the DOPRI87 method.
       double x4th = x0 + dt * (5179.0 / 57600.0 * xd0 + 7571.0 / 16695.0 * xd2 + 393.0 / 640.0 * xd3 - 92097.0 / 339200.0 * xd4 + 187.0 / 2100.0 * xd5 + 1.0 / 40.0 * xd);
       double error = std::abs(x4th - x);
-      if (error > 0.0)
-         s = 0.9 * tolerance / error;
+      double temp = 1.25*pow((error / tolerance), (1.0 / 5.0));
+      if (temp > 0.25)
+         s = 1.0 / temp;
       else
-         s = 2.0;
-
-      //s = pow((tolerance*dt / (2.0*error)), (1.0 / 5.0)); // optimal time interval
+         s = 4.0; // maximum stepsize increase
    }
 
    return s*dt;
