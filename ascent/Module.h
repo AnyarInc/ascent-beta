@@ -29,7 +29,7 @@ if (!chai.modules.count(#module)) {\
 }
 
 #define ascVar(x) define(#x, x);\
-if (!chai.registered(typeid(*this).name(), #x))\ {\
+if (!chai.registered(typeid(*this).name(), #x)) {\
    chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
    chai.chai_rg[#x] = typeid(*this).name();\
 }
