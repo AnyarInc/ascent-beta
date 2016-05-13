@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) [![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Ascent is a modern, open source, C++ architecture for time based simulations. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
+Ascent is a modern, open source, C++ simulation architecture and engine. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
 
 ## Why build simulations with Ascent?
 - **Modular**: Interface with and share modules built on Ascent. 
@@ -13,7 +13,7 @@ Ascent is a modern, open source, C++ architecture for time based simulations. Bu
 
 ## Features
 - **Automatic Simulation Ordering**: Develop and solve modular, complex systems with automatic ordering of simulation flow.
-- **Run-Time Dynamic Systems**: Allows dynamic module creation, deletion, linking, and ordering for numerical integration.
+- **Run-Time Dynamic Systems**: Allows dynamic module creation, deletion, linking, and ordering.
 - **Variable Tracking**: Record time history of intrinsic and custom data types.
 - **Asynchronous Sampling**
 - **Asynchronous Event Scheduling**
