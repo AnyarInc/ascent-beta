@@ -69,12 +69,17 @@ Module::Module(size_t sim) : simulator(getSimulator(sim)),
    simulator.modules[module_id] = this;
    
 #define ascNS Module
-   ascVar(frozen)
+   ascVar(frozen);
 
    // SHOULD THESE BE ADDED BASED ON THE SIMULATOR PHASE?
    // THIS QUESTION IS REFERRING TO MODULES THAT ARE INSTATIATED WHILE THE SIMULATION IS RUNNING.
    // WHERE ARE YOU CONNECTING MODULES? THIS IS IMPORTANT AS TO WHEN INIT() IS CALLED.
-   // init() could just automatically be called if the simulation is running.
+   // Considering:
+   //if (simulator.phase != Phase::setup)
+   //   callInit();
+   //else
+   //   simulator.inits[module_id] = this;
+
    simulator.inits[module_id] = this;
    simulator.updates[module_id] = this;
    simulator.postcalcs[module_id] = this;

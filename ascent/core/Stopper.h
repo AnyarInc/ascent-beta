@@ -14,10 +14,6 @@
 
 #pragma once
 
-// C++ Modeling Tools
-// Anyar Inc
-// Stephen Berry
-
 // A class that stops the simulation if all stopping modules ending conditions are true.
 // Template parameter T should be Module (Module isn't included here for the sake of avoiding circular header dependency).
 
