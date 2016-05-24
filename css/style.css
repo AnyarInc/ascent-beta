@@ -1237,3 +1237,72 @@
 .interactive:hover {
 	cursor: pointer;
 }
+
+
+/* Pagination */
+ul.pagination {
+    display: inline-block;
+	font-size: 16pt;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+ul.pagination li a.active {
+    /*background-color: #629DD1;*/
+	/*color: white;*/
+	background-color: transparent;
+    color: #629DD1;
+	font-weight: 400;
+}
+
+ul.pagination li a:hover:not(.active){
+	background-color: transparent;
+    color: #6ab3e2;
+	font-weight: 400;
+}
+
+div.center {text-align: center;}
+
+
+/* Drop Down Menu */
+li.dropdown {
+	position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 50px;
+	max-width: 100px;
+    box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	font-size: 12pt;
+    color: black;
+    padding: 2px 2px 2px 14px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

@@ -1,0 +1,129 @@
+---
+layout: default
+GoogleCharts: true
+---
+
+<section class="wrapper style1">
+	<header class="major">
+        <h2>Spring-Mass-Damper</h2>
+    </header>
+	
+	<div class="container">
+        <div class="row">
+            <div class="6u">
+                <section class="special">
+                    <a href="{{ site.baseurl }}/spring-damper.html" class="image fit"><img src="images/Spring-Damper.png" style="max-width:300px;" alt="" /></a>
+					<p></P>
+					<ul class="actions">
+                        <a href="{{ site.baseurl }}/spring-damper.html" class="button alt">Spring Damper</a>
+                    </ul>
+                    <p>Solve a spring-mass-damper system in a modular way that allows any number of springs and dampers to be attached in parallel.
+					This example begins to show the true power of modeling in Ascent.</p>
+                </section>
+            </div>
+            <div class="6u">
+                <section class="special">
+					<script src="data/control.js"></script>
+					<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+					
+					<script type="text/javascript">
+					  google.charts.setOnLoadCallback(drawChart);
+
+					  function drawChart() {
+						var data = google.visualization.arrayToDataTable(control);
+
+						var options = {
+							series: {
+								0: { color: '#b34d4d' },
+								1: { color: '#3984c6' },
+							  },
+							height: 300,
+							backgroundColor: 'transparent',
+							title: 'PID Control',
+							curveType: 'function',
+							vAxis: { title: 'x', gridlines: { color: 'transparent' }, viewWindow: { min: 0, max: 1.5} },
+							hAxis: { title: 'Time', gridlines: { color: 'transparent' } },
+							legend: { position: 'bottom' }
+						};
+
+						var chart = new google.visualization.LineChart(document.getElementById('control_graph'));
+						chart.draw(data, options);
+					  }
+					</script>
+					
+					<body><div id="control_graph" class="image fit"></div></body>
+					<ul class="actions">
+                        <a href="{{ site.baseurl }}/control.html" class="button alt">Control</a>
+                    </ul>
+                    <p>Use Proportional, Integral, Derivative (PID) control on a Spring-Damper system.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+	
+	<hr>
+	
+	<div class="container">
+        <div class="row">
+            <div class="6u">
+                <section class="special">
+					<script src="data/multithread.js"></script>
+					<script type="text/javascript">
+					  google.charts.setOnLoadCallback(drawChart);
+
+					  function drawChart() {
+						var data = google.visualization.arrayToDataTable(multithread);
+
+						var options = {
+							series: {
+								0: { color: '#b34d4d' },
+								1: { color: '#3984c6' },
+								2: { color: '#45a179' },
+								3: { color: '#ff8533' },
+								4: { color: '#889294' },
+							  },
+							height: 300,
+							backgroundColor: 'transparent',
+							title: 'PID Control',
+							curveType: 'function',
+							vAxis: { title: 'x', gridlines: { color: 'transparent' }, viewWindow: { min: 0, max: 1.5} },
+							hAxis: { title: 'Time', gridlines: { color: 'transparent' } },
+							legend: { position: 'bottom' }
+						};
+
+						var chart = new google.visualization.LineChart(document.getElementById('multithread'));
+						chart.draw(data, options);
+					  }
+					</script>
+					
+					<body><div id="multithread" class="image fit"></div></body>
+					<ul class="actions">
+                        <a href="{{ site.baseurl }}/multithread.html" class="button alt">Multi-Threaded Control</a>
+                    </ul>
+                    <p>Run the Control module on multiple threads with different proportional gains.</p>
+                </section>
+            </div>
+			
+			<div class="6u">
+				<section class="special">
+					{% include/system-chart-300.html %}
+					<ul class="actions">
+						<a href="{{ site.baseurl }}/system.html" class="button alt">Complex System</a>
+					</ul>
+					<p>Solve a complex spring-mass-damper system.</p>
+				</section>
+			</div>
+        </div>
+    </div>
+	
+	<hr>
+	
+	<div class="center">
+	  <ul class="pagination">
+	  <li><a href="{{ site.baseurl }}/examples.html">&#10092</a></li>
+		<li><a href="{{ site.baseurl }}/examples.html">1</a></li>
+		<li><a class="active" href="#">2</a></li>
+		<!--<li><a href="#">3</a></li>-->
+	  </ul>
+	</div>
+</section>
