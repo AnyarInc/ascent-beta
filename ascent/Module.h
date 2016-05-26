@@ -353,6 +353,8 @@ namespace asc
       /** Used to reset Module parameters after update() and report() have been called (runs for internal kpass steps as well). */
       virtual void reset() { simulator.resets.erase(module_id); }
 
+      void addPhases();
+
       /** Enables a variable in this Module to be tracked and/or externally accessed and set.
       * @param id  The string identification used to access the variable.
       * @param x  Variable to be tracked via a pointer. Hence the variable's memory should be owned by this class.

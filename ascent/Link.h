@@ -35,7 +35,7 @@ namespace asc
       Link() {}
 
       template <typename... Types>
-      Link(const size_t sim, Types&&... args) : module(new Unqualified<T>(sim, std::forward<Types>(args)...)) {}
+      Link(const size_t sim, Types&&... args) : module(new Unqualified<T>(sim, std::forward<Types>(args)...)), async(module.get()) {}
 
       Link(const Link<T>& link)
       {
@@ -58,12 +58,17 @@ namespace asc
                if (simulator.phase != Phase::setup)
                   simulator.to_delete.push_back(module); // transfer ownership of the shared_ptr
                else
+               {
                   module = nullptr; // destroy this module immediately because the simulation isn't running
+                  const_cast<T*>(async) = nullptr;
+               }
             }
          }
       }
 
       T* operator -> () { return access(); } // The pointer is copied with T qualifiers, so that the module can be const qualified.
+
+      T* const async{}; // For asynchronous module access. Do not delete.
 
       Link<T>& operator = (const Link<T>& link) { assign(link); return *this; }
 
@@ -123,6 +128,7 @@ namespace asc
       void assign(const Link<T1>& link)
       {
          module = std::static_pointer_cast<Unqualified<T>>(link.module);
+         const_cast<T*>(async) = module.get();
       }
 
       void assign(Module& base)
@@ -130,6 +136,7 @@ namespace asc
          // shared_from_this() must be cast in order to increment reference count on shared_ptr (myself can't be used because it has a null deleter)
          // need dynamic_pointer_cast to allow multiple inheritance for modules
          module = std::dynamic_pointer_cast<Unqualified<T>>(base.shared_from_this());
+         const_cast<T*>(async) = module.get();
       }
 
       void assignLinkBase(LinkBase& link_base)

@@ -165,6 +165,13 @@ void Simulator::init()
          break;
    }
 
+   for (Module* module : to_add) // handle modules added during runtime
+   {
+      module->addPhases();
+      module->callInit();
+   }
+   to_add.clear();
+
    inits.erase(); // removes any modules that have been set for deletion
 }
 
@@ -179,6 +186,13 @@ void Simulator::update()
       if (error)
          break;
    }
+
+   for (Module* module : to_add) // handle modules added during runtime
+   {
+      module->addPhases();
+      module->callUpdate();
+   }
+   to_add.clear();
 
    updates.erase();
 
@@ -198,6 +212,13 @@ void Simulator::postcalc()
          break;
    }
 
+   for (Module* module : to_add) // handle modules added during runtime
+   {
+      module->addPhases();
+      module->callPostCalc();
+   }
+   to_add.clear();
+
    postcalcs.erase();
 
    for (auto& p : postcalcs)
@@ -215,6 +236,13 @@ void Simulator::check()
       if (error)
          break;
    }
+
+   for (Module* module : to_add) // handle modules added during runtime
+   {
+      module->addPhases();
+      module->callCheck();
+   }
+   to_add.clear();
 
    checks.erase();
 
@@ -234,6 +262,13 @@ void Simulator::report()
          break;
    }
 
+   for (Module* module : to_add) // handle modules added during runtime
+   {
+      module->addPhases();
+      module->callReport();
+   }
+   to_add.clear();
+
    reports.erase();
 
    for (auto& p : reports)
@@ -251,6 +286,13 @@ void Simulator::reset()
       if (error)
          break;
    }
+
+   for (Module* module : to_add) // handle modules added during runtime
+   {
+      module->addPhases();
+      module->callReset();
+   }
+   to_add.clear();
 
    resets.erase();
 
