@@ -86,6 +86,8 @@ namespace asc
 
       module_map trackers;
 
+      std::vector<asc::Module*> to_add; // modules are temporarily held here when added during runtime to avoid invalidating the module_map iterator for the current phase
+
       void setup(const double dt);
 
       void init();

@@ -69,12 +69,19 @@ Module::Module(size_t sim) : simulator(getSimulator(sim)),
    simulator.modules[module_id] = this;
    
 #define ascNS Module
-   ascVar(frozen)
+   ascVar(frozen);
 
-   // SHOULD THESE BE ADDED BASED ON THE SIMULATOR PHASE?
-   // THIS QUESTION IS REFERRING TO MODULES THAT ARE INSTATIATED WHILE THE SIMULATION IS RUNNING.
-   // WHERE ARE YOU CONNECTING MODULES? THIS IS IMPORTANT AS TO WHEN INIT() IS CALLED.
-   // init() could just automatically be called if the simulation is running.
+   // We have to take care not to invalidate the iterators for the maps within the Simulator if a module is added during run time.
+   // We can't use call methods here like callInit() or callUpdate(), because the virtual implementations of the phase methods haven't been instantiated since we are in the constructor of the parent class.
+   // Instead, we pass information to the simulator to call these methods after the current loop is finished.
+   if (simulator.phase == Phase::setup)
+      addPhases();
+   else
+      simulator.to_add.push_back(this);
+}
+
+void Module::addPhases()
+{
    simulator.inits[module_id] = this;
    simulator.updates[module_id] = this;
    simulator.postcalcs[module_id] = this;

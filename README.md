@@ -2,26 +2,25 @@
 
 [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) [![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Ascent is a modern, open source, C++ architecture for time and module based simulations. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
+Ascent is a modern, open source, C++ simulation architecture and engine. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
 
 ## Why build simulations with Ascent?
 - **Modular**: Interface with and share modules built on Ascent. 
 - **Object Oriented**: Polymorphic module handling.
-- **Fast**: Dynamic run-time behavior from back-end C++ libraries.
+- **Fast**: Optimized for dynamic systems.
 - **Community**: Share your open source modules and libraries built on Ascent in the Ascent-Community repositories.
-- **Easy To Begin!**: Solve most differential equations or systems with two classes (asc::Module and asc::Link).
+- **Easy To Begin!** Solve most differential equations or systems with two classes (asc::Module and asc::Link).
 
 ## Features
 - **Automatic Simulation Ordering**: Develop and solve modular, complex systems with automatic ordering of simulation flow.
-- **Run-Time Dynamic Systems**: Allows dynamic module creation, deletion, linking, and ordering for numerical integration.
+- **Run-Time Dynamic Systems**: Allows dynamic module creation, deletion, linking, and ordering.
 - **Variable Tracking**: Record time history of intrinsic and custom data types.
 - **Asynchronous Sampling**
-- **Event Scheduling**
+- **Asynchronous Event Scheduling**
 - **Integrators**
-    - Runge Kutta
-    - Dormand Prince
-    - multiple real-time predictor-correctors. 
-    - Some integrators support adaptive stepping
+    - Runge Kutta (2nd, 4th, Merson)
+    - Dormand Prince (45, 87, with adaptive stepping)
+    - Multiple real-time predictor-correctors
 
 
 ***

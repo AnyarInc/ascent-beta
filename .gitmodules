@@ -6,3 +6,6 @@
 	path = ChaiScript
 	url = https://github.com/ChaiScript/ChaiScript.git
 	branch = release-5.x
+[submodule "ascent-examples"]
+	path = ascent-examples
+	url = https://github.com/Ascent-Community/ascent-examples.git

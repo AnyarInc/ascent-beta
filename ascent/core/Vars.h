@@ -14,10 +14,6 @@
 
 #pragma once
 
-// C++ Modeling Tools
-// Anyar Inc
-// Stephen Berry
-
 #include "Parameter.h"
 #include "ToString.h"
 
