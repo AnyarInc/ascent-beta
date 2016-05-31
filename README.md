@@ -45,8 +45,8 @@ build
 
 - [Ascent Website](http://anyarinc.github.io/ascent/)
 - [Gitter](https://gitter.im/AnyarInc/ascent)
-- [Q&A forum](https://groups.google.com/forum/#!forum/Ascent-Users)
 - [Support Page](http://anyarinc.github.io/ascent/support.html)
+- [Wiki](https://github.com/AnyarInc/ascent/wiki)
 
 ## Contributions are Welcome!
 
@@ -55,9 +55,8 @@ build
 - [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent)
 
 ***
-## Developed by [Anyar, Inc.](http://www.anyarinc.com/)
-- high fidelity, six degree of freedom missile modeling
-- viscoelastic human injury 
-- blunt and blast trauma
+## Developed by [Anyar, Inc.](http://www.anyarinc.com/) for:
+- High fidelity, six degree of freedom missile modeling
+- Viscoelastic human injury models (blunt and blast trauma)
 
 <a href="http://anyarinc.com"> <img src="http://www.anyarinc.com/wp-content/uploads/2015/06/anyar-logo-1.png"></a>
