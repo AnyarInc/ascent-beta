@@ -44,7 +44,6 @@ build
 ## Support
 
 - [Ascent Website](http://anyarinc.github.io/ascent/)
-- [Gitter](https://gitter.im/AnyarInc/ascent)
 - [Support Page](http://anyarinc.github.io/ascent/support.html)
 - [Wiki](https://github.com/AnyarInc/ascent/wiki)
 
