@@ -4,7 +4,7 @@
 
 Ascent is a modern, open source, C++ simulation architecture and engine. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
 
-### <a href="http://anyarinc.github.io/ascent/">Ascent Website</a>
+## <a href="http://anyarinc.github.io/ascent/">Website</a>
 
 ## Why build simulations with Ascent?
 - **Modular**: Interface with and share modules built on Ascent. 
@@ -45,7 +45,7 @@ build
 ***
 ## Support
 
-- [Ascent Website](http://anyarinc.github.io/ascent/)
+- [Gitter](https://gitter.im/AnyarInc/ascent)
 - [Support Page](http://anyarinc.github.io/ascent/support.html)
 - [Wiki](https://github.com/AnyarInc/ascent/wiki)
 
