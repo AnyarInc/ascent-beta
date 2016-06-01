@@ -56,7 +56,7 @@ build
 - [For Architects of Ascent](https://github.com/AnyarInc/Ascent/wiki/For-Architects-of-Ascent)
 
 ***
-## Developed by [Anyar, Inc.](http://www.anyarinc.com/) for:
+## Developed by [Anyar, Inc.](http://www.anyarinc.com/) for
 - High fidelity, six degree of freedom missile modeling
 - Viscoelastic human injury models (blunt and blast trauma)
 
