@@ -28,14 +28,17 @@ using namespace std;
 Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass, integrator_initialized)
 {
    integrator = std::make_unique<RK4>(stepper);
+
+   chai.add(chaiscript::var(std::ref(dt)), "dt");
+   chai.add(chaiscript::var(std::ref(t_end)), "t_end");
 }
 
 bool Simulator::run(const double dt, const double tmax)
 {
-   tend = tmax;
+   t_end = tmax;
 
-   if (tend <= t)
-      setError("The end time : " + to_string(tend) + " is less than or equal to the current time : " + to_string(t));
+   if (t_end <= t)
+      setError("The end time : " + to_string(t_end) + " is less than or equal to the current time : " + to_string(t));
 
    if (modules.size() == 0)
       setError("There are no modules to run.");
@@ -49,7 +52,7 @@ bool Simulator::run(const double dt, const double tmax)
 
    while (!error)
    {
-      event(tend);
+      event(t_end);
 
       if (tickfirst)
       {
@@ -90,7 +93,7 @@ bool Simulator::run(const double dt, const double tmax)
 
          runStoppers();
 
-         if (stop_simulation || (t + EPS >= tend))
+         if (stop_simulation || (t + EPS >= t_end))
             ticklast = true;
 
          report();

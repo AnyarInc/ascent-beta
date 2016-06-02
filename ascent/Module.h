@@ -121,11 +121,11 @@ namespace asc
 
       /** Runs this module's associated simulator.
       * @param dt  The time step of for the simulator.
-      * @param tend  The end time to run the simulator until.
+      * @param t_end  The end time to run the simulator until.
       */
-      bool run(const double dt, const double tend) { return simulator.run(dt, tend); }
+      bool run(const double dt, const double t_end) { return simulator.run(dt, t_end); }
 
-      /** Runs this module's associated simulator at currently set dt and tend values. */
+      /** Runs this module's associated simulator at currently set dt and t_end values. */
       bool run() { return simulator.run(); }
 
       /** The simulator's current time. */
