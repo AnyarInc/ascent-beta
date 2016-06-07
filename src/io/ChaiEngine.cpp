@@ -23,64 +23,56 @@
 
 using namespace asc;
 
-void assignVector2d(Eigen::Vector2d& lhs, const Eigen::Vector2d& rhs) { lhs = rhs; }
-Eigen::Vector2d times0Vector2d(const double lhs, const Eigen::Vector2d& rhs) { return lhs*rhs; }
-Eigen::Vector2d times1Vector2d(const Eigen::Vector2d& lhs, const double rhs) { return lhs*rhs; }
-double dotVector2d(const Eigen::Vector2d& lhs, const Eigen::Vector2d& rhs) { return lhs.dot(rhs); }
+template <typename E>
+void assign(E& lhs, const E& rhs) { lhs = rhs; }
 
-void assignVector3d(Eigen::Vector3d& lhs, const Eigen::Vector3d& rhs) { lhs = rhs; }
-Eigen::Vector3d times0Vector3d(const double lhs, const Eigen::Vector3d& rhs) { return lhs*rhs; }
-Eigen::Vector3d times1Vector3d(const Eigen::Vector3d& lhs, const double rhs) { return lhs*rhs; }
-double dotVector3d(const Eigen::Vector3d& lhs, const Eigen::Vector3d& rhs) { return lhs.dot(rhs); }
-Eigen::Vector3d crossVector3d(const Eigen::Vector3d& lhs, const Eigen::Vector3d& rhs) { return lhs.cross(rhs); }
+template <typename E>
+E cross(const E& lhs, const E& rhs) { return lhs.cross(rhs); }
 
-void assignVector4d(Eigen::Vector4d& lhs, const Eigen::Vector4d& rhs) { lhs = rhs; }
-Eigen::Vector4d times0Vector4d(const double lhs, const Eigen::Vector4d& rhs) { return lhs*rhs; }
-Eigen::Vector4d times1Vector4d(const Eigen::Vector4d& lhs, const double rhs) { return lhs*rhs; }
-double dotVector4d(const Eigen::Vector4d& lhs, const Eigen::Vector4d& rhs) { return lhs.dot(rhs); }
+template <typename E>
+double dot(const E& lhs, const E& rhs) { return lhs.dot(rhs); }
 
-Eigen::Vector4d times0VectorXd(const double lhs, const Eigen::VectorXd& rhs) { return lhs*rhs; }
-Eigen::Vector4d times1VectorXd(const Eigen::VectorXd& lhs, const double rhs) { return lhs*rhs; }
-double dotVectorXd(const Eigen::VectorXd& lhs, const Eigen::VectorXd& rhs) { return lhs.dot(rhs); }
+template <typename LHS, typename E>
+E timesL(const LHS& lhs, const E& rhs) { return lhs*rhs; }
 
-Eigen::MatrixXd times0MatrixXd(const double lhs, const Eigen::MatrixXd& rhs) { return lhs*rhs; }
-Eigen::MatrixXd times1MatrixXd(const Eigen::MatrixXd& lhs, const double rhs) { return lhs*rhs; }
-Eigen::MatrixXd times2MatrixXd(const Eigen::VectorXd& lhs, const Eigen::MatrixXd& rhs) { return lhs*rhs; }
-Eigen::MatrixXd times3MatrixXd(const Eigen::MatrixXd& lhs, const Eigen::VectorXd& rhs) { return lhs*rhs; }
+template <typename E, typename RHS>
+E timesR(const E& lhs, const RHS& rhs) { return lhs*rhs; }
 
 ChaiEngine::ChaiEngine() : chaiscript::ChaiScript(chaiscript::Std_Lib::library())
 {
    // Register Eigen matrix/vector types
    add(chaiscript::constructor<Eigen::Vector2d(const double x0, const double x1)>(), "Vector2d");
    add(chaiscript::constructor<Eigen::Vector2d(const Eigen::Vector2d&)>(), "Vector2d");
-   add(chaiscript::fun(&assignVector2d), "=");
-   add(chaiscript::fun(&times0Vector2d), "*");
-   add(chaiscript::fun(&times1Vector2d), "*");
-   add(chaiscript::fun(&dotVector2d), "dot");
+   add(chaiscript::fun(&assign<Eigen::Vector2d>), "=");
+   add(chaiscript::fun(&timesL<double, Eigen::Vector2d>), "*");
+   add(chaiscript::fun(&timesR<Eigen::Vector2d, double>), "*");
+   add(chaiscript::fun(&dot<Eigen::Vector2d>), "dot");
 
    add(chaiscript::constructor<Eigen::Vector3d(const double x0, const double x1, const double x2)>(), "Vector3d");
    add(chaiscript::constructor<Eigen::Vector3d(const Eigen::Vector3d&)>(), "Vector3d");
-   add(chaiscript::fun(&assignVector3d), "=");
-   add(chaiscript::fun(&times0Vector3d), "*");
-   add(chaiscript::fun(&times1Vector3d), "*");
-   add(chaiscript::fun(&dotVector3d), "dot");
-   add(chaiscript::fun(&crossVector3d), "cross");
+   add(chaiscript::fun(&assign<Eigen::Vector3d>), "=");
+   add(chaiscript::fun(&timesL<double, Eigen::Vector3d>), "*");
+   add(chaiscript::fun(&timesR<Eigen::Vector3d, double>), "*");
+   add(chaiscript::fun(&dot<Eigen::Vector3d>), "dot");
+   add(chaiscript::fun(&cross<Eigen::Vector3d>), "cross");
 
    add(chaiscript::constructor<Eigen::Vector4d(const double x0, const double x1, const double x2, const double x3)>(), "Vector4d");
    add(chaiscript::constructor<Eigen::Vector4d(const Eigen::Vector4d&)>(), "Vector4d");
-   add(chaiscript::fun(&assignVector4d), "=");
-   add(chaiscript::fun(&times0Vector4d), "*");
-   add(chaiscript::fun(&times1Vector4d), "*");
-   add(chaiscript::fun(&dotVector4d), "dot");
+   add(chaiscript::fun(&assign<Eigen::Vector4d>), "=");
+   add(chaiscript::fun(&timesL<double, Eigen::Vector4d>), "*");
+   add(chaiscript::fun(&timesR<Eigen::Vector4d, double>), "*");
+   add(chaiscript::fun(&dot<Eigen::Vector4d>), "dot");
 
-   add(chaiscript::fun(&times0VectorXd), "*");
-   add(chaiscript::fun(&times1VectorXd), "*");
-   add(chaiscript::fun(&dotVectorXd), "dot");
+   add(chaiscript::fun(&assign<Eigen::VectorXd>), "=");
+   add(chaiscript::fun(&timesL<double, Eigen::VectorXd>), "*");
+   add(chaiscript::fun(&timesR<Eigen::VectorXd, double>), "*");
+   add(chaiscript::fun(&dot<Eigen::VectorXd>), "dot");
 
-   add(chaiscript::fun(&times0MatrixXd), "*");
-   add(chaiscript::fun(&times1MatrixXd), "*");
-   add(chaiscript::fun(&times2MatrixXd), "*");
-   add(chaiscript::fun(&times3MatrixXd), "*");
+   add(chaiscript::fun(&assign<Eigen::MatrixXd>), "=");
+   add(chaiscript::fun(&timesL<double, Eigen::MatrixXd>), "*");
+   add(chaiscript::fun(&timesL<Eigen::VectorXd, Eigen::MatrixXd>), "*");
+   add(chaiscript::fun(&timesR<Eigen::MatrixXd, double>), "*");
+   add(chaiscript::fun(&timesR<Eigen::MatrixXd, Eigen::VectorXd>), "*");
 }
 
 bool ChaiEngine::registered(const std::string& module, const std::string& var)
