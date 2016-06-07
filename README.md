@@ -29,7 +29,7 @@ Ascent is a modern, open source, C++ simulation architecture and engine. Built a
 ## Prerequisites
 - **C++14 compliant compiler**
 - [CMake](https://cmake.org/download/) Cross-Platform build system (<font color="red">Required</font>)  <a href="https://cmake.org/download/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/data-transfer-download-xxl.png" width="20"></a> 
-- [Eigen](http://eigen.tuxfamily.org/) C++ Linear Algebra Library (<font color="green">Included</font>)
+- [Eigen](http://eigen.tuxfamily.org/) Linear Algebra Library (<font color="green">Included</font>)
 - [ChaiScript](http://chaiscript.com/) Embedded Scripting Language (<font color="green">Included</font>)
 
 
