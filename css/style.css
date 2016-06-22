@@ -1233,7 +1233,7 @@
     cursor: pointer;
 }
 
-/* Cursor change for 3d graphs */
+/* Cursor change for graphs and images */
 .interactive:hover {
 	cursor: pointer;
 }

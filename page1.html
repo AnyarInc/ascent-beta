@@ -1,0 +1,679 @@
+---
+layout: slide
+title: SimTIM Presentation
+theme: black-ascent
+transition: slide
+---
+
+<body>
+	<div class="reveal">
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<!--<section data-background="images/primary.jpg">
+				<br><br><br>
+				<h1>ASCENT</h1>
+				<br><br><br>
+				<h6>Stephen Berry <br> June 14th 2016 <br> Anyar, Inc.</h6>
+			</section>-->
+			
+			<section data-background="images/primary.jpg">
+				<br><br><br><br>
+				<h1>ASCENT</h1>
+				<br><br><br><br>
+				<h6>Stephen Berry <br> June, 2016 <br> Anyar, Inc.</h6>
+				<p><a href="http://anyarinc.github.io/ascent/">http://anyarinc.github.io/ascent/</a><h5>
+			</section>
+			
+			<section data-background="images/primary-faded2.jpg">
+				<div style="text-align:left">
+					<h5 style="text-align:center">A modern, open source, C++ simulation architecture and engine</h5>
+					<hr>
+					<p>Replaces two aerospace architectures used by the US Air Force, Army, and NASA:</p>
+					<ul>
+						<li>Computer Aided Design of Aerospace Concepts (CADAC++)
+						<li>C++ Model Developer
+					</ul>
+					<hr>
+					<p>Developed under Phase 3 SBIR for Air Force Research Lab</p>
+				</div>
+			</section>
+			
+			<section data-background="images/primary-faded3.jpg">
+				<h4>Why Another Simulation Engine?</h4>
+				<div style="text-align:left">
+					<p>
+						&#10146 Automatic, dynamic ordering with mixed synchronicity<br>
+						&#10146 Non-iterative, matrix free system solving<br>
+						&#10146 Modern, memory managed, C++<br>
+						&#10146 Distributed and multi-threaded simulations<br>
+						&#10146 Highly generic and modular<br>
+						&#10146 Built on powerful open source libraries<br>
+						<ul><li>and more . . .</li></ul>
+					</p>
+				</div>
+			</section>
+			
+			<section>
+				<section>
+					<h4>CADAC++</h4>
+					<div style="text-align:left">
+						<p>
+							&#10146 Over 35 years of development by Dr. Peter H. Zipfel<br>
+							&#10146 Used by the Air Force Research Lab for high fidelity 6 DoF missile modeling
+						</p>
+					</div>
+					<br><a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section>
+				
+				<section>
+					<h5>CADAC++ Limitations</h5>
+					<small>
+						<table style="width:80%;">
+							<tr>
+							<th>Design/Feature</th>
+							<th>CADAC++</th>
+							<th>Ascent</th>
+						  </tr>
+						  <tr>
+							<td>Proper Discrete and Continuous Signal Mixing</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Integration State Handling</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Various/Interchangeable Integration Methods</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Module Specific Sampling Rates</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Asynchronous Sampling and Event Scheduling</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Module Level Variables</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Guaranteed Use of Properly Initialized Variables</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Automatic Module Ordering</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Variable Accessing/Setting Errors Caught at Compile Time</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Module Interconnection Is Modifiable and Limitable</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Modules Can Be Frozen Yet Accessible For Testing</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Dynamic Module Interconnection/Deletion</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Modules as Drivers</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Inter-Phase Algorithmic Ordering</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Developing New Modules Does Not Affect Base Inherited Class</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Complex Stoppers</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						</table>
+					</small>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h4>C++ Model Developer</h4>
+					
+					<div class="row">
+						<div class="10u">
+							<div style="text-align:left">
+								<p>
+									&#10146 Improved upon NASA's MAVERIC architecture for multi-stage rocket simulation
+								</p>
+								
+								<img data-src="images/CMD-Banner.png" style="border-radius: 10px">
+							</div>
+							
+							<div style="text-align:left">
+								<p>
+									Ascent began as an extension of the C++ Model Developer architecture.
+								</p>
+							</div>
+						</div>
+						
+						<div class="2u">
+							<img data-src="images/CMD-Slide.png" style="border-radius: 10px">
+						</div>
+					</div>
+					
+					<a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section>
+				
+				<section>
+					<h5>C++ Model Developer Limitations</h5>
+					<small>
+						<table style="width:80%;">
+							<tr>
+							<th>Design/Feature</th>
+							<th>C++ Model Developer</th>
+							<th>Ascent</th>
+						  </tr>
+						  <tr>
+							<td>Predictor-Corrector and Adaptive Integration Algorithms</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Guaranteed Use of Properly Initialized Variables</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Automatic Module Ordering</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Module Interconnection Is Modifiable and Limitable</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Modules Can Be Frozen Yet Accessible For Testing</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Dynamic Module Interconnection/Deletion</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Queue-free Staging</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Modules as Drivers</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Inter-Phase Algorithmic Ordering</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Variable Tracking</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Complex Stoppers</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Supports Multi-Threading</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						  <tr>
+							<td>Embedded Scripting Engine</td>
+							<td style="color:red">&#10008</td>
+							<td style="color:green">&#10004</td>
+						  </tr>
+						</table>
+					</small>
+				</section>
+			</section>
+			
+			<section>
+				<section>
+					<h4>Solving Ordinary Differential Equations</h4>
+
+					<div class="row">
+						<div class="6u">
+							<p>Entire systems solved within ODE engine</p>
+							<img data-src="images/Solver2.png"/>
+						</div>
+						<div class="6u">
+							<img data-src="images/lorenz.png" width="450"/>
+							<h6>Lorenz Attractor</h6>
+						</div>
+					</div>
+					
+					<a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section>
+				
+				<section>
+				
+					<div class="row">
+						<div class="7u">
+							<h5>Minimum Phase-Based Integration</h5>
+							
+							<ul>
+								<li>&#10146 No need for init0, init1, init2, etc.
+								<li>&#10146 Integration is fully separated from differentiation
+							</ul>
+							
+							<hr>
+							
+							<br><h6>Importance of Higher Order Integration</6>
+							
+							<img data-src="images/airy.png" width="600"/>
+							
+							<!--<script src="data/airycompare.js"></script>
+
+							<script type="text/javascript">
+							  google.charts.setOnLoadCallback(drawChart);
+
+							  function drawChart() {
+								var data = google.visualization.arrayToDataTable(airycompare);
+
+								var options = {
+									series: {
+											0: { color: '#3984c6' },
+											1: { color: '#398464' },
+											2: { color: '#6ab3e2' },
+											3: { color: '#889294' },
+										  },
+									height: 400,
+									width: 900,
+									backgroundColor: 'transparent',
+									curveType: 'function',
+									vAxis: { textStyle: {color: '#999999' }, gridlines: { color: 'transparent' } },
+									hAxis: { textStyle: {color: '#999999' }, gridlines: { color: 'transparent' } },
+									legend: { textStyle: {color: '#e6e6e6' }, position: 'bottom' },
+									chartArea: { width: '75%', height: '75%' }
+								};
+
+								var chart = new google.visualization.LineChart(document.getElementById('airy_compare'));
+								chart.draw(data, options);
+							  }
+							</script>
+
+							<div id="airy_compare"></div>
+							<small>Airy System</small> -->
+							
+						</div>
+						<div class="5u">
+							<img data-src="images/SimulationLoop2.png"/>
+						</div>
+					</div>
+				</section>
+			</section>
+				
+			<section>
+				<h4>Solving Complex Systems</h4>
+
+				<div class="row">
+					<div class="5u">
+						<img data-src="images/ViscoSystem1.png"/ style="padding:0em 1em 0em 1em">
+						<div class="box" style="text-align:left;">
+							Non-iterative, matrix-free, solution. Easy to reconfigure. No state-space modeling required!
+							<p>Used by Anyar, Inc. to solve viscoelastic human injury models.</p>
+						</div>
+					</div>
+					
+					<div class="7u">
+						<script src="data/system.js"></script>
+
+						<script type="text/javascript">
+						  google.charts.setOnLoadCallback(drawChart);
+						  
+						  window.onresize = function(event) { drawChart(); }
+
+						  function drawChart() {
+							var data = google.visualization.arrayToDataTable(system);
+
+							var options = {
+								series: {
+										0: { color: '#3984c6' },
+										1: { color: '#398464' },
+										2: { color: '#6ab3e2' },
+										3: { color: '#889294' },
+									  },
+								width: '800',
+								height: '400',
+								backgroundColor: 'transparent',
+								curveType: 'function',
+								vAxis: { gridlines: { color: 'transparent' }, viewWindow: { min: -0.025, max: 0.045} },
+								hAxis: { gridlines: { color: 'transparent' } },
+								legend: { position: 'none' },
+								chartArea: { width: '85%', height: '85%' }
+							};
+
+							var chart = new google.visualization.LineChart(document.getElementById('system_graph'));
+							chart.draw(data, options);
+						  }
+						</script>
+						
+						<div id="system_graph"></div>
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<section>
+					<h4>Module Ordering</h4>
+					
+					<div style="text-align:left">
+						<p>
+							&#10146 Memory is internally managed with std::shared_ptr(s)<br>
+							&#10146 A shared pointer is a race condition!<br>
+						</p>
+					</div>
+					
+					<hr>
+					
+					<div style="text-align:left">
+						<ol>
+							<li>Asynchronous (no ordering required)
+							<li>Pre-computational ordering
+							<li>Post-computational ordering
+						</ol>
+					</div>
+					
+					<br><a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section>
+				
+				<!-- <section>
+					<div style="text-align:left">
+						<p>&#10146 By default Ascent enforces post-computational ordering.</p>
+						<p>&#10146 Simulations will automatically be linearly ordered.</p>
+						<p>&#10146 Unlinked modules are automatically asynchronous.</p>
+					</div>
+					
+					<br><br><a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section> -->
+				
+				<!-- <section>
+					<h5>There are limitations to pure module level ordering</h5>
+					
+					<div style="text-align:left">
+						
+						<p>
+							So, Ascent couples module level ordering with variable-access ordering.<br>
+						</p>
+						
+						<p>Modules are ordered by algorithmic evaluation.</p>
+						
+						<hr>
+						
+						<p>
+							Ascent allows us to achieve dynamic orderings simply by how algorithms are coded.
+						</p>
+						<p>No need to specify ordering!</p>
+					</div>
+					
+					<br><a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section> -->
+				
+				<section>
+					<h4>Automatic Ordering</h4>
+				
+					<div class="row">
+						<div class="6u">
+							<img src="images/AutomaticLinking.png"/>
+						</div>
+						<div class="6u">
+							<img src="images/AutomaticLinkingOrder.png"/>
+							
+							<div class="box" style="text-align:left;">
+								This ordering is automatically generated from how module data is accessed!
+							</div>
+						</div>
+					</div>
+					
+					<br><a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section>
+				
+				<!-- <section>
+					
+					<div style="text-align:left">
+						<h5>This is nice, but we don't want to be restricted to:</h5>
+					
+						<p>
+							&#10146 Linear orderings<br>
+							&#10146 Post-computational ordering<br>
+						</p>
+					</div>
+					
+					<hr>
+				
+					<div style="text-align:left">
+						<p>
+							Ascent allows pre-computational ordering that is only synchronous with linked modules.
+						</p>
+						<p>
+							This allows the implementation of driving modules, which are essential for matrix free solutions.
+						</p>
+					</div>
+					
+					<a href="#" class="navigate-down" style="font-size:1.5em">&#9660</a>
+				</section> -->
+				
+				<section>
+					<h4>Drivers</h4>
+				
+					<div class="row">
+						<div class="6u">
+							<img src="images/SpringDamperLinks.png" class="image fit"/>
+							
+							<small>The Mass modules don't need to know anything about the Spring and Damper modules.</small>
+						</div>
+						<div class="6u">
+							<img src="images/SpringDamperOrder.png" class="image fit"/>
+							
+							<small>
+								The programmer only defines the driving links.
+							</small>
+						</div>
+					</div>
+				</section>
+			</section>
+			
+			<section>
+				<h4>Sampling and Events</h4>
+				
+				<div style="text-align:left">
+					<p>
+						&#10146 Queue-free event handling<br>
+						&#10146 Asynchronously assign events<br>
+						&#10146 Events are exactly stepped to with proper numerical integration<br>
+						&#10146 Specify sampling rates for discrete signals<br>
+					</p>
+				</div>
+				
+				<img data-src="images/sampling.jpg" style="max-width:1000px; border-radius: 10px">
+			</section>
+			
+			<section data-background-video="videos/the-forest.mp4">
+				<h4 class="fragment fade-out">Agent Based Simulations</h4>
+				<br><br><br><br><br><br><br><br><br><br><br><br>
+			</section>
+			
+			<section>
+				<img data-src="images/The-Forest.png">
+			</section>
+			
+			<!-- <section>
+				<h4>Variable Tracking</h4>
+				
+<pre><code class="hljs lang-cpp">// Define namespace
+#define ascNS World
+   ascVar(num_plants);
+   ascVar(num_rabbits);
+   ascVar(num_wolves);
+</code></pre>
+<div class="fragment fade-in">
+<p>instantiation</p>
+<pre><code class="hljs lang-cpp">World world(sim);
+world.name&ltWorld>("world");
+
+world.track("t"); // Track time
+world.track("num_plants");
+world.track("num_rabbits");
+world.track("num_wolves");
+</code></pre>
+</div>
+<div class="fragment fade-in">
+<p>csv output</p>
+<pre><code class="hljs lang-cpp">t,world num_plants,world num_rabbits,world num_wolves
+0,4,0,0
+0.1,4,0,0
+0.2,4,0,0
+0.3,4,0,0
+continued...
+</code></pre>
+</div>
+			</section> -->
+			
+			<section>
+				<section>		
+					<h4>Control Problems</h4>
+				
+					<div class="row">
+						<div class="4u">
+							<img src="images/Spring-Damper.png" style="max-width:300px; border-radius: 10px"/>
+						</div>
+						
+						<div class="8u">
+							<script src="data/multithread.js"></script>
+							<script type="text/javascript">
+							  google.charts.setOnLoadCallback(drawChart);
+							  
+							  window.onresize = function(event) { drawChart(); }
+
+							  function drawChart() {
+								var data = google.visualization.arrayToDataTable(multithread);
+
+								var options = {
+									series: {
+										0: { color: '#b34d4d' },
+										1: { color: '#3984c6' },
+										2: { color: '#45a179' },
+										3: { color: '#ff8533' },
+										4: { color: '#889294' },
+									  },
+									height: 325,
+									width: 700,
+									backgroundColor: 'transparent',
+									curveType: 'function',
+									vAxis: { textStyle: {color: '#999999' }, title: 'x', gridlines: { color: 'transparent' }, viewWindow: { min: 0, max: 1.5} },
+									hAxis: { textStyle: {color: '#999999' }, title: 'Time', gridlines: { color: 'transparent' } },
+									legend: { textStyle: {color: '#e6e6e6' }, position: 'bottom' }
+								};
+
+								var chart = new google.visualization.LineChart(document.getElementById('multithread'));
+								chart.draw(data, options);
+							  }
+							</script>
+							
+							<body><div id="multithread"></div></body>
+						</div>
+					</div>
+					
+					<br><small>Results for asychronous runs with differing proportional gains</small>
+				
+<pre><code class="hljs lang-cpp">void Control::postcalc()
+{
+   error.push_back(x_target - x);
+
+   f = Kp*error.back() + Ki * error.integral() + Kd*error.derivative();
+}
+</code></pre>
+				</section>
+			</section>
+			
+			<section>
+				<h4><a href="http://chaiscript.com/" target="_blank">ChaiScript</a> Embedded C++ Scripting Engine</h4>
+				
+				<div class="row">
+					<div class="4u box" style="text-align:left;">
+						Ascent combines variable tracking and scripting with straightforward macros, for fast and generic interfaces.
+					</div>
+					
+					<div class="8u">
+						<img data-src="images/ChaiScript.png" style="border-radius: 10px">
+					</div>
+				</div>
+				
+				<p class="fragment fade-in">Ascent even allows scripting of Eigen matrix and vector math<p>
+			</section>
+			
+			<section data-background="images/jet-left-faded3.jpg">
+				<h4>Contributions Are Welcome!</h4>
+				<hr>
+
+				<h4>Future Plans</h4>
+				<div style="text-align:left">
+				<ul>
+					<li>&#10146 JSON interface*
+					<li>&#10146 Partial differential equations with method of lines
+					<li>&#10146 GPU acceleration
+					<li>&#10146 Built in, generic, table handling
+					<br>
+					<small>*Prototype built</small>
+				</ul>
+				</div>
+			</section>
+			
+			<!-- <section data-background="images/jet-left-faded2.jpg">
+				<h4>Anyar, Inc. Ascent Applications</h4>
+				<ul>
+					<li>&#10146 Viscoelastic human trauma models
+					<li>&#10146 Advanced intercept algorithms
+					<li>&#10146 Synchronization engine for OGRE graphics and Bullet physics
+					<li>&#10146 Internal gas dynamics
+				</ul>
+			</section> -->
+			
+			<!-- <section data-background="images/jet-left.jpg">
+				<h3>Questions?</h3>
+				<br>
+				<h5><a href="http://anyarinc.github.io/ascent/">Ascent Website</a><h5>
+			</section> -->
+		</div>
+	</div>
+</body>

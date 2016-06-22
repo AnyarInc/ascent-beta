@@ -1,0 +1,96 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>
+      {% if page.title %}
+        {{ page.title }} | {{ site.title }}
+      {% else %}
+        {{ site.title }}
+      {% endif %}
+    </title>
+
+    <meta name="author" content="{{ site.author }}" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+	
+	<!-- Ascent Custom Stuff -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.0/vis.min.js" type="text/javascript"></script>
+	<noscript>
+		<link rel="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.0/vis.min.css">
+	</noscript>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
+	<link rel="stylesheet" href="{{ site.baseurl }}/css/skel.css" />
+
+    <link rel="stylesheet" href="{{ "/reveal.js/css/reveal.css" | prepend: site.baseurl }}"/>
+    {%if page.theme %}
+      <link rel="stylesheet" href="{{ "/reveal.js/css/theme/" | prepend: site.baseurl | append: page.theme | append: '.css' }}" id="theme"/>
+    {% else %}
+      <link rel="stylesheet" href="{{ "/reveal.js/css/theme/black.css" | prepend: site.baseurl }}" id="theme"/>
+    {% endif %}
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="{{ "/reveal.js/lib/css/zenburn.css" | prepend: site.baseurl }}"/>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '{{ "/reveal.js/css/print/pdf.css" | prepend: site.baseurl }}' : '{{ "/reveal.js/css/print/paper.css" | prepend: site.baseurl }}';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <link rel="apple-touch-icon" href="{{ "/apple-touch-icon.png" | prepend: site.baseurl }}" />
+
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+	
+  </head>
+
+  
+  <body>
+  
+    <div class="reveal">
+      <div class="slides">
+        {{ content }}
+      </div>
+    </div>
+
+    <script src="{{ "/reveal.js/lib/js/head.min.js" | prepend: site.baseurl }}"></script>
+    <script src="{{ "/reveal.js/js/reveal.js" | prepend: site.baseurl }}"></script>
+    <script>
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+		width: '80%',
+		height: '80%',
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+		touch: true,
+        {%if page.transition %}
+          transition: '{{page.transition}}',
+        {% else %}
+          transition: 'slide', // none/fade/slide/convex/concave/zoom
+        {% endif %}
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '{{ "/reveal.js/lib/js/classList.js" | prepend: site.baseurl }}', condition: function() { return !document.body.classList; } },
+          { src: '{{ "/reveal.js/plugin/markdown/marked.js" | prepend: site.baseurl }}', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '{{ "/reveal.js/plugin/markdown/markdown.js" | prepend: site.baseurl }}', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '{{ "/reveal.js/plugin/highlight/highlight.js" | prepend: site.baseurl }}', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '{{ "/reveal.js/plugin/zoom-js/zoom.js" | prepend: site.baseurl }}', async: true },
+          { src: '{{ "/reveal.js/plugin/notes/notes.js" | prepend: site.baseurl }}', async: true }
+        ]
+      });
+    </script>
+    
+  </body>
+</html>

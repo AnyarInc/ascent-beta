@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<script src="data/agent.js"></script>
+
+<script type="text/javascript">
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+	var data = google.visualization.arrayToDataTable(agent);
+
+	var options = {
+		series: {
+				0: { color: '#3984c6' },
+				1: { color: '#398464' },
+				2: { color: '#6ab3e2' },
+				3: { color: '#889294' },
+			  },
+		height: 400,
+		backgroundColor: 'transparent',
+		curveType: 'function',
+		vAxis: { gridlines: { color: 'transparent' } },
+		hAxis: { gridlines: { color: 'transparent' } },
+		legend: { position: 'none' },
+		chartArea: { width: '85%', height: '85%' }
+	};
+
+	var chart = new google.visualization.LineChart(document.getElementById('agent_graph'));
+	document.getElementById('agent_graph').style.maxWidth = "1000px";
+	chart.draw(data, options);
+  }
+</script>
+
+<div id="agent_graph" class="image fit"></div>
