@@ -52,7 +52,8 @@ namespace asc
 
       void push_back(const double value);
 
-      const double& t, dt;
+      const double& t;
+      const double& dt;
 
       size_t size() const { return x.size(); }
       double& back() { return x.back(); }
