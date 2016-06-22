@@ -1,0 +1,39 @@
+---
+layout: default
+---
+
+<section class="wrapper style1">
+    <header class="minor">
+        <h2>Agent Based Modeling</h2>
+    </header>
+	
+	<div class="container">
+		<div style="text-align:center">
+			<video id="video1" width="100%" autoplay loop>
+			<source src="videos/the-forest.mp4" type="video/mp4">
+			Your browser does not support HTML5 video.
+			</video>
+			<br>
+			<!-- <a onclick="playPause()" class="button special">Play/Pause</a> -->
+		</div>
+		
+		<br>
+		
+		<div style="text-align:center">
+			<h2>Results</h2>
+		</div>
+		
+		<img src="images/The-Forest.png" class="image fit"/>
+	</div>
+
+	<script> 
+	var myVideo = document.getElementById("video1"); 
+
+	function playPause() { 
+		if (myVideo.paused) 
+			myVideo.play(); 
+		else 
+			myVideo.pause(); 
+	}
+	</script>
+</section>
