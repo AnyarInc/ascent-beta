@@ -28,14 +28,13 @@ namespace asc
       template <typename T1>
       friend class Link;
 
-   private:
-      std::shared_ptr<Unqualified<T>> module;
-
    public:
+      std::shared_ptr<Unqualified<T>> module{}; // Non-const qualified module for doing low level, potentially dangerous simulation stuff. Used for asynchronous module access.
+
       Link() {}
 
       template <typename... Types>
-      Link(const size_t sim, Types&&... args) : module(new Unqualified<T>(sim, std::forward<Types>(args)...)), async(module.get()) {}
+      Link(const size_t sim, Types&&... args) : module(new Unqualified<T>(sim, std::forward<Types>(args)...)) {}
 
       Link(const Link<T>& link)
       {
@@ -60,7 +59,6 @@ namespace asc
                else
                {
                   module = nullptr; // destroy this module immediately because the simulation isn't running
-                  const_cast<T*>(async) = nullptr;
                }
             }
          }
@@ -68,12 +66,15 @@ namespace asc
 
       T* operator -> () { return access(); } // The pointer is copied with T qualifiers, so that the module can be const qualified.
 
-      T* const async{}; // For asynchronous module access. Do not delete.
-
       Link<T>& operator = (const Link<T>& link) { assign(link); return *this; }
 
       template <typename T1>
       Link<T>& operator = (const Link<T1>& link) { assign(link); return *this; }
+
+      void reset()
+      {
+         module.reset();
+      }
 
       std::string classInfo() const { return "Link<" + static_cast<std::string>(typeid(T).name()) + ">"; }
 
@@ -125,23 +126,40 @@ namespace asc
       }
 
       template <typename T1>
-      void assign(const Link<T1>& link)
+      bool assign(const Link<T1>& link)
       {
-         module = std::static_pointer_cast<Unqualified<T>>(link.module);
-         const_cast<T*>(async) = module.get();
+         if (link.module)
+            module = std::static_pointer_cast<Unqualified<T>>(link.module);
+
+         return module.get() != 0;
       }
 
-      void assign(Module& base)
+      bool assign(Module& base)
       {
          // shared_from_this() must be cast in order to increment reference count on shared_ptr (myself can't be used because it has a null deleter)
          // need dynamic_pointer_cast to allow multiple inheritance for modules
          module = std::dynamic_pointer_cast<Unqualified<T>>(base.shared_from_this());
-         const_cast<T*>(async) = module.get();
+         return module.get() != 0;
       }
 
-      void assignLinkBase(LinkBase& link_base)
+      bool assign(std::shared_ptr<Module>& base)
       {
-         assign(static_cast<Link<T>&>(link_base));
+         module = std::dynamic_pointer_cast<Unqualified<T>>(base);
+         return module.get() != 0;
+      }
+
+      bool assignLinkBase(LinkBase& link_base)
+      {
+         Link<Module>& intermediate = static_cast<Link<Module>&>(link_base);
+         return assign(intermediate.module);
+      }
+
+      std::pair<bool, size_t> linkedModule()
+      {
+         if (module)
+            return std::pair<bool, size_t>(true, module->module_id);
+         else
+            return std::make_pair<bool, size_t>(false, 0);
       }
    };
 }

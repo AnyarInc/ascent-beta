@@ -30,7 +30,10 @@ Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass,
    integrator = std::make_unique<RK4>(stepper);
 
    chai.add(chaiscript::var(std::ref(dt)), "dt");
+   chai.add(chaiscript::var(std::ref(dtp)), "dt_base");
    chai.add(chaiscript::var(std::ref(t_end)), "t_end");
+
+   ascType(Module, "Module");
 }
 
 bool Simulator::run(const double dt, const double tmax)
@@ -104,6 +107,7 @@ bool Simulator::run(const double dt, const double tmax)
             adaptiveCalc();
 
          changeTimeStep();
+         changeEndTime();
 
          deleteModules();
 
@@ -372,6 +376,15 @@ void Simulator::changeTimeStep()
       dt = dtp = dt_change;
       t1 = t + dt;
       change_dt = false;
+   }
+}
+
+void Simulator::changeEndTime()
+{
+   if (change_t_end)
+   {
+      t_end = t_end_change;
+      change_t_end = false;
    }
 }
 

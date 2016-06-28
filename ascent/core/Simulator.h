@@ -111,6 +111,10 @@ namespace asc
 
       void changeTimeStep();
 
+      void changeEndTime();
+      double t_end_change{};
+      bool change_t_end{};
+
       std::vector<std::shared_ptr<Module>> to_delete; // modules are temporarily held here from Link<T> so that they can be deleted at the appropriate time
       void recursiveDelete(const size_t n_prev);
       void deleteModules();

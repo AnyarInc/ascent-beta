@@ -18,6 +18,7 @@
 
 #include "ascent/core/LinkBase.h"
 #include "ascent/core/State.h"
+#include "ascent/core/Type.h"
 #include "ascent/core/Vars.h"
 
 #define ascModule(module)\
@@ -31,26 +32,32 @@ if (!chai.modules.count(#module)) {\
 #define ascVar(x) define(#x, x);\
 if (!chai.registered(typeid(*this).name(), #x)) {\
    chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
-   chai.chai_rg[#x] = typeid(*this).name();\
+   chai.chai_rg[typeid(*this).name()].push_back(#x);\
 }
 
 namespace asc {
    namespace hidden {
       inline void assignModule(asc::LinkBase& link_base, asc::Module& module) { link_base.assign(module); }
-      inline void assignLink(asc::LinkBase& lhs, asc::LinkBase& rhs) { lhs.assignLinkBase(rhs); }
+      inline void assignLinkBase(asc::LinkBase& lhs, asc::LinkBase& rhs) { lhs.assignLinkBase(rhs); }
    }
 }
 
 #define ascLink(x) \
 if (!chai.registered(typeid(*this).name(), #x)) {\
    chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
-   chai.chai_rg[#x] = typeid(*this).name();\
+   chai.chai_rg[typeid(*this).name()].push_back(#x);\
 }\
 if (!chai.links.count(typeid(decltype(x)))) {\
    chai.add(chaiscript::base_class<asc::LinkBase, std::decay<decltype(x)>::type>());\
-   chai.add(chaiscript::fun(&asc::hidden::assignModule), "=");\
-   chai.add(chaiscript::fun(&asc::hidden::assignLink), "=");\
    chai.links.insert(typeid(decltype(x)));\
+}\
+defineLink(#x, x);
+
+namespace dynode
+{
+   class Editor;
+   class Plotter;
+   class Menu;
 }
 
 namespace asc
@@ -74,6 +81,10 @@ namespace asc
 
       template <typename E>
       friend class HistoryVector;
+
+      friend class dynode::Editor;
+      friend class dynode::Plotter;
+      friend class dynode::Menu;
 
       template <typename T>
       friend void integrator(size_t sim);
@@ -134,10 +145,19 @@ namespace asc
       /** The simulator's current time step size. */
       const double& dt;
 
+      const double& dt_base;
+
       /** Change the time step of this module's simulator.
       * @param new_dt  New time step size.
       */
-      void dtChange(double new_dt) { simulator.change_dt = true; simulator.dt_change = new_dt; }
+      void dtChange(double new_dt)
+      {
+         simulator.change_dt = true;
+         simulator.dt_change = new_dt;
+
+         if (phase == Phase::setup)
+            simulator.changeTimeStep(); // change now
+      }
 
       /** Retrieve a vector of the time history, with the time at each full step recorded. */
       const std::vector<double>& timeHistory() const { return simulator.t_hist; };
@@ -308,6 +328,36 @@ namespace asc
       /** ChaiScript interface, unique to the simulator that this module belongs to. */
       ChaiEngine& chai;
 
+      const Phase& phase{ simulator.phase };
+      const double& t_end{ simulator.t_end };
+
+      void endTime(double new_t_end)
+      {
+         if (phase == Phase::setup)
+            simulator.t_end = new_t_end;
+         else
+         {
+            simulator.change_t_end = true;
+            simulator.t_end = new_t_end;
+         }
+      }
+
+      void manipulatorReport()
+      {
+         for (auto & manipulator : manipulators)
+            manipulator->report();
+      }
+
+      std::vector<std::pair<std::string, std::string>> varNames()
+      {
+         return vars.getNames();
+      }
+
+      virtual std::string type()
+      {
+         return Type<Module>::name();
+      }
+
    protected:
       /** Stops this Module's simulator at the end the current integration step.
       * @param b  Allows the command to stop the simulation to be turned on and off, so module's can compete and ordering can decide ending the simulation.
@@ -423,6 +473,22 @@ namespace asc
          simulator.addStopper(first, rest...);
       }
 
+      template <typename T>
+      Link<T>& defineLink(const std::string& id, Link<T>& x)
+      {
+         LinkBase& link_base = x;
+         links.emplace(std::pair<std::string, LinkBase*>(id, &link_base));
+         return x;
+      }
+
+      template <typename T>
+      const Link<T>& defineLink(const std::string& id, const Link<T>& x)
+      {
+         LinkBase& link_base = const_cast<Link<T>&>(x);
+         links.emplace(std::pair<std::string, LinkBase*>(id, &link_base));
+         return x;
+      }
+
    private:
       std::shared_ptr<Module> myself; // myself: this Module with a null deleter, only used for module connections so that weak_ptr can be used
 
@@ -467,11 +533,17 @@ namespace asc
       std::vector<std::shared_ptr<Module>> manipulators; // Uses std::shared_ptr rather than std::unique_ptr because of std::weak_ptr use for ordering (runBefore()).
 
       // Tracking
+      std::unordered_set<std::string> local_tracking; // Local variables to this module that are being tracked.
       std::vector<std::pair<size_t, std::string>> tracking; // Vector of pairs of module IDs and their associated variables to be tracked.
       bool print_time = false; // Whether or not to print the simulation time as well.
 
       std::map<std::string, Module*>& external; // Reference to ModuleCore external map, needed here for templated name function.
       static Simulator& getSimulator(const size_t sim); // Needed to avoid publically exposing ModuleCore, used in templated integrator(size_t sim).
+
+      std::map<std::string, LinkBase*> links; // Links belonging to this module. Do Not Delete. std::string is the name associated with the link.
+
+      /** For Node Editor GUI */
+      Eigen::Vector2d gui_pos{ 0.0, 0.0 }, gui_size{ 10.0, 10.0 };
    };
 
    /** Set the integrator for the simulator whose number is input.

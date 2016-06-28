@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <tuple>
+
 namespace asc
 {
    class Module;
@@ -24,7 +26,8 @@ namespace asc
       LinkBase() {}
       virtual ~LinkBase() {}
 
-      virtual void assign(Module& module) {};
-      virtual void assignLinkBase(LinkBase& link_base) {};
+      virtual bool assign(Module& module) { return false; };
+      virtual bool assignLinkBase(LinkBase& link_base) { return false; };
+      virtual std::pair<bool, size_t> linkedModule() { return std::make_pair<bool, size_t>(false, 0); };
    };
 }

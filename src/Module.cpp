@@ -55,7 +55,7 @@ Simulator& ModuleCore::getSimulator(const size_t sim)
 
 // Module
 Module::Module(size_t sim) : simulator(getSimulator(sim)),
-   t(simulator.t), dt(simulator.dt),
+   t(simulator.t), dt(simulator.dt), dt_base(simulator.dtp),
    sim(sim),
    module_id(next_module_id),
    chai(simulator.chai),
@@ -182,6 +182,7 @@ void Module::callUpdate()
 {
    if (!update_run)
    {
+      std::vector<size_t> to_delete;
       for (auto& p : run_first)
       {
          if (auto ptr = p.second.lock())
@@ -197,8 +198,11 @@ void Module::callUpdate()
             }
          }
          else
-            run_first.erase(p.first);
+            to_delete.push_back(p.first);
       }
+
+      for (size_t id : to_delete)
+         run_first.erase(id);
 
       if (update_called)
          error("Circular dependency for update(). Within " + name());
@@ -218,6 +222,7 @@ void Module::callPostCalc()
 {
    if (!postcalc_run)
    {
+      std::vector<size_t> to_delete;
       for (auto& p : run_first)
       {
          if (auto ptr = p.second.lock())
@@ -233,8 +238,11 @@ void Module::callPostCalc()
             }
          }
          else
-            run_first.erase(p.first);
+            to_delete.push_back(p.first);
       }
+
+      for (size_t id : to_delete)
+         run_first.erase(id);
 
       if (postcalc_called)
          error("Circular dependency for postcalc(). Within " + name());
@@ -316,6 +324,8 @@ void Module::track(const std::string& var_name)
       tracking.push_back(std::make_pair(module_id, var_name));
       steps(var_name);
    }
+
+   local_tracking.insert(var_name);
 }
 
 void Module::track(Module& module, const std::string& var_name)

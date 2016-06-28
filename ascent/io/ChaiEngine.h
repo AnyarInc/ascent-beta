@@ -32,6 +32,6 @@ namespace asc
       
       std::unordered_set<std::string> modules; // modules registered with ChaiScript
       std::unordered_set<std::type_index> links; // links registered with ChaiScript
-      std::map<std::string, std::string> chai_rg; // ChaiScript registered pairs of Module and variable names.      
+      std::map<std::string, std::vector<std::string>> chai_rg; // ChaiScript registered Modules with respective variable names.      
    };
 }
