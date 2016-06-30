@@ -350,51 +350,21 @@ void Module::outputTrack()
 
    if (file)
    {
-      size_t id = tracking.front().first;
-      string var_name = tracking.front().second;
-      
-      size_t length;
-      if (id == module_id)
-         length = vars.length(var_name);
-      else
-         length = ModuleCore::getModule(id).vars.length(var_name);
-
-      if (print_time)
-         file << "t" << ",";
-
-      size_t n = tracking.size();
-      for (size_t i = 0; i < n; ++i)
-      {
-         auto& p = tracking[i];
-         if (i == n - 1) // last parameter
-            file << ModuleCore::getModule(p.first).name() << " " << p.second;
-         else
-            file << ModuleCore::getModule(p.first).name() << " " << p.second << ",";
-      }
-
-      file << '\n';
-
-      for (size_t i = 0; i < length; ++i)
-      {
-         if (print_time)
-            file << simulator.t_hist[i] << ",";
-
-         n = tracking.size();
-         for (size_t j = 0; j < n; ++j)
-         {
-            auto& p = tracking[j];
-            file << ModuleCore::getModule(p.first).vars.print(p.second, i);
-            if (j < n - 1) // not the last parameter
-               file << ",";
-         }
-
-         file << '\n';
-      }
+      streamTrack(file);
    }
    else
       error("File " + filename + " could not be created.");
    
    file.close();
+}
+
+std::string Module::csvTrack()
+{
+   stringstream ss{};
+   
+   streamTrack(ss);
+
+   return ss.str();
 }
 
 Simulator& Module::getSimulator(const size_t sim)

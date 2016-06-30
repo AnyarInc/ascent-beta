@@ -543,6 +543,54 @@ namespace asc
 
       std::map<std::string, LinkBase*> links; // Links belonging to this module. Do Not Delete. std::string is the name associated with the link.
 
+      /** Create a string in csv format for tracked data. */
+      std::string csvTrack();
+
+      template <typename T>
+      void streamTrack(T& stream)
+      {
+         size_t id = tracking.front().first;
+         std::string var_name = tracking.front().second;
+
+         size_t length;
+         if (id == module_id)
+            length = vars.length(var_name);
+         else
+            length = ModuleCore::getModule(id).vars.length(var_name);
+
+         if (print_time)
+            stream << "t" << ",";
+
+         size_t n = tracking.size();
+         for (size_t i = 0; i < n; ++i)
+         {
+            auto& p = tracking[i];
+            if (i == n - 1) // last parameter
+               stream << ModuleCore::getModule(p.first).name() << " " << p.second;
+            else
+               stream << ModuleCore::getModule(p.first).name() << " " << p.second << ",";
+         }
+
+         stream << '\n';
+
+         for (size_t i = 0; i < length; ++i)
+         {
+            if (print_time)
+               stream << simulator.t_hist[i] << ",";
+
+            n = tracking.size();
+            for (size_t j = 0; j < n; ++j)
+            {
+               auto& p = tracking[j];
+               stream << ModuleCore::getModule(p.first).vars.print(p.second, i);
+               if (j < n - 1) // not the last parameter
+                  file << ",";
+            }
+
+            stream << '\n';
+         }
+      }
+
       /** For Node Editor GUI */
       Eigen::Vector2d gui_pos{ 0.0, 0.0 }, gui_size{ 10.0, 10.0 };
    };
