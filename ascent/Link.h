@@ -66,6 +66,9 @@ namespace asc
 
       T* operator -> () { return access(); } // The pointer is copied with T qualifiers, so that the module can be const qualified.
 
+      [[deprecated("use module instead")]]
+      T* const async{};
+
       Link<T>& operator = (const Link<T>& link) { assign(link); return *this; }
 
       template <typename T1>
