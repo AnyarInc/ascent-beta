@@ -57,8 +57,9 @@ namespace asc
       }
 
       // closestNeighbor is for values such as integers that shouldn't be interpolated, but whose value closest to the desired (target) x value should be returned.
+      // Supports std::vectors or std::deques
       template <typename T>
-      inline T closestNeighbor(const double x_target, const std::vector<double>& x, const std::vector<T>& y)
+      inline auto closestNeighbor(const double x_target, const std::vector<double>& x, const T& y) -> typename std::decay<decltype(y.front())>::type
       {
          size_t high = std::upper_bound(x.begin(), x.end(), x_target) - x.begin(); // get indice to first value greater than x_target
 

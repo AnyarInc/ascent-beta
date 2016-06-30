@@ -24,5 +24,6 @@ include_directories(../ascent)
 # external dependencies:
 include_directories(eigen)
 include_directories(ChaiScript/include)
+include_directories(jsoncons/src)
 
 add_library(${PROJECT_NAME} STATIC ${srcs})

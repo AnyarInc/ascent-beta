@@ -9,3 +9,6 @@
 [submodule "ascent-examples"]
 	path = ascent-examples
 	url = https://github.com/Ascent-Community/ascent-examples.git
+[submodule "jsoncons"]
+	path = jsoncons
+	url = https://github.com/danielaparker/jsoncons.git

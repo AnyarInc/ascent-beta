@@ -76,6 +76,7 @@ namespace asc
       template <typename T>
       friend class Link;
 
+      friend class JsonAPI;
       friend class Simulator;
       friend class Stopper;
 
