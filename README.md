@@ -32,7 +32,7 @@ Ascent is a modern, open source, C++ simulation architecture and engine. Built a
 - [Eigen](http://eigen.tuxfamily.org/) Linear Algebra Library (<font color="green">Included</font>)
 - [ChaiScript](http://chaiscript.com/) Embedded Scripting Language (<font color="green">Included</font>)
 
-* Make sure to clone recursively to include dependencies.
+> Make sure to clone recursively to include dependencies.
 
 ## Setup
 > To change the default generator (_Visual Studio 14 2015 Win64_), edit _build.bat_ to another compatible CMake generator.
