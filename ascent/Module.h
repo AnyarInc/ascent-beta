@@ -66,7 +66,6 @@ namespace asc
    using Unqualified = typename std::remove_cv<T>::type;
 
    class LinkBase;
-   class ModuleCore;
 
    /** Provides the core functionality of the Ascent architecture.
    * A module in Ascent should always inherit from the Module class.
@@ -546,6 +545,8 @@ namespace asc
       /** Create a string in csv format for tracked data. */
       std::string csvTrack();
 
+      Module& getModule(const size_t id);
+
       template <typename T>
       void streamTrack(T& stream)
       {
@@ -556,7 +557,7 @@ namespace asc
          if (id == module_id)
             length = vars.length(var_name);
          else
-            length = ModuleCore::getModule(id).vars.length(var_name);
+            length = getModule(id).vars.length(var_name);
 
          if (print_time)
             stream << "t" << ",";
@@ -566,9 +567,9 @@ namespace asc
          {
             auto& p = tracking[i];
             if (i == n - 1) // last parameter
-               stream << ModuleCore::getModule(p.first).name() << " " << p.second;
+               stream << getModule(p.first).name() << " " << p.second;
             else
-               stream << ModuleCore::getModule(p.first).name() << " " << p.second << ",";
+               stream << getModule(p.first).name() << " " << p.second << ",";
          }
 
          stream << '\n';
@@ -582,7 +583,7 @@ namespace asc
             for (size_t j = 0; j < n; ++j)
             {
                auto& p = tracking[j];
-               stream << ModuleCore::getModule(p.first).vars.print(p.second, i);
+               stream << getModule(p.first).vars.print(p.second, i);
                if (j < n - 1) // not the last parameter
                   stream << ",";
             }

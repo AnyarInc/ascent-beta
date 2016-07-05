@@ -367,6 +367,11 @@ std::string Module::csvTrack()
    return ss.str();
 }
 
+Module& Module::getModule(const size_t id)
+{
+   return ModuleCore::getModule(id);
+}
+
 Simulator& Module::getSimulator(const size_t sim)
 {
    return ModuleCore::getSimulator(sim);
