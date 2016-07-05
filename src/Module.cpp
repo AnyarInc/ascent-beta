@@ -17,6 +17,14 @@
 
 #include "ascent/Link.h"
 
+// Protecting json max/min macros from ChaiScript windows max/min macros
+#undef max
+#undef min
+
+#include "jsoncons/json.hpp"
+#include "jsoncons/json_deserializer.hpp"
+#include "jsoncons_ext/csv/csv_reader.hpp"
+
 using namespace asc;
 using namespace std;
 
@@ -365,6 +373,20 @@ std::string Module::csvTrack()
    streamTrack(ss);
 
    return ss.str();
+}
+
+std::string Module::jsonTrack()
+{
+   stringstream ss{};
+
+   streamTrack(ss);
+
+   jsoncons::json_deserializer handler;
+
+   jsoncons::csv::csv_reader reader(ss, handler);
+   reader.read();
+
+   return handler.get_result().to_string();
 }
 
 Module& Module::getModule(const size_t id)

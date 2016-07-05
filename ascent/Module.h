@@ -145,6 +145,7 @@ namespace asc
       /** The simulator's current time step size. */
       const double& dt;
 
+      /** The simulator's base time step. */
       const double& dt_base;
 
       /** Change the time step of this module's simulator.
@@ -309,6 +310,12 @@ namespace asc
       /** Create output file for this Module's tracked parameters. */
       void outputTrack();
 
+      /** Create a string in csv format from tracked data. */
+      std::string csvTrack();
+
+      /** Create a string in JSON format from tracked data. */
+      std::string jsonTrack();
+
       /** Change output file type to .txt instead of .csv */
       void txtFiles() { file_type = ".txt"; }
 
@@ -328,9 +335,15 @@ namespace asc
       /** ChaiScript interface, unique to the simulator that this module belongs to. */
       ChaiEngine& chai;
 
+      /** The current phase of the simulation loop: setup, init, update, postcalc, check, report, or reset */
       const Phase& phase{ simulator.phase };
+
+      /** The current target end time of the simulator to which this module belongs. */
       const double& t_end{ simulator.t_end };
 
+      /** Set a new target end time for the simulator to which this module belongs.
+      * @param new_t_end  New end time for the simulator.
+      */
       void endTime(double new_t_end)
       {
          if (phase == Phase::setup)
@@ -342,17 +355,20 @@ namespace asc
          }
       }
 
+      /** Call report methods on manipulators. */
       void manipulatorReport()
       {
          for (auto & manipulator : manipulators)
             manipulator->report();
       }
 
+      /** Get all variables names registered with this module. */
       std::vector<std::pair<std::string, std::string>> varNames()
       {
          return vars.getNames();
       }
 
+      /** Get derived class type name of this module. */
       virtual std::string type()
       {
          return Type<Module>::name();
@@ -541,9 +557,6 @@ namespace asc
       static Simulator& getSimulator(const size_t sim); // Needed to avoid publically exposing ModuleCore, used in templated integrator(size_t sim).
 
       std::map<std::string, LinkBase*> links; // Links belonging to this module. Do Not Delete. std::string is the name associated with the link.
-
-      /** Create a string in csv format for tracked data. */
-      std::string csvTrack();
 
       Module& getModule(const size_t id);
 
