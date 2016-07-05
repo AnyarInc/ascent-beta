@@ -584,7 +584,7 @@ namespace asc
                auto& p = tracking[j];
                stream << ModuleCore::getModule(p.first).vars.print(p.second, i);
                if (j < n - 1) // not the last parameter
-                  file << ",";
+                  stream << ",";
             }
 
             stream << '\n';
