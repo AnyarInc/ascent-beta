@@ -28,11 +28,12 @@ Ascent is a modern, open source, C++ simulation architecture and engine. Built a
 ***
 ## Prerequisites
 - **C++14 compliant compiler**
-- [CMake](https://cmake.org/download/) Cross-Platform build system (<font color="red">Required</font>)  <a href="https://cmake.org/download/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/data-transfer-download-xxl.png" width="20"></a> 
-- [Eigen](http://eigen.tuxfamily.org/) Linear Algebra Library (<font color="green">Included</font>)
+- [CMake](https://cmake.org/download/) Cross-Platform build system (<font color="red">Required</font>)  <a href="https://cmake.org/download/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/data-transfer-download-xxl.png" width="20"></a>
 - [ChaiScript](http://chaiscript.com/) Embedded Scripting Language (<font color="green">Included</font>)
+- [Eigen](http://eigen.tuxfamily.org/) Linear Algebra Library (<font color="green">Included</font>)
+- [jsoncons](https://github.com/danielaparker/jsoncons) JSON Construction/Parsing (<font color="green">Included</font>)
 
-> Make sure to clone recursively to include dependencies.
+> Clone recursively to include dependencies.
 
 ## Setup
 > To change the default generator (_Visual Studio 14 2015 Win64_), edit _build.bat_ to another compatible CMake generator.
