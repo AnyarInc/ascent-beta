@@ -40,9 +40,9 @@ GoogleCharts: true
 				Open Source</h2>
 				<h5 class="indent">Ascent and its dependencies are free to use in both open and closed source commerical projects.</h5>
 				
-				<h2><i class="icon fa-windows minor"></i> <i class="icon fa-apple minor"></i>
+				<h2><i class="icon fa-windows minor"></i> <i class="icon fa-apple minor"></i> <i class="icon fa-linux minor"></i>
 				Portable</h2>
-				<h5 class="indent">Ascent is tested for 32bit and 64bit on Windows (MSVC2015) and Mac (Xcode) LLVM.</h5>
+				<h5 class="indent">Ascent is tested for 32bit and 64bit on Windows (MSVC2015), Mac (Xcode) LLVM, and Linux GNU GCC 5.x</h5>
 			</div>
 		
 			<div class="6u">
@@ -291,7 +291,12 @@ if (event(0.38493))
 					<h2>Variable Tracking</h2>
 				</header>
 				<p>
-					Ascent provides a built in engine for efficiently tracking variables. Results are saved to csv files.
+					Ascent provides a built in engine for efficiently tracking variables.
+					<ul>
+						<li>Save to .csv file
+						<li>Stream via std::stringstream
+						<li>Output as csv or JSON formatted std::string
+					</ul>
 				</p>
 				
 				<div align=center>
@@ -334,22 +339,44 @@ continued...
 				<p>
 					Easily connect, initialize, and run your models in the embedded <a href="http://chaiscript.com/" target="_blank">ChaiScript</a> engine.
 				</p>
+				
+				<ul>
+					<li>Handles Eigen linear algebra matrix operations
+				</ul>
 			</div>
 		</div>
 		
 		<hr>
 		
-		<header class="major">
-			<h2><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page" target="_blank">Eigen</a> Linear Algebra</h2>
-		</header>
-		<p>
-			Ascent uses the fast and mature <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page" target="_blank">Eigen</a> 
-			C++ linear algebra library, providing straightforward matrix and vector handling.
-			<ul>
-				<li>Solve differential equations with Eigen vectors and matrices
-				<li>Track Eigen vectors and output history to csv files
-				<li>Compute time history derivatives and integrals
-			</ul>
-		</p>
+		<div class="row double">
+			<div class="6u">
+				<header class="minor">
+					<h2><a href="http://eigen.tuxfamily.org/index.php?title=Main_Page" target="_blank">Eigen</a> Linear Algebra</h2>
+				</header>
+				<p>
+					Ascent uses the fast and mature <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page" target="_blank">Eigen</a> 
+					C++ linear algebra library, providing straightforward matrix and vector handling.
+					<ul>
+						<li>Solve differential equations with Eigen vectors and matrices
+						<li>Track Eigen vectors and output history to csv files
+						<li>Compute time history derivatives and integrals of vectors
+					</ul>
+				</p>
+			</div>
+			
+			<div class="6u">
+				<header class="minor">
+					<h2>JSON Construction/Parsing</h2>
+				</header>
+				<p>
+					Built in JSON API for externally accessing and setting variable states. Powered by the 
+					<a href="https://github.com/danielaparker/jsoncons" target="_blank">jsoncons</a> library.
+					<ul>
+						<li>Automatically interpolates data at requested simulation time
+						<li>Interchangeable input/output: output from JsonAPI can be directly used as input to a distributed Ascent instance
+					</ul>
+				</p>
+			</div>
+		</div>
 	</div>
 </section>
