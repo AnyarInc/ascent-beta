@@ -316,6 +316,8 @@ namespace asc
       /** Create a string in JSON format from tracked data. */
       std::string jsonTrack();
 
+      void streamCSV(std::shared_ptr<std::stringstream>& ss);
+
       /** Change output file type to .txt instead of .csv */
       void txtFiles() { file_type = ".txt"; }
 

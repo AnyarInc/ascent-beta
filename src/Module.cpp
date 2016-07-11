@@ -389,6 +389,49 @@ std::string Module::jsonTrack()
    return handler.get_result().to_string();
 }
 
+void Module::streamCSV(std::shared_ptr<std::stringstream>& ss)
+{
+   size_t id = tracking.front().first;
+   std::string var_name = tracking.front().second;
+
+   if (!ss) // Not initialized, so append names
+   {
+      ss = std::make_shared<std::stringstream>();
+      std::stringstream& stream = *ss;
+
+      if (print_time)
+         stream << "t" << ",";
+
+      size_t n = tracking.size();
+      for (size_t i = 0; i < n; ++i)
+      {
+         auto& p = tracking[i];
+         if (i == n - 1) // last parameter
+            stream << getModule(p.first).name() << " " << p.second;
+         else
+            stream << getModule(p.first).name() << " " << p.second << ",";
+      }
+
+      stream << '\n';
+   }
+
+   std::stringstream& stream = *ss;
+
+   if (print_time)
+      stream << t << ",";
+
+   size_t n = tracking.size();
+   for (size_t j = 0; j < n; ++j)
+   {
+      auto& p = tracking[j];
+      stream << getModule(p.first).vars.print(p.second);
+      if (j < n - 1) // not the last parameter
+         stream << ",";
+   }
+
+   stream << '\n';
+}
+
 Module& Module::getModule(const size_t id)
 {
    return ModuleCore::getModule(id);
