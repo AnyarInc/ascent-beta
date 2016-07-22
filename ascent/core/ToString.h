@@ -22,6 +22,8 @@ namespace asc
 {
    namespace ToString
    {
+      std::map<std::type_index, std::function<std::string(void* x)>>& printMap();
+
       template <typename T>
       inline typename std::enable_if<std::is_arithmetic<T>::value || std::is_integral<T>::value, void>::type registerType()
       {
