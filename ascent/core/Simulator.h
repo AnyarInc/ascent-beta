@@ -56,8 +56,8 @@ namespace asc
       bool track_time = false;
       std::vector<double> t_hist; // time history (used to interpolate and provide time pairing with Parameter history)
 
-      bool run(const double dt, const double t_end);
-      bool run() { return run(dt, t_end); }
+      bool run(const double dt_base, const double t_end);
+      bool run() { return run(dtp, t_end); }
 
       bool sample() { return (kpass == 0); }
       bool sample(double sdt);
@@ -109,6 +109,7 @@ namespace asc
 
       void adaptiveCalc();
 
+      void changeTime(const double t_new);
       void changeTimeStep();
 
       void changeEndTime();

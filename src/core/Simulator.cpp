@@ -36,7 +36,7 @@ Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass,
    ascType(Module, "Module");
 }
 
-bool Simulator::run(const double dt, const double tmax)
+bool Simulator::run(const double dt_base, const double tmax)
 {
    t_end = tmax;
 
@@ -48,7 +48,7 @@ bool Simulator::run(const double dt, const double tmax)
 
    if (!error)
    {
-      setup(dt);
+      setup(dt_base);
 
       init();
    }
@@ -147,11 +147,11 @@ void Simulator::directErase(bool b)
    propagate.direct_erase = b;
 }
 
-void Simulator::setup(const double dt)
+void Simulator::setup(const double dt_base)
 {
    phase = Phase::setup;
 
-   this->dt = dtp = dt; // sets base time step (dtp) and adjustable time step (dt)
+   this->dt = dtp = dt_base; // sets base time step (dtp) and adjustable time step (dt)
    t1 = t + dt; // sets intended end time of next timestep
    kpass = 0;
    ticklast = false;
@@ -367,6 +367,21 @@ void Simulator::adaptiveCalc()
          
       change_dt = true;
    }
+}
+
+void Simulator::changeTime(const double t_new)
+{
+   if (t_new >= 0.0)
+   {
+      t = t_new;
+   }
+   else
+   {
+      setError("attempted to set the new time (t_new) less than zero");
+   }
+
+   if (phase != Phase::setup)
+      setError("attempted to set a new time while not in the setup phase");
 }
 
 void Simulator::changeTimeStep()

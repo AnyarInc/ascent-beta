@@ -131,12 +131,12 @@ namespace asc
       void printErrors(bool b) { simulator.print_errors = b; }
 
       /** Runs this module's associated simulator.
-      * @param dt  The time step of for the simulator.
+      * @param dt_base  The base time step of for the simulator.
       * @param t_end  The end time to run the simulator until.
       */
-      bool run(const double dt, const double t_end) { return simulator.run(dt, t_end); }
+      bool run(const double dt_base, const double t_end) { return simulator.run(dt_base, t_end); }
 
-      /** Runs this module's associated simulator at currently set dt and t_end values. */
+      /** Runs this module's associated simulator at currently set dt_base and t_end values. */
       bool run() { return simulator.run(); }
 
       /** The simulator's current time. */
