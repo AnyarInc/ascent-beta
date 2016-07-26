@@ -59,6 +59,8 @@ namespace asc
       double& back() { return x.back(); }
       double& front() { return x.front(); }
 
+      void clear() { x.clear(); th.clear(); }
+
       const std::deque<double>& history() const { return x; }
       const std::deque<double>& time() const { return th; }
 

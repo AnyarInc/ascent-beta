@@ -71,6 +71,8 @@ namespace asc
       E& back() { return x.back(); }
       E& front() { return x.front(); }
 
+      void clear() { x.clear(); th.clear(); }
+
       const std::deque<E>& history() const { return x; }
       const std::deque<double>& time() const { return th; }
       std::deque<double> time(const size_t steps) const
