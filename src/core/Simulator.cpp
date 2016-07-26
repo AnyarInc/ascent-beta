@@ -21,17 +21,27 @@
 
 using namespace asc;
 
+bool GlobalChaiScript::use_global_chaiscript = false;
+
 std::map<std::string, std::shared_ptr<Module>> Simulator::tracking;
+
+std::shared_ptr<ChaiEngine> Simulator::global_chai_engine = std::make_shared<ChaiEngine>();
 
 using namespace std;
 
 Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass, integrator_initialized)
 {
+   auto temp = GlobalChaiScript::use_global_chaiscript;
+   if (temp)
+      chai = global_chai_engine;
+   else
+      chai = std::make_shared<ChaiEngine>();
+
    integrator = std::make_unique<RK4>(stepper);
 
-   chai.add(chaiscript::var(std::ref(dt)), "dt");
-   chai.add(chaiscript::var(std::ref(dtp)), "dt_base");
-   chai.add(chaiscript::var(std::ref(t_end)), "t_end");
+   chai->add(chaiscript::var(std::ref(dt)), "dt");
+   chai->add(chaiscript::var(std::ref(dtp)), "dt_base");
+   chai->add(chaiscript::var(std::ref(t_end)), "t_end");
 
    ascType(Module, "Module");
 }

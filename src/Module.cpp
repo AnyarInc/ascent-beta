@@ -66,7 +66,7 @@ Module::Module(size_t sim) : simulator(getSimulator(sim)),
    t(simulator.t), dt(simulator.dt), dt_base(simulator.dtp),
    sim(sim),
    module_id(next_module_id),
-   chai(simulator.chai),
+   chai(*simulator.chai),
    myself(this, null_deleter()),
    vars(simulator),
    external(ModuleCore::external)

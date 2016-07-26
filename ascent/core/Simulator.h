@@ -42,6 +42,11 @@ namespace asc
       tracker
    };
 
+   struct GlobalChaiScript
+   {
+      static bool use_global_chaiscript;
+   };
+
    class Simulator
    {
       typedef DynamicMap<size_t, Module*> module_map;
@@ -49,7 +54,8 @@ namespace asc
    public:
       Simulator(size_t sim);
 
-      ChaiEngine chai;
+      static std::shared_ptr<ChaiEngine> global_chai_engine;
+      std::shared_ptr<ChaiEngine> chai;
 
       bool setError(const std::string& description); // always returns false
 
