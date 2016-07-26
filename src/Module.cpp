@@ -391,7 +391,6 @@ std::string Module::jsonTrack()
 
 void Module::streamCSV(std::shared_ptr<std::stringstream>& ss)
 {
-   size_t id = tracking.front().first;
    std::string var_name = tracking.front().second;
 
    if (!ss) // Not initialized, so append names

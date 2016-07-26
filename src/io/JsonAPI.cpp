@@ -25,8 +25,6 @@
 using namespace asc;
 using namespace std;
 
-#define JSONCONS_NO_DEPRECATED // Don't allow deprecated function use.
-
 jsoncons::json JsonAPI::jsonModules()
 {
    jsoncons::json modules = jsoncons::json::array();
@@ -86,7 +84,7 @@ jsoncons::json JsonAPI::io(jsoncons::json& input)
       try
       {
          jsoncons::json& module = input[i];
-         if (module.has_member("module")) // this object is a module
+         if (module.count("module")) // this object is a module
          {
             const string name = module["module"].as<string>();
             Module& base = ModuleCore::getExternal(name);
@@ -94,16 +92,16 @@ jsoncons::json JsonAPI::io(jsoncons::json& input)
             jsoncons::json module_out;
             module_out["module"] = name;
 
-            if (module.has_member("chaiscript"))
+            if (module.count("chaiscript"))
             {
                base.chai.eval(module["chaiscript"].as<string>());
             }
-            else if (module.has_member("modules"))
+            else if (module.count("modules"))
             {
                // Want recursion for multiple modules deep.
                module_out["modules"] = io(module["modules"]);
             }
-            else if (module.has_member("vars"))
+            else if (module.count("vars"))
             {
                jsoncons::json& variables = module["vars"]; // array of variables
                jsoncons::json variables_out = jsoncons::json::array();
@@ -113,7 +111,7 @@ jsoncons::json JsonAPI::io(jsoncons::json& input)
                   jsoncons::json& variable = variables[v];
                   jsoncons::json variable_out;
 
-                  if (variable.has_member("var"))
+                  if (variable.count("var"))
                   {
                      bool success = access<std::string, double, bool, int, unsigned, size_t, vector<double>, vector<bool>, vector<int>, vector<unsigned>, vector<size_t>>(variable, variable_out, base);
 
@@ -124,7 +122,7 @@ jsoncons::json JsonAPI::io(jsoncons::json& input)
                         std::string type = variable["type"].as<string>();
                         std::string var = variable["var"].as<string>();
 
-                        if (variable.has_member("value")) // If a "value" member is specified, then we assume the user wants to set the variable.
+                        if (variable.count("value")) // If a "value" member is specified, then we assume the user wants to set the variable.
                         {
                            jsoncons::json& value = variable["value"];
 

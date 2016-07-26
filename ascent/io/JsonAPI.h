@@ -17,6 +17,7 @@
 // JsonAPI allows module data access, assignment, and chaiscript calls via JSON script.
 // The idea in input/output of variables is for the output to be used as input (and vice versa) so that Ascent simulations can directly assign data once accessed.
 
+#define JSONCONS_NO_DEPRECATED // Don't allow deprecated function use.
 #pragma warning(disable: 4996) // need to disable error for fopen used in json.hpp
 #include "jsoncons/json.hpp"
 
@@ -62,10 +63,10 @@ namespace asc
          if (typeid(T).name() == type)
          {
             success = true;
-            if (obj.has_member("value")) // If a "value" member is specified, then we assume the user wants to set the variable.
+            if (obj.count("value")) // If a "value" member is specified, then we assume the user wants to set the variable.
                success = base.vars.set(var, obj["value"].as<T>());
 
-            if (obj.has_member("t"))
+            if (obj.count("t"))
             {
                const double t = obj["t"].as<double>();
                const auto& hist = base.history<T>(var);
