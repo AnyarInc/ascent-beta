@@ -142,6 +142,11 @@ Module::~Module()
 
    if (simulator.modules.size() == 0) // erase the simulator if there are no more modules
       ModuleCore::simulators.erase(sim);
+
+   // We need to erase the global_chai_engine if the program is going to close, to avoid errors in ChaiScript when multi-threading is enabled.
+   // The Simulator class will generate a new ChaiEngine if a new Simulator is created.
+   if (ModuleCore::simulators.size() == 0)
+      Simulator::global_chai_engine = nullptr;
 }
 
 std::string Module::name() const

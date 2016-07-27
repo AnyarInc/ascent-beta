@@ -21,7 +21,7 @@
 
 using namespace asc;
 
-bool GlobalChaiScript::use_global_chaiscript = false;
+bool GlobalChaiScript::on = false;
 
 std::map<std::string, std::shared_ptr<Module>> Simulator::tracking;
 
@@ -31,9 +31,13 @@ using namespace std;
 
 Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass, integrator_initialized)
 {
-   auto temp = GlobalChaiScript::use_global_chaiscript;
-   if (temp)
-      chai = global_chai_engine;
+   if (GlobalChaiScript::on)
+   {
+      if (global_chai_engine)
+         chai = global_chai_engine;
+      else
+         global_chai_engine = std::make_shared<ChaiEngine>();
+   }
    else
       chai = std::make_shared<ChaiEngine>();
 

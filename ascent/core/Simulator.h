@@ -44,7 +44,7 @@ namespace asc
 
    struct GlobalChaiScript
    {
-      static bool use_global_chaiscript;
+      static bool on;
    };
 
    class Simulator
