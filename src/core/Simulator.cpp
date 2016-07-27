@@ -485,6 +485,7 @@ bool Simulator::setError(const std::string& description)
    error_descriptions.push_back(description);
    if (print_errors)
       cerr << "ERROR: " + description << '\n';
+   throw std::runtime_error(description.c_str());
    return false;
 }
 

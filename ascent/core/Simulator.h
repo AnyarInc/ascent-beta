@@ -71,7 +71,7 @@ namespace asc
 
       bool error = false;
       std::vector<std::string> error_descriptions;
-      bool print_errors = true;
+      bool print_errors{};
 
       bool stop_simulation = false;
 

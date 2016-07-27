@@ -165,4 +165,10 @@ namespace asc
             return std::make_pair<bool, size_t>(false, 0);
       }
    };
+   
+   template <typename T> bool operator==(const Link<T>& link, std::nullptr_t ptr) { return link.module == ptr; }
+   template <typename T> bool operator==(std::nullptr_t ptr, const Link<T>& link) { return link.module == ptr; }
+
+   template <typename T> bool operator!=(const Link<T>& link, std::nullptr_t ptr) { return link.module != ptr; }
+   template <typename T> bool operator!=(std::nullptr_t ptr, const Link<T>& link) { return link.module != ptr; }
 }
