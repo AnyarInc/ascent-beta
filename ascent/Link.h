@@ -93,7 +93,7 @@ namespace asc
       {
          if (!module)
          {
-            std::cerr << "nullptr access ->: " + classInfo() << '\n';
+            throw std::runtime_error(("nullptr access ->: " + classInfo()).c_str());
             return nullptr;
          }
 
