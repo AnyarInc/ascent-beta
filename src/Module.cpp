@@ -341,6 +341,11 @@ void Module::track(const std::string& var_name)
    local_tracking.insert(var_name);
 }
 
+void Module::track(const std::string& module_name, const std::string& var_name)
+{
+   track(*ModuleCore::external[module_name], var_name);
+}
+
 void Module::track(Module& module, const std::string& var_name)
 {
    if ("t" == var_name)
@@ -446,7 +451,51 @@ Simulator& Module::getSimulator(const size_t sim)
    return ModuleCore::getSimulator(sim);
 }
 
-void integrationTolerance(size_t sim, const double tolerance)
+void asc::integrationTolerance(size_t sim, const double tolerance)
 {
    ModuleCore::getSimulator(sim).integrationTolerance(tolerance);
+}
+
+void asc::generateInputFile(const std::string& name)
+{
+   std::string filename = name + ".asc";
+
+   std::ofstream file;
+   file.open(name);
+
+   if (file)
+   {
+      for (auto& p : ModuleCore::external)
+      {
+         auto& module = *p.second;
+         auto& var_names = module.varNames();
+
+         for (auto& var : var_names)
+         {
+            if (var.first == typeid(double).name())
+               file << module.varToString<double>(var);
+            else if (var.first == typeid(bool).name())
+            {
+               bool value = module.vars.get<bool>(var.second);
+               if (value)
+                  file << module.name() + "." + var.second + " = true;\n";
+               else
+                  file << module.name() + "." + var.second + " = false;\n";
+            }
+            else if (var.first == typeid(size_t).name())
+               file << module.varToString<size_t>(var);
+            else if (var.first == typeid(int).name())
+               file << module.varToString<int>(var);
+            else if (var.first == typeid(unsigned).name())
+               file << module.varToString<unsigned>(var);
+            else if (var.first == typeid(Eigen::Vector3d).name())
+            {
+               Eigen::Vector3d& vec = module.vars.get<Eigen::Vector3d>(var.second);
+               file << module.name() + "." + var.second + " = Vector3d(" + std::to_string(vec.x()) + ", " + std::to_string(vec.y()) + ", " + std::to_string(vec.z()) + ");\n";
+            }
+         }
+
+         file << '\n';
+      }
+   }
 }

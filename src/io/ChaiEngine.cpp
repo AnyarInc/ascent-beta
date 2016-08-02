@@ -45,14 +45,14 @@ ChaiEngine::ChaiEngine() : ChaiScript(Std_Lib::library())
    add(base_class<asc::LinkBase, asc::Link<asc::Module>>());
    add(fun(static_cast<std::shared_ptr<asc::Module> (asc::Link<asc::Module>::*)>(&asc::Link<asc::Module>::module)), "module");
 
-   add(chaiscript::fun(static_cast<const size_t(asc::Module::*)>(&asc::Module::module_id)), "module_id");
+   add(fun(static_cast<const size_t(asc::Module::*)>(&asc::Module::module_id)), "module_id");
 
-   add(chaiscript::fun([](const size_t id) -> asc::Module& { return asc::ModuleCore::getModule(id); }), "getModule");
+   add(fun([](const size_t id) -> asc::Module& { return asc::ModuleCore::getModule(id); }), "getModule");
 
-   add(chaiscript::fun(static_cast<bool(asc::Link<asc::Module>::*)(const std::string&)>(&asc::Link<asc::Module>::name)), "name");
+   add(fun(static_cast<bool(asc::Link<asc::Module>::*)(const std::string&)>(&asc::Link<asc::Module>::name)), "name");
 
-   add(chaiscript::fun(&asc::hidden::assignModule), "=");
-   add(chaiscript::fun(&asc::hidden::assignLinkBase), "=");
+   add(fun(&asc::hidden::assignModule), "=");
+   add(fun(&asc::hidden::assignLinkBase), "=");
 
    // Register Eigen matrix/vector types
    add(constructor<Eigen::Vector2d(const double x0, const double x1)>(), "Vector2d");

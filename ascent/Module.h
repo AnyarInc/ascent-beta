@@ -21,12 +21,16 @@
 #include "ascent/core/Type.h"
 #include "ascent/core/Vars.h"
 
-#define ascModule(module)\
-if (!chai.modules.count(#module)) {\
-   chai.add(chaiscript::fun(static_cast<bool (module::*)()>(&module::run)), "run");\
-   chai.add(chaiscript::fun(static_cast<bool (module::*)(const double, const double)>(&module::run)), "run");\
+#define ascModule(asc_module)\
+if (!chai.modules.count(#asc_module)) {\
+   chai.add(chaiscript::fun(static_cast<bool (asc_module::*)()>(&asc_module::run)), "run");\
+   chai.add(chaiscript::fun(static_cast<bool (asc_module::*)(const double, const double)>(&asc_module::run)), "run");\
+   chai.add(chaiscript::fun(static_cast<void (asc_module::*)(const std::string&)>(&asc_module::track)), "track");\
+   chai.add(chaiscript::fun(static_cast<void (asc_module::*)(const std::string&, const std::string&)>(&asc_module::track)), "track");\
+   chai.add(chaiscript::fun(static_cast<void (asc_module::*)(asc::Module&, const std::string&)>(&asc_module::track)), "track");\
+   chai.add(chaiscript::fun(static_cast<void (asc_module::*)()>(&asc_module::outputTrack)), "outputTrack");\
    chai.add(chaiscript::base_class<asc::Module, std::decay<decltype(*this)>::type>());\
-   chai.modules.insert(#module);\
+   chai.modules.insert(#asc_module);\
 }
 
 #define ascVar(x) define(#x, x);\
@@ -90,6 +94,8 @@ namespace asc
       friend void integrator(size_t sim);
 
       friend void integrationTolerance(size_t sim, const double tolerance);
+
+      friend void generateInputFile(const std::string& name);
 
    private:
       Simulator& simulator; // simulator is defined first so that it can be used for other construction components
@@ -281,6 +287,12 @@ namespace asc
       * @param var_name  Associated variable name.
       */
       void track(const std::string& var_name);
+
+      /** Specify a variable to be tracked.
+      * @param module_name  Name of module to track the variable.
+      * @param var_name  Associated variable name.
+      */
+      void track(const std::string& module_name, const std::string& var_name);
 
       /** Specify a variable to be tracked.
       * @param module  An uncontained Module.
@@ -607,6 +619,12 @@ namespace asc
          }
       }
 
+      template <typename T>
+      std::string varToString(const std::pair<std::string, std::string>& var)
+      {
+         return name() + "." + var.second + " = " + std::to_string(vars.get<T>(var.second)) + ";\n";
+      }
+
       /** For Node Editor GUI */
       Eigen::Vector2d gui_pos{ 0.0, 0.0 }, gui_size{ 10.0, 10.0 };
    };
@@ -629,4 +647,6 @@ namespace asc
    * @param tolerance  The integration tolerance. If negative, it will turn off step resizing for all states in this module's simulator.
    */
    inline void integrationTolerance(size_t sim, const double tolerance);
+
+   inline void generateInputFile(const std::string& name);
 }
