@@ -245,6 +245,6 @@ namespace asc
             simulator.setError("Access failure in Vars::setStepsInfinite(" + id + ", " + std::to_string(infinite) + ")");
       }
 
-      auto getNames() { return names; }
+      auto& getNames() { return names; }
    };
 }

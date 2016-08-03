@@ -490,7 +490,7 @@ void asc::generateInputFile(const std::string& name)
                file << module.varToString<unsigned>(var);
             else if (var.first == typeid(Eigen::Vector3d).name())
             {
-               Eigen::Vector3d& vec = module.vars.get<Eigen::Vector3d>(var.second);
+               Eigen::Vector3d vec = module.vars.get<Eigen::Vector3d>(var.second);
                file << module.name() + "." + var.second + " = Vector3d(" + std::to_string(vec.x()) + ", " + std::to_string(vec.y()) + ", " + std::to_string(vec.z()) + ");\n";
             }
          }
