@@ -377,7 +377,7 @@ namespace asc
       }
 
       /** Get all variables names registered with this module. */
-      std::vector<std::pair<std::string, std::string>> varNames()
+      std::vector<std::pair<std::string, std::string>>& varNames()
       {
          return vars.getNames();
       }
