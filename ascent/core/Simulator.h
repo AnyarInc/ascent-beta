@@ -45,6 +45,7 @@ namespace asc
    struct GlobalChaiScript
    {
       static bool on;
+      static bool initialized;
    };
 
    class Simulator

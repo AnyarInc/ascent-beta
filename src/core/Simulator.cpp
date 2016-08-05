@@ -22,6 +22,7 @@
 using namespace asc;
 
 bool GlobalChaiScript::on = false;
+bool GlobalChaiScript::initialized = false;
 
 std::map<std::string, std::shared_ptr<Module>> Simulator::tracking;
 
@@ -43,11 +44,31 @@ Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass,
 
    integrator = std::make_unique<RK4>(stepper);
 
-   chai->add(chaiscript::var(std::ref(dt)), "dt");
-   chai->add(chaiscript::var(std::ref(dtp)), "dt_base");
-   chai->add(chaiscript::var(std::ref(t_end)), "t_end");
+   if (!GlobalChaiScript::on)
+   {
+      chai->add(chaiscript::var(std::ref(dt)), "dt");
+      chai->add(chaiscript::var(std::ref(dtp)), "dt_base");
+      chai->add(chaiscript::var(std::ref(t_end)), "t_end");
+   }
+
+   bool register_module = true;
+   if (GlobalChaiScript::on && GlobalChaiScript::initialized)
+      register_module = false;
+
+   if (register_module)
+   {
+      // Register functions for Module
+      chai->add(chaiscript::fun(static_cast<bool (Module::*)()>(&Module::run)), "run");
+      chai->add(chaiscript::fun(static_cast<bool (Module::*)(const double, const double)>(&Module::run)), "run");
+      chai->add(chaiscript::fun(static_cast<void (Module::*)(const std::string&)>(&Module::track)), "track");
+      chai->add(chaiscript::fun(static_cast<void (Module::*)(const std::string&, const std::string&)>(&Module::track)), "track");
+      chai->add(chaiscript::fun(static_cast<void (Module::*)(asc::Module&, const std::string&)>(&Module::track)), "track");
+      chai->add(chaiscript::fun(static_cast<void (Module::*)()>(&Module::outputTrack)), "outputTrack");
+   }
 
    ascType(Module, "Module");
+
+   GlobalChaiScript::initialized = true;
 }
 
 bool Simulator::run(const double dt_base, const double tmax)

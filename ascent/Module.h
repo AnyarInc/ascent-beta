@@ -23,12 +23,6 @@
 
 #define ascModule(asc_module)\
 if (!chai.modules.count(#asc_module)) {\
-   chai.add(chaiscript::fun(static_cast<bool (asc_module::*)()>(&asc_module::run)), "run");\
-   chai.add(chaiscript::fun(static_cast<bool (asc_module::*)(const double, const double)>(&asc_module::run)), "run");\
-   chai.add(chaiscript::fun(static_cast<void (asc_module::*)(const std::string&)>(&asc_module::track)), "track");\
-   chai.add(chaiscript::fun(static_cast<void (asc_module::*)(const std::string&, const std::string&)>(&asc_module::track)), "track");\
-   chai.add(chaiscript::fun(static_cast<void (asc_module::*)(asc::Module&, const std::string&)>(&asc_module::track)), "track");\
-   chai.add(chaiscript::fun(static_cast<void (asc_module::*)()>(&asc_module::outputTrack)), "outputTrack");\
    chai.add(chaiscript::base_class<asc::Module, std::decay<decltype(*this)>::type>());\
    chai.modules.insert(#asc_module);\
 }
