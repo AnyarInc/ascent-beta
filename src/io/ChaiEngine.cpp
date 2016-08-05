@@ -40,10 +40,16 @@ E timesL(const LHS& lhs, const E& rhs) { return lhs*rhs; }
 template <typename E, typename RHS>
 E timesR(const E& lhs, const RHS& rhs) { return lhs*rhs; }
 
+std::shared_ptr<asc::Module> linkBaseModule(asc::LinkBase& link_base)
+{
+   return asc::ModuleCore::getModule(link_base.linkedModule().second).shared_from_this();
+}
+
 ChaiEngine::ChaiEngine() : ChaiScript(Std_Lib::library())
 {
    add(base_class<asc::LinkBase, asc::Link<asc::Module>>());
-   add(fun(static_cast<std::shared_ptr<asc::Module> (asc::Link<asc::Module>::*)>(&asc::Link<asc::Module>::module)), "module");
+   add(fun(static_cast<std::shared_ptr<asc::Module>(asc::Link<asc::Module>::*)>(&asc::Link<asc::Module>::module)), "module");
+   add(fun(&linkBaseModule), "module");
 
    add(fun(static_cast<const size_t(asc::Module::*)>(&asc::Module::module_id)), "module_id");
 

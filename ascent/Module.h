@@ -24,6 +24,7 @@
 #define ascModule(asc_module)\
 if (!chai.modules.count(#asc_module)) {\
    chai.add(chaiscript::base_class<asc::Module, std::decay<decltype(*this)>::type>());\
+   chai.add(chaiscript::base_class<asc::LinkBase, asc::Link<std::decay<decltype(*this)>::type>>());\
    chai.modules.insert(#asc_module);\
 }
 
@@ -44,10 +45,6 @@ namespace asc {
 if (!chai.registered(typeid(*this).name(), #x)) {\
    chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
    chai.chai_rg[typeid(*this).name()].push_back(#x);\
-}\
-if (!chai.links.count(typeid(decltype(x)))) {\
-   chai.add(chaiscript::base_class<asc::LinkBase, std::decay<decltype(x)>::type>());\
-   chai.links.insert(typeid(decltype(x)));\
 }\
 defineLink(#x, x);
 
