@@ -26,21 +26,23 @@ bool GlobalChaiScript::initialized = false;
 
 std::map<std::string, std::shared_ptr<Module>> Simulator::tracking;
 
-std::shared_ptr<ChaiEngine> Simulator::global_chai_engine = std::make_shared<ChaiEngine>();
+std::shared_ptr<ChaiEngine> Simulator::global_chai_engine{};
 
 using namespace std;
+
+struct null_deleter { void operator()(void const *) const {} };
 
 Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass, integrator_initialized)
 {
    if (GlobalChaiScript::on)
    {
-      if (global_chai_engine)
-         chai = global_chai_engine;
-      else
+      if (!global_chai_engine)
          global_chai_engine = std::make_shared<ChaiEngine>();
+
+      chai = global_chai_engine;
    }
    else
-      chai = std::make_shared<ChaiEngine>();
+      chai = std::shared_ptr<ChaiEngine>(new ChaiEngine(), null_deleter());
 
    integrator = std::make_unique<RK4>(stepper);
 
