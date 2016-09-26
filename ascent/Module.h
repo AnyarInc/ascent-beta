@@ -568,45 +568,48 @@ namespace asc
       template <typename T>
       void streamTrack(T& stream)
       {
-         size_t id = tracking.front().first;
-         std::string var_name = tracking.front().second;
-
-         size_t length;
-         if (id == module_id)
-            length = vars.length(var_name);
-         else
-            length = getModule(id).vars.length(var_name);
-
-         if (print_time)
-            stream << "t" << ",";
-
-         size_t n = tracking.size();
-         for (size_t i = 0; i < n; ++i)
+         if (tracking.size() > 0)
          {
-            auto& p = tracking[i];
-            if (i == n - 1) // last parameter
-               stream << getModule(p.first).name() << " " << p.second;
+            size_t id = tracking.front().first;
+            std::string var_name = tracking.front().second;
+
+            size_t length;
+            if (id == module_id)
+               length = vars.length(var_name);
             else
-               stream << getModule(p.first).name() << " " << p.second << ",";
-         }
+               length = getModule(id).vars.length(var_name);
 
-         stream << '\n';
-
-         for (size_t i = 0; i < length; ++i)
-         {
             if (print_time)
-               stream << simulator.t_hist[i] << ",";
+               stream << "t" << ",";
 
-            n = tracking.size();
-            for (size_t j = 0; j < n; ++j)
+            size_t n = tracking.size();
+            for (size_t i = 0; i < n; ++i)
             {
-               auto& p = tracking[j];
-               stream << getModule(p.first).vars.print(p.second, i);
-               if (j < n - 1) // not the last parameter
-                  stream << ",";
+               auto& p = tracking[i];
+               if (i == n - 1) // last parameter
+                  stream << getModule(p.first).name() << " " << p.second;
+               else
+                  stream << getModule(p.first).name() << " " << p.second << ",";
             }
 
             stream << '\n';
+
+            for (size_t i = 0; i < length; ++i)
+            {
+               if (print_time)
+                  stream << simulator.t_hist[i] << ",";
+
+               n = tracking.size();
+               for (size_t j = 0; j < n; ++j)
+               {
+                  auto& p = tracking[j];
+                  stream << getModule(p.first).vars.print(p.second, i);
+                  if (j < n - 1) // not the last parameter
+                     stream << ",";
+               }
+
+               stream << '\n';
+            }
          }
       }
 
