@@ -46,9 +46,9 @@ namespace asc
          return ((fifteen_m1 - six_m2) + m3) / ten_dx1;
       }
 
-      // x is the independant variable, y is dependent. Returns derivative for equally spaced points.
+      // x is the independant variable, y is dependent. Returns forward finite-difference derivative for equally spaced points.
       template <typename T1, typename T2>
-      inline double derivativeEqual(const T1 &x, const T2 &y)
+      inline double forwardDifference(const T1 &x, const T2 &y)
       {
          size_t n = x.size();
          if (x.size() < 2)
