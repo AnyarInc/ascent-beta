@@ -456,9 +456,9 @@ void asc::integrationTolerance(size_t sim, const double tolerance)
    ModuleCore::getSimulator(sim).integrationTolerance(tolerance);
 }
 
-void asc::generateInputFile(const std::string& name)
+void asc::generateInputFile(const std::string& file_name)
 {
-   std::string filename = name + ".asc";
+   std::string name = file_name + ".asc";
 
    std::ofstream file;
    file.open(name);
