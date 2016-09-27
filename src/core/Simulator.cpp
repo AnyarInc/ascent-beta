@@ -42,7 +42,7 @@ Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass,
       chai = global_chai_engine;
    }
    else
-      chai = std::shared_ptr<ChaiEngine>(new ChaiEngine(), null_deleter());
+      chai = std::shared_ptr<ChaiEngine>(new ChaiEngine(), null_deleter()); // We are using a null_deleter here because ChaiScript was deleting itself
 
    integrator = std::make_unique<RK4>(stepper);
 
@@ -163,10 +163,7 @@ bool Simulator::run(const double dt_base, const double tmax)
    phase = Phase::setup;
 
    if (error)
-   {
-      cerr << "Simulation was stopped due to an ERROR." << '\n';
-      return false;
-   }
+      return setError("Simulation was stopped due to an ERROR.");
    return true;
 }
 

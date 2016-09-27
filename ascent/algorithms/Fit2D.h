@@ -27,7 +27,7 @@ namespace asc
 {
    namespace Fit2D
    {
-      // The algorithm below (curveFit(...)) can almost replace the internals of the extrapolation algorithm, but it adds an unneeded computation (for extrapolation) of func(1.0) to determine the number of columns.
+      // This algorithm can almost replace the internals of the extrapolation algorithm (Extrapolation.h), but it adds an unneeded computation (for extrapolation) of func(1.0) to determine the number of columns.
       // It also doesn't have a quick return if the y vector size is less than 2, because what should be returned for the constants vector?
       // x is the independant variable, y is dependent.
       // Fits a function of the form: y = f(x), e.g. y = A + B*x + C*x*x

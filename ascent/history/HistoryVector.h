@@ -64,8 +64,8 @@ namespace asc
          }
       }
 
-      const double& t;
-      const double& dt;
+      const double& t; // Simulator time
+      const double& dt; // Simulator time step
 
       size_t size() const { return x.size(); }
       E& back() { return x.back(); }

@@ -47,9 +47,9 @@ namespace asc
       inline double linearCheck(const double x_target, const std::vector<T>& x, const std::vector<T>& y) // includes a check for out of bounds
       {
          if (x_target < x.front())
-            std::cerr << "ERROR: The access value (x_target) is less than the lowest x value." << '\n';
+            throw std::runtime_error("ERROR: The access value (x_target) is less than the lowest x value.\n");
          else if (x_target > x.back())
-            std::cerr << "ERROR: The access value (x_target) is greater than the highest x value." << '\n';
+            throw std::runtime_error("ERROR: The access value (x_target) is greater than the highest x value.\n");
          else
             return linear(x_target, x, y);
 

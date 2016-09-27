@@ -14,7 +14,7 @@
 
 #pragma once
 
-// Functionality can be added to History by inheriting from this class and using handling protected x and th parameters.
+// Functionality can be added to History by inheriting from this class and using protected x and th parameters.
 
 #include "ascent/algorithms/Fit2D.h"
 #include "ascent/algorithms/Derivative.h"
@@ -52,8 +52,8 @@ namespace asc
 
       void push_back(const double value);
 
-      const double& t;
-      const double& dt;
+      const double& t; // Simulator time
+      const double& dt; // Simulator time step
 
       size_t size() const { return x.size(); }
       double& back() { return x.back(); }
@@ -82,7 +82,7 @@ namespace asc
          return Extrapolation::extrapolate(th, x, xest, relative_error, func);
       }
 
-      // Integral::
+      // Integral:
       double integral() const { return Integral::trapUnequal(th, x); }
 
       // Statistics:

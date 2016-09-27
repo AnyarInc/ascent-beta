@@ -133,8 +133,8 @@ namespace asc
       bool tick0 = true; // Very first tick of the simulation, used to avoid overlapping between tickfirst and ticklast tracking calls for additional run() calls.
 
       double EPS = 1e-8;
-      bool tickfirst = true;
-      bool ticklast = false;
+      bool tickfirst = true; // first pass (tick) of current simulation run
+      bool ticklast = false; // last pass (tick) of current simulation run
       double dtp{}; // base time step of run loop
       double dt{}; // time step (can be changed by sampling and events)
       double dt_change{}; // the time step value to be changed to if the change_dt flag is set to true
