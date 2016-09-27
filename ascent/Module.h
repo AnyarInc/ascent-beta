@@ -364,6 +364,14 @@ namespace asc
       /** The current phase of the simulation loop: setup, init, update, postcalc, check, report, or reset */
       const Phase& phase{ simulator.phase };
 
+      /** Returns true if the simulator this Module belongs to was sucessfully stopped. */
+      bool simStopped()
+      {
+         if (simulator.phase == Phase::setup && simulator.stop_simulation == true)
+            return true;
+         return false;
+      }
+
       /** The current target end time of the simulator to which this module belongs. */
       const double& t_end{ simulator.t_end };
 
