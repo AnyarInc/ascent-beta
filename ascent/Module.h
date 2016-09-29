@@ -14,63 +14,7 @@
 
 #pragma once
 
-#define EIGEN_MPL2_ONLY // Ensure that Eigen license is MPL2 compatible.
-
-#include "ascent/core/LinkBase.h"
-#include "ascent/core/State.h"
-#include "ascent/core/Type.h"
-#include "ascent/core/Vars.h"
-
-/** This macro allows a child of Module to call Module methods from ChaiScript.
-* Example: Spring Constructor
-* @code
-* Spring::Spring(size_t sim) : asc::Module(sim)
-* {
-*     ascModule(Spring);
-* }
-* @endcode
-* The above code registers the Spring class with ChaiScript, allowing a Spring instance to call Module methods like run(), track(), outputTrack(), etc.
-* This registration also allows asc::Link<Spring> intances in ChaiScript to access their internal module pointer.
-* Example: ChaiScript
-* @code
-* var spring = [some user registered function that returns an asc::Link<Spring>]
-* print(spring.module.force);
-* @endcode
-*/
-#define ascModule(asc_module)\
-if (!chai.modules.count(#asc_module)) {\
-   chai.add(chaiscript::base_class<asc::Module, std::decay<decltype(*this)>::type>());\
-   chai.add(chaiscript::base_class<asc::LinkBase, asc::Link<std::decay<decltype(*this)>::type>>());\
-   chai.modules.insert(#asc_module);\
-}
-
-/** The ascVar macro registers a variable with its respective class for ChaiScript and defines the variable for tracking.
-* This allows the variable to be tracked in code or in ChaiScript and allow it to be accessed and set in ChaiScript.
-*/
-#define ascVar(x) define(#x, x);\
-if (!chai.registered(typeid(*this).name(), #x)) {\
-   chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
-   chai.chai_rg[typeid(*this).name()].push_back(#x);\
-}
-
-/** Intended to be hidden from the user, these conversions provide assignment between LinkBase classes and allow an uncontained module to be assigned to a Link container.
-*/
-namespace asc {
-   namespace hidden {
-      inline void assignModule(asc::LinkBase& link_base, asc::Module& module) { link_base.assign(module); }
-      inline void assignLinkBase(asc::LinkBase& lhs, asc::LinkBase& rhs) { lhs.assignLinkBase(rhs); }
-   }
-}
-
-/** ascLink registers an asc::Link<T> member with its respective class for ChaiScript.
-* This allows a Module in ChaiScript to access the Link members within the class.
-*/
-#define ascLink(x) \
-if (!chai.registered(typeid(*this).name(), #x)) {\
-   chai.add(chaiscript::fun(static_cast<std::decay<decltype(x)>::type (ascNS::*)>(&ascNS::x)), #x);\
-   chai.chai_rg[typeid(*this).name()].push_back(#x);\
-}\
-defineLink(#x, x);
+#include "core/ModuleMacros.h" // Grouped into separate header to keep Module.h cleaner
 
 /** Forward Declarations for Nodal Editor */
 namespace dynode { class Editor; class Plotter; class Menu; }
