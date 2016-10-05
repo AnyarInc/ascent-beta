@@ -27,8 +27,10 @@ foreach(FILE ${srcs})
    # Remove common directory prefix to make the group
    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
 
+if(MSVC)
    # Make sure we are using windows slashes
    string(REPLACE "/" "\\" GROUP "${GROUP}")
+endif()
 
    # Group into "Source Files" and "Header Files"
    if ("${FILE}" MATCHES ".*\\.cpp")
