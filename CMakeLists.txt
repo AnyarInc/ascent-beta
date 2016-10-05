@@ -22,7 +22,7 @@ set(srcs ${headers} ${sources})
 # Organize files into directories
 foreach(FILE ${srcs})
    # Get the directory of the source file
-   get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
+   get_filename_component(PARENT_DIR "${FILE}" PATH)
 
    # Remove common directory prefix to make the group
    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
