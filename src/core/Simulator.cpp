@@ -48,6 +48,7 @@ Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass,
 
    if (!GlobalChaiScript::on)
    {
+      chai->add(chaiscript::const_var(std::ref(t)), "t");
       chai->add(chaiscript::var(std::ref(dt)), "dt");
       chai->add(chaiscript::var(std::ref(dtp)), "dt_base");
       chai->add(chaiscript::var(std::ref(t_end)), "t_end");
@@ -59,13 +60,17 @@ Simulator::Simulator(size_t sim) : sim(sim), stepper(EPS, dtp, dt, t, t1, kpass,
 
    if (register_module)
    {
+      using namespace chaiscript;
+
       // Register functions for Module
-      chai->add(chaiscript::fun(static_cast<bool (Module::*)()>(&Module::run)), "run");
-      chai->add(chaiscript::fun(static_cast<bool (Module::*)(const double, const double)>(&Module::run)), "run");
-      chai->add(chaiscript::fun(static_cast<void (Module::*)(const std::string&)>(&Module::track)), "track");
-      chai->add(chaiscript::fun(static_cast<void (Module::*)(const std::string&, const std::string&)>(&Module::track)), "track");
-      chai->add(chaiscript::fun(static_cast<void (Module::*)(asc::Module&, const std::string&)>(&Module::track)), "track");
-      chai->add(chaiscript::fun(static_cast<void (Module::*)()>(&Module::outputTrack)), "outputTrack");
+      chai->add(fun(static_cast<bool (Module::*)()>(&Module::run)), "run");
+      chai->add(fun(static_cast<bool (Module::*)(const double, const double)>(&Module::run)), "run");
+      chai->add(fun(static_cast<void (Module::*)(const std::string&)>(&Module::track)), "track");
+      chai->add(fun(static_cast<void (Module::*)(const std::string&, const std::string&)>(&Module::track)), "track");
+      chai->add(fun(static_cast<void (Module::*)(asc::Module&, const std::string&)>(&Module::track)), "track");
+      chai->add(fun(static_cast<void (Module::*)()>(&Module::outputTrack)), "outputTrack");
+
+      chai->add(fun(&Module::chaiscript_event), "event");
    }
 
    ascType(Module, "Module");
@@ -128,6 +133,8 @@ bool Simulator::run(const double dt_base, const double tmax)
             t_hist.push_back(t);
 
          postcalc();
+
+         chaiscript_event();
 
          check();
 
@@ -289,6 +296,23 @@ void Simulator::check()
 
    for (auto& p : checks)
       p.second->check_run = false;
+}
+
+void Simulator::chaiscript_event()
+{
+   // There is no ordering on ChaiScript events
+   for (auto& p : modules)
+   {
+      p.second->chaiscript_event();
+
+      if (error)
+         break;
+   }
+
+   for (Module* module : to_add) // handle modules added during runtime
+   {
+      module->addPhases();
+   }
 }
 
 void Simulator::report()

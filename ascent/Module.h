@@ -495,6 +495,8 @@ namespace asc
 
       void tracker() { vars.update(); }
 
+      std::function<void()> chaiscript_event;
+
       mutable std::string module_name = "";
 
       std::string module_directory = ""; // The directory to where output files will be written.

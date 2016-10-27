@@ -79,6 +79,8 @@ Module::Module(size_t sim) : simulator(getSimulator(sim)),
 #define ascNS Module
    ascVar(frozen);
 
+   chaiscript_event = []{};
+
    // We have to take care not to invalidate the iterators for the maps within the Simulator if a module is added during run time.
    // We can't use call methods here like callInit() or callUpdate(), because the virtual implementations of the phase methods haven't been instantiated since we are in the constructor of the parent class.
    // Instead, we pass information to the simulator to call these methods after the current loop is finished.

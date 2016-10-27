@@ -101,6 +101,7 @@ namespace asc
       void update();
       void postcalc();
       void check();
+      void chaiscript_event();
       void report();
       void reset();
       void tracker();
