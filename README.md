@@ -1,7 +1,17 @@
-# ASCENT <a href="http://anyarinc.github.io/ascent/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/house-xxl.png" width="25"></a>
+# ASCENT-beta <a href="http://anyarinc.github.io/ascent/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/house-xxl.png" width="25"></a>
 
 [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) [![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+### This version of Ascent, which will be known as Ascent-beta, will soon be replaced by a new framework. This new version of Ascent is being built from the ground up to be the fastest and most versatile Ordinary Differential Equation solver that we know of. It will also be open sourced on GitHub and will be linked here when available.
+### Benefits of the new, upcoming Ascent architecture:
+- **Optimized For Maximum Speed**: We've seen up to 12X speed improvements.
+- **Header Only**
+- **Solve State Space Systems**
+- **Better Scripting**
+- **Better Multi-Threading**
+- **And More...**
+
+## Ascent-beta
 Ascent is a modern, open source, C++ simulation architecture and engine. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
 
 ## <a href="http://anyarinc.github.io/ascent/">Website</a>
