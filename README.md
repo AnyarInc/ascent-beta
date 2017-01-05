@@ -1,4 +1,4 @@
-# ASCENT-beta <a href="http://anyarinc.github.io/ascent/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/house-xxl.png" width="25"></a>
+# ASCENT-beta <a href="http://anyarinc.github.io/ascent-beta/"> <img src="http://www.iconsdb.com/icons/preview/color/299BFF/house-xxl.png" width="25"></a>
 
 [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) [![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -14,7 +14,7 @@
 ## Ascent-beta
 Ascent is a modern, open source, C++ simulation architecture and engine. Built around a powerful ordinary differential equation solver, Ascent manages complex and dynamic systems, numerical integration, and the complete simulation lifecycle.
 
-## <a href="http://anyarinc.github.io/ascent/">Website</a>
+## <a href="http://anyarinc.github.io/ascent-beta/">Website</a>
 
 ## Why build simulations with Ascent?
 - **Modular**: Interface with and share modules built on Ascent. 
