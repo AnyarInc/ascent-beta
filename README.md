@@ -2,14 +2,15 @@
 
 [![Build Status](https://travis-ci.org/AnyarInc/ascent.svg?branch=master)](https://travis-ci.org/AnyarInc/ascent) [![Join the chat at https://gitter.im/AnyarInc/ascent](https://badges.gitter.im/AnyarInc/ascent.svg)](https://gitter.im/AnyarInc/ascent?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-### This version of Ascent, which is now known as Ascent-beta (previously Ascent), is being replaced by a new Ascent framework. The new version of Ascent is built from the ground up to be the fastest and most versatile modular simulation engine and Ordinary Differential Equation solver that we know of.
-### Now live here: [Ascent](https://github.com/AnyarInc/Ascent)
+### This version of Ascent, which is now known as Ascent-beta, is being replaced by a new Ascent framework. The new version of Ascent is built from the ground up to be the fastest and most versatile modular simulation engine and Ordinary Differential Equation solver that we know of.
+### Now available here: [Ascent](https://github.com/AnyarInc/Ascent)
 ### Benefits of the new Ascent architecture:
 - **Optimized For Maximum Speed**: We've seen up to 12X speed improvements.
 - **Header Only**
 - **Solve State Space Systems**
 - **Better Scripting**
 - **Better Multi-Threading**
+- **Use boost's odeint as the numerical integrator for modular simulations**
 - **And More...**
 
 ## Ascent-beta
